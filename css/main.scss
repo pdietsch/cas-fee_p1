@@ -1,0 +1,51 @@
+@import "variables";
+@import "mixins";
+
+body {
+
+}
+
+img {
+  width: auto;
+  max-width: 100%;
+  height: auto !important;
+}
+
+hr {
+  margin: 10px 0;
+  border: 0;
+  border-top: 1px solid #eee;
+}
+
+/* Grid */
+
+.wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.wrapper, .row {
+  @extend %clearfix;
+}
+
+[class*='column-'] {
+  float: left;
+  padding: 1em 0;
+  width: 100%;
+  min-height: 1px;
+}
+
+@media #{$breakpoint-tablet} {
+  .wrapper {
+    width: 95%;
+    max-width: $grid-max-width;
+  }
+  [class*='column-'], header {
+    padding: 1em;
+  }
+  @for $i from 1 through $grid-columns {
+    .column-#{$i} {
+      width: 100% / $grid-columns * $i;
+    }
+  }
+}
