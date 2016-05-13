@@ -1,8 +1,10 @@
 .DS_STORE
 
-# Don’t commit the following directories created by pub.
+# Don’t commit the following directories
 node_modules
 bower_components
+dist
+./idea
 
 # Ignore npm debug log
 npm-debug.log
