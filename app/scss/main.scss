@@ -9,10 +9,17 @@
   @include border-box;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   font-family: $font-stack;
   font-weight: 300;
   line-height: 1.5rem;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 p {
@@ -45,9 +52,18 @@ img {
   width: 90%;
 }
 
+.content {
+  flex: 1 0 auto;
+}
+
 .header {
   position: relative;
   padding: 1rem 0 0 0;
+}
+
+.footer {
+  @extend .header;
+  min-height: 1rem;
 }
 
 .main {
