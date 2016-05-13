@@ -26,10 +26,10 @@ p {
   margin-bottom: 1rem; }
 
 a {
-  color: #0fb8ad;
+  color: #3CD3AD;
   text-decoration: none; }
   a.active, a:hover {
-    color: #2cb5e8; }
+    color: #4CB8C4; }
 
 img {
   width: auto;
@@ -52,7 +52,7 @@ img {
 
 /* Header */
 .header {
-  background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); }
+  background: linear-gradient(to right, #4CB8C4, #3CD3AD); }
 
 .header button {
   padding: 0.85em 1.25em;
@@ -81,6 +81,7 @@ img {
 .filter ul {
   display: flex;
   justify-content: center; }
+
 .filter li {
   list-style-type: none;
   left: -1px;
@@ -90,6 +91,7 @@ img {
   .filter li:last-child {
     flex: 3;
     text-align: right; }
+
 .filter a {
   position: relative;
   display: block;
@@ -128,19 +130,42 @@ img {
       margin-top: 1rem; }
   .filter li a .text {
     display: inline-block; } }
+
 /* Todolist */
 .todolist .listitem {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   padding: 10px 0;
   border-bottom: 1px solid #ccc; }
   .todolist .listitem .actions {
-    flex: 1;
+    flex: 3;
+    order: 2;
     text-align: right; }
   .todolist .listitem .date {
+    order: 1;
     flex: 2; }
   .todolist .listitem .todo {
+    order: 2;
     flex: 5; }
+
+@media (max-width: 47.9em) {
+  .todolist .listitem {
+    align-items: center; }
+    .todolist .listitem .actions {
+      flex: none;
+      width: 50%;
+      order: 2;
+      text-align: right; }
+    .todolist .listitem .date {
+      flex: none;
+      width: 50%;
+      order: 1; }
+    .todolist .listitem .todo {
+      flex: none;
+      width: 100%;
+      order: 3; } }
 
 .todolist button {
   padding: 0.45em 0.85em;
@@ -153,8 +178,8 @@ img {
   border-radius: 0;
   margin: 0 0 1rem 0;
   font-size: 0.9rem;
-  border: 1px solid #0fb8ad;
-  color: #0fb8ad;
+  border: 1px solid #3CD3AD;
+  color: #3CD3AD;
   background-color: transparent;
   outline: 0;
   margin-bottom: 0; }
@@ -174,12 +199,10 @@ img {
   cursor: pointer; }
   .todolist .status:hover {
     text-decoration: underline;
-    color: #0fb8ad; }
+    color: #4CB8C4; }
   .todolist .status .status-text {
     margin-left: 4px; }
   .todolist .status .status-icon {
     position: relative;
     top: 1px;
     font-size: 1.1rem; }
-
-/*# sourceMappingURL=main.css.map */

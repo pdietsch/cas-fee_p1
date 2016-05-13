@@ -22,11 +22,11 @@ p {
 }
 
 a {
-  color: $primary-color;
+  color: $secondary-color;
   text-decoration: none;
   &.active,
   &:hover{
-    color: $secondary-color;
+    color: $primary-color;
   }
 }
 
@@ -57,11 +57,11 @@ img {
 /* Header */
 
 .header {
-  background: linear-gradient(141deg, $primary-color 0%, $alternate-color 51%, $secondary-color 75%);
+  background: linear-gradient(to right, $primary-color, $secondary-color);
 }
 
 .header button {
-  @include button(#fff, #000, medium);
+  @include button(#fff, $alternate-color, medium);
 }
 
 /* Filter */
@@ -143,24 +143,51 @@ img {
 
 .todolist .listitem {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   //align-items: center;
   justify-content: center;
   padding: 10px 0;
   border-bottom: 1px solid #ccc;
   & .actions {
-    flex: 1;
+    flex: 3;
+    order: 2;
     text-align: right;
   }
   & .date {
+    order: 1;
     flex: 2;
   }
   & .todo {
+    order: 2;
     flex: 5;
   }
 }
 
+@media #{$breakpoint-small} {
+  .todolist .listitem {
+    align-items: center;
+    & .actions {
+      flex: none;
+      width: 50%;
+      order: 2;
+      text-align: right;
+    }
+    & .date {
+      flex: none;
+      width: 50%;
+      order: 1;
+    }
+    & .todo {
+      flex: none;
+      width: 100%;
+      order: 3;
+    }
+  }
+}
+
 .todolist button {
-  @include button($primary-color, #000, small);
+  @include button($secondary-color, $alternate-color, small);
   margin-bottom: 0;
 }
 
