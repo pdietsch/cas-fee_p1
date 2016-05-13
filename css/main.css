@@ -1,74 +1,185 @@
-.wrapper, .row {
+.filter {
   *zoom: 1; }
-  .wrapper:before, .row:before, .wrapper:after, .row:after {
+  .filter:before, .filter:after {
     content: " ";
     display: table; }
-  .wrapper:after, .row:after {
+  .filter:after {
     clear: both; }
+
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  line-height: 1.5rem; }
+
+p {
+  font-size: inherit;
+  line-height: 1.6;
+  margin-bottom: 1rem; }
+
+a {
+  color: #0fb8ad;
+  text-decoration: none; }
+  a.active, a:hover {
+    color: #2cb5e8; }
 
 img {
   width: auto;
   max-width: 100%;
   height: auto !important; }
 
-hr {
-  margin: 10px 0;
-  border: 0;
-  border-top: 1px solid #eee; }
-
-/* Grid */
+/* Layout */
 .wrapper {
-  width: 90%;
-  margin: 0 auto; }
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1024px;
+  width: 90%; }
 
-[class*='column-'] {
-  float: left;
-  padding: 1em 0;
-  width: 100%;
-  min-height: 1px; }
+.header {
+  position: relative;
+  padding: 1rem 0 0 0; }
+
+.main {
+  padding: 20px 0; }
+
+/* Header */
+.header {
+  background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); }
+
+.header button {
+  padding: 0.85em 1.25em;
+  display: inline-block;
+  text-align: center;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-appearance: none;
+  vertical-align: middle;
+  border-radius: 0;
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  border: 1px solid #fff;
+  color: #fff;
+  background-color: transparent;
+  outline: 0; }
+  .header button:hover {
+    border: 1px solid #000;
+    background-color: #000;
+    color: #fff; }
+
+/* Filter */
+.filter {
+  background-color: #e7ecea; }
+
+.filter ul {
+  display: flex;
+  justify-content: center; }
+.filter li {
+  list-style-type: none;
+  left: -1px;
+  display: block;
+  text-align: center;
+  flex: 2; }
+  .filter li:last-child {
+    flex: 3;
+    text-align: right; }
+.filter a {
+  position: relative;
+  display: block;
+  margin: 0.6rem 0;
+  text-decoration: none; }
+  .filter a.active::after {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: 0.6rem;
+    margin-left: -10px;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    border-width: 10px;
+    border-top-color: #e7ecea;
+    content: '';
+    pointer-events: none; }
+  .filter a .text {
+    display: none;
+    margin-left: 0.8rem; }
+  .filter a .icon {
+    top: 2px;
+    position: relative;
+    font-size: 1.2rem; }
+  .filter a:hover:not(.active) .text {
+    text-decoration: underline; }
+
+.filter li a {
+  border-left: 1px solid rgba(0, 0, 0, 0.07); }
 
 @media (min-width: 750px) {
-  .wrapper {
-    width: 95%;
-    max-width: 65em; }
+  .filter a {
+    margin: 1rem 0; }
+    .filter a.active::after {
+      margin-top: 1rem; }
+  .filter li a .text {
+    display: inline-block; } }
+/* Todolist */
+.todolist .listitem {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc; }
+  .todolist .listitem .actions {
+    flex: 1;
+    text-align: right; }
+  .todolist .listitem .date {
+    flex: 2; }
+  .todolist .listitem .todo {
+    flex: 5; }
 
-  [class*='column-'], header {
-    padding: 1em; }
+.todolist button {
+  padding: 0.45em 0.85em;
+  display: inline-block;
+  text-align: center;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-appearance: none;
+  vertical-align: middle;
+  border-radius: 0;
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  border: 1px solid #0fb8ad;
+  color: #0fb8ad;
+  background-color: transparent;
+  outline: 0;
+  margin-bottom: 0; }
+  .todolist button:hover {
+    border: 1px solid #000;
+    background-color: #000;
+    color: #fff; }
 
-  .column-1 {
-    width: 8.33333%; }
+.todolist .title {
+  font-weight: 600; }
 
-  .column-2 {
-    width: 16.66667%; }
+.todolist .duedate {
+  font-size: 0.7rem; }
 
-  .column-3 {
-    width: 25%; }
-
-  .column-4 {
-    width: 33.33333%; }
-
-  .column-5 {
-    width: 41.66667%; }
-
-  .column-6 {
-    width: 50%; }
-
-  .column-7 {
-    width: 58.33333%; }
-
-  .column-8 {
-    width: 66.66667%; }
-
-  .column-9 {
-    width: 75%; }
-
-  .column-10 {
-    width: 83.33333%; }
-
-  .column-11 {
-    width: 91.66667%; }
-
-  .column-12 {
-    width: 100%; } }
+.todolist .status {
+  float: left;
+  cursor: pointer; }
+  .todolist .status:hover {
+    text-decoration: underline;
+    color: #0fb8ad; }
+  .todolist .status .status-text {
+    margin-left: 4px; }
+  .todolist .status .status-icon {
+    position: relative;
+    top: 1px;
+    font-size: 1.1rem; }
 
 /*# sourceMappingURL=main.css.map */

@@ -1,8 +1,33 @@
 @import "variables";
 @import "mixins";
 
-body {
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  @include border-box;
+}
 
+body {
+  font-family: $font-stack;
+  font-weight: 300;
+  line-height: 1.5rem;
+}
+
+p {
+  font-size: inherit;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+  &.active,
+  &:hover{
+    color: $secondary-color;
+  }
 }
 
 img {
@@ -11,41 +36,155 @@ img {
   height: auto !important;
 }
 
-hr {
-  margin: 10px 0;
-  border: 0;
-  border-top: 1px solid #eee;
-}
-
-/* Grid */
+/* Layout */
 
 .wrapper {
-  width: 90%;
   margin: 0 auto;
+  padding: 0;
+  max-width: 1024px;
+  width: 90%;
 }
 
-.wrapper, .row {
+.header {
+  position: relative;
+  padding: 1rem 0 0 0;
+}
+
+.main {
+  padding: 20px 0;
+}
+
+/* Header */
+
+.header {
+  background: linear-gradient(141deg, $primary-color 0%, $alternate-color 51%, $secondary-color 75%);
+}
+
+.header button {
+  @include button(#fff, #000, medium);
+}
+
+/* Filter */
+
+.filter {
   @extend %clearfix;
+  background-color: #e7ecea;
 }
 
-[class*='column-'] {
-  float: left;
-  padding: 1em 0;
-  width: 100%;
-  min-height: 1px;
+.filter {
+  & ul {
+    display: flex;
+    justify-content: center;
+  }
+  & li {
+    list-style-type: none;
+    left: -1px;
+    display: block;
+    text-align: center;
+    flex: 2;
+    &:last-child {
+      flex: 3;
+      text-align: right;
+    }
+  }
+  & a {
+    position: relative;
+    display: block;
+    margin: 0.6rem 0;
+    text-decoration: none;
+    &.active::after {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-top: 0.6rem;
+      margin-left: -10px;
+      width: 0;
+      height: 0;
+      border: solid transparent;
+      border-width: 10px;
+      border-top-color: #e7ecea;
+      content: '';
+      pointer-events: none;
+    }
+    & .text {
+      display: none;
+      margin-left: 0.8rem;
+    }
+    & .icon {
+      top: 2px;
+      position: relative;
+      font-size: 1.2rem;
+    }
+    &:hover:not(.active) .text {
+      text-decoration: underline;
+    }
+  }
+}
+
+.filter li a {
+  border-left: 1px solid rgba(0,0,0,0.07);
 }
 
 @media #{$breakpoint-tablet} {
-  .wrapper {
-    width: 95%;
-    max-width: $grid-max-width;
-  }
-  [class*='column-'], header {
-    padding: 1em;
-  }
-  @for $i from 1 through $grid-columns {
-    .column-#{$i} {
-      width: 100% / $grid-columns * $i;
+  .filter {
+    & a {
+      margin: 1rem 0;
+      &.active::after {
+        margin-top: 1rem;
+      }
     }
+    & li a .text {
+      display: inline-block;
+    }
+  }
+}
+
+/* Todolist */
+
+.todolist .listitem {
+  display: flex;
+  //align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+  & .actions {
+    flex: 1;
+    text-align: right;
+  }
+  & .date {
+    flex: 2;
+  }
+  & .todo {
+    flex: 5;
+  }
+}
+
+.todolist button {
+  @include button($primary-color, #000, small);
+  margin-bottom: 0;
+}
+
+.todolist .title {
+  font-weight: 600;
+}
+
+.todolist .duedate {
+  font-size: 0.7rem;
+}
+
+.todolist .status {
+  float: left;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+    color: $primary-color;
+  }
+  & .status-text {
+    margin-left: 4px;
+  }
+  & .status-icon {
+    position: relative;
+    top: 1px;
+    font-size: 1.1rem;
   }
 }

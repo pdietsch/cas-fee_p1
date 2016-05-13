@@ -1,3 +1,35 @@
+@mixin border-box {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@mixin button($color, $color-hover, $size) {
+  @if $size == medium {
+    padding: 0.85em 1.25em;
+  } @else if $size == small {
+    padding: 0.45em 0.85em;
+  }
+  display: inline-block;
+  text-align: center;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-appearance: none;
+  vertical-align: middle;
+  border-radius: 0;
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  border: 1px solid $color;
+  color: $color;
+  background-color: transparent;
+  outline: 0;
+  &:hover {
+    border: 1px solid $color-hover;
+    background-color: $color-hover;
+    color: #fff;
+  }
+}
+
 %clearfix {
   *zoom: 1;
   &:before,
