@@ -1,5 +1,7 @@
 # To-Do App
 
+## Install packages and start
+
 ```bash
 npm install
 npm start
