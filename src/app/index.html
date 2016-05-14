@@ -1,0 +1,94 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>To-Do App</title>
+    <meta name="description" content="To-Do App">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type='text/css'>
+    <link rel="stylesheet" href="css/normalize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+
+</head>
+<body>
+
+<header class="header" role="banner">
+    <div class="wrapper">
+        <button>Add</button>
+    </div>
+</header>
+
+<div class="content">
+    <nav class="filter">
+        <div class="wrapper">
+            <ul>
+                <li><a href="#" class="active"><span class="icon ion-ios-timer-outline"></span><span class="text">By finish date</span></a></li>
+                <li><a href="#"><span class="icon ion-ios-time-outline"></span><span class="text">By created date</span></a></li>
+                <li><a href="#"><span class="icon ion-ios-bolt-outline"></span><span class="text">By importance</span></a></li>
+                <li><a href="#"><span class="icon ion-ios-checkmark-outline"></span><span class="text">Show finished</span></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        <main class="main" role="main">
+            <div class="todolist" role="list">
+                <div role="listitem" class="listitem">
+                    <div class="date">
+                        <div class="duedate">Today</div>
+                        <div class="status pending">
+                            <span class="status-icon ion-ios-circle-outline"></span><span class="status-text">Finished</span>
+                        </div>
+                    </div>
+                    <div class="todo">
+                        <div class="title">First task <span class="ion-ios-bolt"></span><span class="ion-ios-bolt"></span></div>
+                        <div class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr [...]</div>
+                    </div>
+                    <div class="actions"><button>Edit</button></div>
+                </div>
+                <div role="listitem" class="listitem">
+                    <div class="date">
+                        <div class="duedate">Tomorrow</div>
+                        <div class="status pending">
+                            <span class="status-icon ion-ios-circle-outline"></span><span class="status-text">Finished</span>
+                        </div>
+                    </div>
+                    <div class="todo">
+                        <div class="title">Second task <span class="ion-ios-bolt"></span></div>
+                        <div class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr [...]</div>
+                    </div>
+                    <div class="actions"><button>Edit</button></div>
+                </div>
+                <div role="listitem" class="listitem">
+                    <div class="date">
+                        <div class="duedate">Tomorrow</div>
+                        <div class="status pending">
+                            <span class="status-icon ion-ios-circle-outline"></span><span class="status-text">Finished</span>
+                        </div>
+                    </div>
+                    <div class="todo">
+                        <div class="title">Third task</div>
+                        <div class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr [...]</div>
+                    </div>
+                    <div class="actions"><button>Edit</button></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</div>
+
+<footer class="footer">
+
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

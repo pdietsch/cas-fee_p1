@@ -1,0 +1,20 @@
+{
+  "name": "todo-app",
+  "version": "0.0.1",
+  "description": "ToDo App for CAS",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pdietsch/cas-fee_p1.git"
+  },
+  "scripts": {
+    "clean": "gulp clean",
+    "start": "gulp"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-sass": "^2.3.1",
+    "browser-sync": "2.12.8",
+    "del": "^2.2.0"
+  }
+}

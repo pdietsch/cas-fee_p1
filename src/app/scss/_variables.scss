@@ -1,0 +1,22 @@
+// global variables
+$font-stack:    "Lato", sans-serif;
+$primary-color: #4CB8C4;
+$secondary-color: #3CD3AD;
+
+$alternate-color: #000;
+
+// grid variables
+$grid-columns: 12;
+$grid-max-width: 65em;
+
+// breakpoints
+$breakpoint-mobile: "(min-width: 400px)";
+$breakpoint-phablet: "(min-width: 550px)";
+$breakpoint-tablet: "(min-width: 750px)";
+$breakpoint-desktop: "(min-width: 1000px)";
+$breakpoint-desktophd: "(min-width: 1200px)";
+
+$breakpoint-extrasmall: "(max-width: 33.9em)";
+$breakpoint-small: "(max-width: 47.9em)";
+$breakpoint-medium: "(max-width: 61.9em)";
+$breakpoint-large: "(max-width: 74.9em)";
