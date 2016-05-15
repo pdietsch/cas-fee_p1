@@ -234,3 +234,47 @@ img {
     font-size: 1.1rem;
   }
 }
+
+
+/* Style switcher */
+
+.s-switcher {
+  float: right;
+  border: 1px solid #fff;
+  line-height: 1;
+  position: relative;
+  z-index: 0;
+}
+
+.s-switcher:after {
+  content: "\f3d0";
+  color: #fff;
+  display: inline-block;
+  position: absolute;
+  top: 11px;
+  right: 13px;
+  font-family: "Ionicons";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  text-rendering: auto;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  z-index: -1;
+}
+
+.s-switcher select {
+  padding: 0.85em 2.25em 0.85em 1.25em;
+  outline: 0;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  -webkit-appearance: none;
+  line-height: 1;
+  font-size: 0.9rem;
+  color: #fff;
+  z-index: 999;
+}
