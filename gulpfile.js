@@ -14,7 +14,9 @@ gulp.task('clean', function(cb) {
 gulp.task('serve', ['resources', 'sass'], function() {
 
     browserSync.init({
-        server: "./dist/app"
+        server: {
+            baseDir: "./dist/app"
+        }
     });
 
     gulp.watch(["./src/**/*.scss"], ['sass']);
