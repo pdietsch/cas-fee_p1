@@ -76,7 +76,7 @@ img {
   background: linear-gradient(to right, $primary-color, $secondary-color);
 }
 
-.header button {
+.header a {
   @include button(#fff, $alternate-color, medium);
 }
 
