@@ -10,5 +10,5 @@ $( document ).ready(function() {
             statusElement.addClass('ion-ios-circle-outline');
             statusElement.removeClass('ion-ios-checkmark-outline')
         }
-    )
+    );
 });
