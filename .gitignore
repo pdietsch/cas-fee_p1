@@ -5,6 +5,8 @@ node_modules
 bower_components
 dist
 ./idea
+.idea/
 
 # Ignore npm debug log
 npm-debug.log
+p1.iml
