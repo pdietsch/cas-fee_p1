@@ -282,13 +282,46 @@ img {
   border-radius: 0;
   border: none;
   -webkit-appearance: none;
+  -moz-appearance: none;
   line-height: 1;
   font-size: 0.9rem;
   color: #fff;
   z-index: 999;
 }
+.s-switcher select::-ms-expand {
+  display: none;
+}
 
 /* Save, Cancel Footer action*/
 .footer-actions {
   float: right;
+}
+
+/* Add Content */
+.addFormLayout .fieldItem{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 15px 0px 0px 0px ;
+  & .label {
+    order: 1;
+    flex: 1;
+  }
+  & .value {
+    order: 2;
+    flex: 6;
+  }
+}
+
+.addFormLayout .titleInput,
+.addFormLayout .descInput{
+  width: 400px;
+}
+
+.addFormLayout .completeTillInput{
+  width: 150px;
+}
+
+.addFormLayout .descInput{
+  height: 150px;
 }
