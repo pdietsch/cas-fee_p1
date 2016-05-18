@@ -8,13 +8,16 @@
   },
   "scripts": {
     "clean": "gulp clean",
+    "build": "gulp build",
     "start": "gulp"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-sass": "^2.3.1",
+    "gulp-typescript":"^2.13.4",
     "browser-sync": "2.12.8",
-    "del": "^2.2.0"
+    "del": "^2.2.0",
+    "merge2": "^1.0.2"
   }
 }
