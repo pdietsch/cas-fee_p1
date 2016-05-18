@@ -12,3 +12,9 @@ npm start
 ```bash
 npm run clean
 ```
+
+**Build dist directory**
+
+```bash
+npm run build
+```

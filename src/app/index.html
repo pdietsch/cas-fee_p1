@@ -3,15 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>To-Do App</title>
-    <meta name="description" content="To-Do App">
+    <title>To-Do App - List</title>
+    <meta name="description" content="To-Do App - List">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,400italic,700,700italic,300italic,100italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/normalize.min.css">
-    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/jquery-ui-1.11.4.min.css">
+    <link rel="stylesheet" href="css/main.css">
 
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
@@ -19,28 +18,34 @@
 
 <header class="header" role="banner">
     <div class="wrapper">
-        <a href="add.html">Add</a>
-        <div class="s-switcher">
-            <select>
-                <option>Select Style</option>
-                <option>Blue</option>
-                <option>Red</option>
-            </select>
+        <div class="header-content">
+            <nav role="navigation" aria-label="Main Menu">
+                <ul>
+                    <li><a href="add.html">Add</a></li>
+                </ul>
+            </nav>
+            <div class="s-switcher">
+                <select>
+                    <option>Select Style</option>
+                    <option>Blue</option>
+                    <option>Red</option>
+                </select>
+            </div>
         </div>
     </div>
 </header>
 
 <div class="content">
-    <nav class="filter">
+    <div class="filter" role="menu" aria-label="Filter">
         <div class="wrapper">
-            <ul>
-                <li><a href="#" class="active"><span class="icon ion-ios-timer-outline"></span><span class="text">By finish date</span></a></li>
-                <li><a href="#"><span class="icon ion-ios-time-outline"></span><span class="text">By created date</span></a></li>
-                <li><a href="#"><span class="icon ion-ios-bolt-outline"></span><span class="text">By importance</span></a></li>
-                <li><a href="#"><span class="icon ion-ios-checkmark-outline"></span><span class="text">Show finished</span></a></li>
+            <ul role="group">
+                <li role="menuitem"><a href="#" class="active"><span class="icon ion-ios-timer-outline"></span><span class="text">By finish date</span></a></li>
+                <li role="menuitem"><a href="#"><span class="icon ion-ios-time-outline"></span><span class="text">By created date</span></a></li>
+                <li role="menuitem"><a href="#"><span class="icon ion-ios-bolt-outline"></span><span class="text">By importance</span></a></li>
+                <li role="menuitem"><a href="#"><span class="icon ion-ios-checkmark-outline"></span><span class="text">Show finished</span></a></li>
             </ul>
         </div>
-    </nav>
+    </div>
 
     <div class="wrapper">
         <main class="main" role="main">
@@ -84,6 +89,58 @@
                     </div>
                     <div class="actions"><button>Edit</button></div>
                 </div>
+                <div role="listitem" class="listitem">
+                    <div class="date">
+                        <div class="duedate">Tomorrow</div>
+                        <div class="status pending">
+                            <span class="status-icon ion-ios-circle-outline"></span><span class="status-text">Finished</span>
+                        </div>
+                    </div>
+                    <div class="todo">
+                        <div class="title">Third task</div>
+                        <div class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr [...]</div>
+                    </div>
+                    <div class="actions"><button>Edit</button></div>
+                </div>
+                <div role="listitem" class="listitem">
+                    <div class="date">
+                        <div class="duedate">Tomorrow</div>
+                        <div class="status pending">
+                            <span class="status-icon ion-ios-circle-outline"></span><span class="status-text">Finished</span>
+                        </div>
+                    </div>
+                    <div class="todo">
+                        <div class="title">Third task</div>
+                        <div class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr [...]</div>
+                    </div>
+                    <div class="actions"><button>Edit</button></div>
+                </div>
+                <div role="listitem" class="listitem">
+                    <div class="date">
+                        <div class="duedate">Tomorrow</div>
+                        <div class="status pending">
+                            <span class="status-icon ion-ios-circle-outline"></span><span class="status-text">Finished</span>
+                        </div>
+                    </div>
+                    <div class="todo">
+                        <div class="title">Third task</div>
+                        <div class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr [...]</div>
+                    </div>
+                    <div class="actions"><button>Edit</button></div>
+                </div>
+                <div role="listitem" class="listitem">
+                    <div class="date">
+                        <div class="duedate">Tomorrow</div>
+                        <div class="status finished">
+                            <span class="status-icon ion-ios-checkmark"></span><span class="status-text">Finished</span>
+                        </div>
+                    </div>
+                    <div class="todo">
+                        <div class="title">Third task</div>
+                        <div class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr [...]</div>
+                    </div>
+                    <div class="actions"><button>Edit</button></div>
+                </div>
             </div>
         </main>
     </div>
@@ -94,7 +151,8 @@
 
 </footer>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-2.2.3.min.js"><\/script>')</script>
 <script src="js/vendor/jquery-ui-1.11.4.min.js"></script>
 <script src="js/main.js"></script>
 

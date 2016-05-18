@@ -48,12 +48,17 @@ gulp.task('ts', function(){
 
 // Copy all resources that are not Sass files into build directory.
 gulp.task("resources", function() {
-    return gulp.src(["src/**/*", "!**/*.scss"])
+    return gulp.src(["src/**/*", '!src/app/{scss,scss/**}', "!**/*.scss"])
         .pipe(gulp.dest("dist"))
         .pipe(browserSync.stream({once: true}));
 });
 
+// Build
+gulp.task('build', ['resources', 'sass'], function(){
+    console.log("Building the project ...");
+});
+
 // Default task
 gulp.task('default', ['serve'], function(){
-    console.log("Building the project ...");
+    console.log("Building the project and start ...");
 });

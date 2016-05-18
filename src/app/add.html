@@ -3,15 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>To-Do App</title>
+    <title>To-Do App - Add</title>
     <meta name="description" content="To-Do App">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,400italic,700,700italic,300italic,100italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/normalize.min.css">
-    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/jquery-ui-1.11.4.min.css">
+    <link rel="stylesheet" href="css/main.css">
 
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
@@ -19,13 +18,19 @@
 
 <header class="header" role="banner">
     <div class="wrapper">
-        <a href="index.html">Back to list</a>
-        <div class="s-switcher">
-            <select>
-                <option>Select Style</option>
-                <option>Blue</option>
-                <option>Red</option>
-            </select>
+        <div class="header-content">
+            <nav role="navigation" aria-label="Main Menu">
+                <ul>
+                    <li><a href="index.html">Back to list</a></li>
+                </ul>
+            </nav>
+            <div class="s-switcher">
+                <select>
+                    <option>Select Style</option>
+                    <option>Blue</option>
+                    <option>Red</option>
+                </select>
+            </div>
         </div>
     </div>
 </header>
@@ -34,59 +39,71 @@
 
     <div class="wrapper">
         <main class="main" role="main">
-            <div class="addFormLayout" role="formLayout">
-                <div class="fieldItem" role="fieldItem">
+            <h1>Add todo</h1>
+            <form class="addFormLayout">
+                <div class="field-item">
                     <div class="label">
-                        <div class="title">Titel</div>
+                        <label for="title" id="title-">Titel</label>
                     </div>
                     <div class="value">
-                        <input class="titleInput" type="text">
+                        <input id="title" name="title" type="text" required>
                     </div>
                 </div>
-                <div class="fieldItem" role="fieldItem">
+                <div class="field-item">
                     <div class="label">
-                        <div class="desc">Description</div>
+                        <label for="desc">Description</label>
                     </div>
                     <div class="value">
-                        <textarea class="descInput"></textarea>
+                        <textarea id="desc" name="desc" rows="7" required></textarea>
                     </div>
                 </div>
-                <div class="fieldItem" role="fieldItem">
+                <div class="field-item">
                     <div class="label">
-                        <div class="priority">Priority</div>
+                        <label>Priority</label>
                     </div>
                     <div class="value">
-                        <span class="priority-1 priorityInput icon ion-ios-bolt-outline"></span>
-                        <span class="priority-2 priorityInput icon ion-ios-bolt-outline"></span>
-                        <span class="priority-3 priorityInput icon ion-ios-bolt-outline"></span>
-                        <span class="priority-4 priorityInput icon ion-ios-bolt-outline"></span>
-                        <span class="priority-5 priorityInput icon ion-ios-bolt-outline"></span>
+                        <div class="prio">
+                            <input type="radio" id="prio-6" name="priority" value="6" >
+                            <label for="prio-6"></label>
+                            <input type="radio" id="prio-5" name="priority" value="5" >
+                            <label for="prio-5"></label>
+                            <input type="radio" id="prio-4" name="priority" value="4" >
+                            <label for="prio-4"></label>
+                            <input type="radio" id="prio-3" name="priority" value="3" >
+                            <label for="prio-3"></label>
+                            <input type="radio" id="prio-2" name="priority" value="2" >
+                            <label for="prio-2"></label>
+                            <input type="radio" id="prio-1" name="priority" value="1" required>
+                            <label for="prio-1"></label>
+                        </div>
                     </div>
                 </div>
-                <div class="fieldItem" role="fieldItem">
+                <div class="field-item">
                     <div class="label">
-                        <div class="completeTill">Complete till:</div>
+                        <label for="duedate">Complete till:</label>
                     </div>
                     <div class="value">
-                        <input class="completeTillInput" type="date">
+                        <input id="duedate" name="duedate" type="date" required>
                     </div>
                 </div>
-            </div>
+                <div class="field-item actions">
+                    <div class="value">
+                        <button type="submit">Save</button>
+                        <button type="reset">Cancel</button>
+                    </div>
+                </div>
+            </form>
         </main>
     </div>
 
 </div>
 
 <footer class="footer">
-    <div class="wrapper">
-        <div class="footer-actions">
-            <a href="index.html">Save</a>
-            <a href="index.html">Cancel</a>
-        </div>
-    </div>
+
 </footer>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-2.2.3.min.js"><\/script>')</script>
 <script src="js/vendor/jquery-ui-1.11.4.min.js"></script>
 <script src="js/main.js"></script>
 
