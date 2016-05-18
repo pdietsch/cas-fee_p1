@@ -11,14 +11,15 @@ gulp.task('clean', function(cb) {
 });
 
 // Static Server + watching scss/html files
-gulp.task('serve', ['resources', 'sass'], function() {
+gulp.task('serve', ['resources', 'sass','ts','tsdefinitions'], function() {
 
     browserSync.init({
         server: {
             baseDir: "./dist/app"
         }
     });
-
+    gulp.watch(["./src/app/definitions/*.ts"], ['tsdefinitions']);
+	  gulp.watch(["./src/app/ts/*.ts"], ['ts']);
     gulp.watch(["./src/**/*.scss"], ['sass']);
     gulp.watch(["./src/**/*.html", "./src/**/*.js"], ['resources']);
 });
@@ -31,24 +32,24 @@ gulp.task('sass', function() {
         .pipe(browserSync.stream());
 });
 
-gulp.task('ts', function(){
-	gulp.task('scripts', function() {
-	var tsResult = gulp.src('lib/**/*.ts')
-		.pipe(ts({
-			declaration: true,
-			noExternalResolve: true
-		}));
- 
-	return merge([
-		tsResult.dts.pipe(gulp.dest('./dist/app/ts/definitions')),
-		tsResult.js.pipe(gulp.dest('.dist/app/js'))
-	]);
+gulp.task('tsdefinitions', function() {
+	return gulp.src('./src/app/ts/definitions/*.ts').pipe(ts({
+    noImplicitAny: true,
+    out: 'definitions.js'
+  }))
+  .pipe(gulp.dest('./dist/app/js'));
 });
+gulp.task('ts', function() {
+  return gulp.src('./src/app/ts/*.ts').pipe(ts({
+    noImplicitAny: true,
+    out: 'output.js'
+  }))
+  .pipe(gulp.dest('./dist/app/js'));
 });
 
 // Copy all resources that are not Sass files into build directory.
 gulp.task("resources", function() {
-    return gulp.src(["src/**/*", '!src/app/{scss,scss/**}', "!**/*.scss"])
+    return gulp.src(["src/**/*", '!src/app/{scss,scss/**}', "!**/*.scss","!**/*.ts"])
         .pipe(gulp.dest("dist"))
         .pipe(browserSync.stream({once: true}));
 });
