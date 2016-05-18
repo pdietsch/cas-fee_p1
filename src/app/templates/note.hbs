@@ -1,0 +1,16 @@
+<div role="listitem" class="listitem">
+    <div class="date">
+        <div class="duedate">{{dueDate}}</div>
+        <div class="status {{#if finished}}pending{{else}}finished{{/if}}">
+            <span class="status-icon {{#if finished}}ion-ios-checkmark{{else}}ion-ios-circle-outline{{/if}}"></span><span
+                class="status-text">Finished</span>
+        </div>
+    </div>
+    <div class="todo">
+        <div class="title">{{title}} <span class="ion-ios-bolt"></span><span class="ion-ios-bolt"></span></div>
+        <div class="desc">{{description}}</div>
+    </div>
+    <div class="actions">
+        <button>Edit</button>
+    </div>
+</div>

@@ -7,9 +7,12 @@ class Note{
         this.description = desription;
         this.priority = prority;
         this.dueDate = dueDate;
+        this.finished = false;
     }
     title : string;
     description : string;
     priority : number;
     dueDate : Date;
+    finished : boolean;
+
 }

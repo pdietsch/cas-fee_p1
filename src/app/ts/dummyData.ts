@@ -1,6 +1,7 @@
 /**
  * Created by Patrik on 18.05.2016.
  */
+/// <reference path="./definitions/note.ts"/>
 var initData = new Array<Note>();
 
 var note = new Note("Task1","Description1",1,new Date(2016,10,11));
@@ -21,3 +22,4 @@ note = new Note("Task8","Description8",3,new Date(2016,10,18));
 initData.push(note);
 note = new Note("Task9","Description9",2,new Date(2016,10,19));
 initData.push(note);
+
