@@ -11,6 +11,9 @@
     "build": "gulp build",
     "start": "gulp"
   },
+  "dependencies": {
+    "handlebars": "^4.0.5"
+  },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
