@@ -2,7 +2,8 @@ var gulp        = require('gulp');
 var browserSync = require('browser-sync').create();
 var sass        = require('gulp-sass');
 var del         = require('del');
-var ts 			= require('gulp-typescript');
+var ts          = require('gulp-typescript');
+var tsProject   = ts.createProject("tsconfig.json");
 
 // Remove build directory.
 gulp.task('clean', function(cb) {
@@ -20,7 +21,7 @@ gulp.task('serve', ['resources', 'sass','ts'], function() {
 
     gulp.watch(["./src/app/ts/**/*.ts"], ['ts']);
     gulp.watch(["./src/app/scss/**/*.scss"], ['sass']);
-    gulp.watch(["./src/**/*.html", "./src/**/*.js"], ['resources']);
+    gulp.watch(["./src/app/**/*.html", "./src/app/**/*.js"], ['resources']);
 });
 
 // Compile sass into CSS & auto-inject into browsers
@@ -34,10 +35,7 @@ gulp.task('sass', function() {
 // Compile ts into js & auto-inject into browsers
 gulp.task('ts', function () {
     return gulp.src('./src/app/ts/**/*.ts')
-        .pipe(ts({
-            noImplicitAny: true,
-            out: 'output.js'
-        }))
+        .pipe(ts(tsProject))
         .pipe(gulp.dest('./dist/app/js'));
 });
 
