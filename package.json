@@ -21,6 +21,9 @@
     "gulp-typescript":"^2.13.4",
     "browser-sync": "2.12.8",
     "del": "^2.2.0",
-    "merge2": "^1.0.2"
+    "gulp-handlebars": "^4.0.0",
+    "gulp-wrap": "^0.11.0",
+    "gulp-declare": "^0.3.0",
+    "gulp-concat": "^2.6.0"
   }
 }
