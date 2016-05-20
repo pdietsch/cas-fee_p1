@@ -12,18 +12,6 @@ document.addEventListener("DOMContentLoaded", function() {
     statusElement.removeClass('ion-ios-checkmark-outline')
   }
   );
-<<<<<<< HEAD
-});
-=======
-
-  // Fallback input type date not supported
-  if (!Modernizr.inputtypes.date) {
-    $('input[type=date]').datepicker({
-      // Consistent format with the HTML5 picker
-      dateFormat: 'yy-mm-dd'
-    });
-  }
->>>>>>> 7e621d1fce39758e8e1e17b77a98c8ef32c77eb8
 
   // Add dummy
   $('.add-todo').click(function() {
