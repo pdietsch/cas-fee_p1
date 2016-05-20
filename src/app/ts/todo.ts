@@ -1,3 +1,5 @@
+/// <reference path="../../../typings/index.d.ts" />
+
 class Todo {
     id : number;
     title : string;
