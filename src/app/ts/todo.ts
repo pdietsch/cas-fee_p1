@@ -42,14 +42,14 @@ class Todo {
         return this._createDate;
     }
 
-    constructor(id : number, title : string, description : string, prority : number, dueDate : Date){
+    constructor(id : number, title : string, description : string, prority : number, dueDate : Date, finished :boolean = false){
         this._id = id;
         this._title = title;
         this._description = description;
         this._priority = prority;
         this._dueDate = dueDate;
         this._createDate = new Date();
-        this._finished = false;
+        this._finished = finished;
     }
 }
 
@@ -61,7 +61,7 @@ class TodoList {
 }
 
 function sortList(prop : string) {
-    return function(a : any, b : any) {
+    return function(a : any, b : any) : number {
         return a[prop] + b[prop];
     }
 }
