@@ -20,7 +20,6 @@
     "gulp-sass": "^2.3.1",
     "gulp-typescript":"^2.13.4",
     "browser-sync": "2.12.8",
-    "del": "^2.2.0",
-    "merge2": "^1.0.2"
+    "del": "^2.2.0"
   }
 }
