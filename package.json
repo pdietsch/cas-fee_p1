@@ -9,16 +9,15 @@
   "scripts": {
     "clean": "gulp clean",
     "build": "gulp build",
-    "start": "gulp"
-  },
-  "dependencies": {
-    "handlebars": "^4.0.5"
+    "start": "gulp",
+    "postinstall": "typings install"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-sass": "^2.3.1",
     "gulp-typescript":"^2.13.4",
+    "typings": "^1.0.4",
     "browser-sync": "2.12.8",
     "del": "^2.2.0",
     "gulp-handlebars": "^4.0.0",

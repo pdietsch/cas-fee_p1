@@ -120,12 +120,16 @@ nav {
     @extend %clearfix;
     padding: 1rem 0 1rem 0;
   }
-  a {
+  a, button {
     @include button(#fff, $alternate-color, medium);
     margin: 0;
   }
   nav {
     float: left;
+    li {
+      float: left;
+      margin-right: 5px;
+    }
   }
 }
 
@@ -302,6 +306,9 @@ nav {
     right: 13px;
     @extend .ion;
     z-index: -1;
+  }
+  label {
+    display: none;
   }
   select {
     padding: 0.85em 2.25em 0.85em 1.25em;

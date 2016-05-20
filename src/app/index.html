@@ -22,10 +22,12 @@
             <nav role="navigation" aria-label="Main Menu">
                 <ul>
                     <li><a href="add.html">Add</a></li>
+                    <li><button class="add-todo">+ Dummy</button></li>
                 </ul>
             </nav>
             <div class="s-switcher">
-                <select>
+                <label for="styleSwitcher"></label>
+                <select id="styleSwitcher" name="styleSwitcher">
                     <option>Select Style</option>
                     <option>Blue</option>
                     <option>Red</option>
@@ -39,10 +41,18 @@
     <div class="filter" role="menu" aria-label="Filter">
         <div class="wrapper">
             <ul role="group">
-                <li role="menuitem"><a href="#" class="active"><span class="icon ion-ios-timer-outline"></span><span class="text">By finish date</span></a></li>
-                <li role="menuitem"><a href="#"><span class="icon ion-ios-time-outline"></span><span class="text">By created date</span></a></li>
-                <li role="menuitem"><a href="#"><span class="icon ion-ios-bolt-outline"></span><span class="text">By importance</span></a></li>
-                <li role="menuitem"><a href="#"><span class="icon ion-ios-checkmark-outline"></span><span class="text">Show finished</span></a></li>
+                <li role="menuitem">
+                    <a class="sort-link" data-sortby="finished" href="#" class="active"><span class="icon ion-ios-timer-outline"></span><span class="text">By finish date</span></a>
+                </li>
+                <li role="menuitem">
+                    <a class="sort-link" data-sortby="createDate" href="#"><span class="icon ion-ios-time-outline"></span><span class="text">By created date</span></a>
+                </li>
+                <li role="menuitem">
+                    <a class="sort-link" data-sortby="priority" href="#"><span class="icon ion-ios-bolt-outline"></span><span class="text">By importance</span></a>
+                </li>
+                <li role="menuitem">
+                    <a class="filter-link" data-filterby="finished" href="#"><span class="icon ion-ios-checkmark-outline"></span><span class="text">Show finished</span></a>
+                </li>
             </ul>
         </div>
     </div>
