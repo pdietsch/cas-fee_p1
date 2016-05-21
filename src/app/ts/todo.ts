@@ -26,10 +26,6 @@ class Todo {
         return this._dueDate;
     }
 
-    get dueDateAsString():string { //Should be done in view model
-        return this._dueDate.toLocaleDateString("de-CH");
-    }
-
     get finished():boolean {
         return this._finished;
     }
@@ -42,11 +38,11 @@ class Todo {
         return this._createDate;
     }
 
-    constructor(id : number, title : string, description : string, prority : number, dueDate : Date, finished :boolean = false){
+    constructor(id : number, title : string, description : string, priority : number, dueDate : Date, finished :boolean = false){
         this._id = id;
         this._title = title;
         this._description = description;
-        this._priority = prority;
+        this._priority = priority;
         this._dueDate = dueDate;
         this._createDate = new Date();
         this._finished = finished;
@@ -57,17 +53,6 @@ class TodoList {
     todos : Todo[] = [];
     add(todo : Todo) : void {
         this.todos.push(todo);
-    }
-}
-
-function sortList(prop : string) {
-    return function(a : any, b : any) : number {
-        return a[prop] + b[prop];
-    }
-}
-
-function filterList(prop : string) {
-    return function(a: any) {
-        return a[prop] == true;
+        renderingTodoList(todoList.todos);
     }
 }

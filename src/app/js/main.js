@@ -14,3 +14,5 @@ document.addEventListener("DOMContentLoaded", function() {
   );
 
 });
+
+HandlebarsIntl.registerWith(Handlebars);
