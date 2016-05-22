@@ -3,6 +3,7 @@
  */
 /// <reference path="./todo.ts"/>
 /// <reference path="./services/mock-todos.ts"/>
+/// <reference path="./util/handlebars-helpers.ts"/>
 
     // Add dummy
 $('.add-todo').click(function() {
