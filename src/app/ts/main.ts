@@ -4,7 +4,7 @@
 
 // Add dummy
 var count = 0;
-$('.add-todo').click(function() {
+$('.add-todo').click(() => {
     count++;
     var id = todoList.todos.length;
     var dueDate = new Date();
@@ -14,7 +14,7 @@ $('.add-todo').click(function() {
 });
 
 // Sort
-$('.sort-link').click(function(e) {
+$('.sort-link').click((e) => {
     $(this).parent().parent().find('li a').removeClass('active');
     var sortby = $(this).data("sortby");
     if($(this).hasClass("active")){
@@ -27,7 +27,7 @@ $('.sort-link').click(function(e) {
 });
 
 // Filter
-$('.filter-link').click(function(e) {
+$('.filter-link').click((e) => {
     $(this).parent().parent().find('li:not(:last-child) a').removeClass('active');
     var filterby = $(this).data("filterby");
     if($(this).hasClass("active")){
@@ -54,8 +54,7 @@ function renderingTodoList(todos : Array<Todo>){
 }
 
 function sortList(prop : string) {
-    console.log(prop);
-    return function(a : any, b : any) {
+    return (a : any, b : any) => {
         if(prop.indexOf("Date") > -1){
             if (a[prop] < b[prop]) {
                 return -1;
@@ -77,7 +76,7 @@ function sortList(prop : string) {
 }
 
 function filterList(prop : string) {
-    return function(a: any) {
+    return (a: any) => {
         return a[prop] == true;
     }
 }
