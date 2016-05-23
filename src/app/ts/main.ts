@@ -2,44 +2,46 @@
 /// <reference path="./util/handlebars-helpers"/>
 /// <reference path="./services/mock-todos.ts"/>
 /// <reference path="./util/handlebars-helpers.ts"/>
+/// <reference path="./util/html-helper.ts"/>
 
 // Add dummy
 var count = 0;
-$('.add-todo').click(function() {
-    count++;
-    var id = todoList.todos.length;
-    var dueDate = new Date();
-    dueDate.setDate(dueDate.getDate() + count);
-    todoList.add(new Todo(id,'Task ' + id, 'Description ' + id, 1, dueDate, true));
-    renderingTodoList(todoList.todos);
-});
-
-// Sort
-$('.sort-link').click(function(e) {
-    $(this).parent().parent().find('li a:not(.filter-link)').removeClass('active');
-    var sortby = $(this).data("sortby");
-    if($(this).hasClass("active")){
-        renderingTodoList(todoList.todos);
-    } else {
-        $(this).addClass("active");
-        renderingTodoList(todoList.todos.sort(sortList(sortby)));
-    }
-    e.preventDefault();
-});
-
-// Filter
-$('.filter-link').click(function(e) {
-    //$(this).parent().parent().find('li:not(:last-child) a').removeClass('active');
-    var filterby = $(this).data("filterby");
-    if($(this).hasClass("active")){
-        $(this).removeClass("active");
-        todoList.setFilterFunction(filterList(filterby, false));
-    } else {
-        $(this).addClass("active");
-        todoList.setFilterFunction(filterList(filterby, true));
-    }
-    renderingTodoList(todoList.todos);
-    e.preventDefault();
+document.addEventListener("DOMContentLoaded", function(event) {
+    document.querySelector(".add-todo").addEventListener("click", function () {
+            count++;
+            var id = todoList.todos.length;
+            var dueDate = new Date();
+            dueDate.setDate(dueDate.getDate() + count);
+            todoList.add(new Todo(id, 'Task ' + id, 'Description ' + id, 1, dueDate, true));
+            renderingTodoList(todoList.todos);
+        }
+    );
+    Array.prototype.slice.call(document.querySelectorAll(".sort-link")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
+            Array.prototype.slice.call((<HTMLElement>node.parentNode.parentNode).querySelectorAll("a:not(.filter-link)"))
+                .forEach((otherSorts:HTMLElement) => otherSorts !== node ? HtmlHelper.removeClass(otherSorts, "active") : function () {
+                });
+            var sortBy = node.dataset["sortby"];
+            if (HtmlHelper.hasClass(node, "active")) {
+                HtmlHelper.removeClass(node, "active")
+                renderingTodoList(todoList.todos);
+            } else {
+                HtmlHelper.addClass(node, "active")
+                renderingTodoList(todoList.todos.sort(sortList(sortBy)));
+            }
+        }
+    ));
+    Array.prototype.slice.call(document.querySelectorAll(".filter-link")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
+            var filterBy = node.dataset["filterby"];
+            if (HtmlHelper.hasClass(node, "active")) {
+                HtmlHelper.removeClass(node, "active")
+                todoList.setFilterFunction(filterList(filterBy, false));
+            } else {
+                HtmlHelper.addClass(node, "active")
+                todoList.setFilterFunction(filterList(filterBy, true));
+            }
+            renderingTodoList(todoList.todos);
+        }
+    ));
 });
 
 renderingTodoList(todoList.todos);
