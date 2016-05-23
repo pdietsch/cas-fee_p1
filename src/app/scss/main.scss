@@ -298,6 +298,16 @@ nav {
       top: 1px;
       font-size: 1.1rem;
     }
+    .status-icon:before {
+      content: $ionicon-var-ios-circle-outline;
+      @extend .ion;
+    }
+    &:hover .status-icon:before {
+      content: $ionicon-var-ios-checkmark-outline;
+    }
+    &.finished .status-icon:before {
+      content: $ionicon-var-ios-checkmark;
+    }
   }
 }
 
