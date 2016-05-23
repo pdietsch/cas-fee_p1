@@ -16,7 +16,7 @@ $('.add-todo').click(function() {
 
 // Sort
 $('.sort-link').click(function(e) {
-    $(this).parent().parent().find('li a').removeClass('active');
+    $(this).parent().parent().find('li a:not(.filter-link)').removeClass('active');
     var sortby = $(this).data("sortby");
     if($(this).hasClass("active")){
         renderingTodoList(todoList.todos);
@@ -29,15 +29,16 @@ $('.sort-link').click(function(e) {
 
 // Filter
 $('.filter-link').click(function(e) {
-    $(this).parent().parent().find('li:not(:last-child) a').removeClass('active');
+    //$(this).parent().parent().find('li:not(:last-child) a').removeClass('active');
     var filterby = $(this).data("filterby");
     if($(this).hasClass("active")){
         $(this).removeClass("active");
-        renderingTodoList(todoList.todos);
+        todoList.setFilterFunction(filterList(filterby, false));
     } else {
         $(this).addClass("active");
-        renderingTodoList(todoList.todos.filter(filterList(filterby)));
+        todoList.setFilterFunction(filterList(filterby, true));
     }
+    renderingTodoList(todoList.todos);
     e.preventDefault();
 });
 
@@ -74,11 +75,5 @@ function sortList(prop : string) {
                 return 0;
             }
         }
-    }
-}
-
-function filterList(prop : string) {
-    return function(a: any) {
-        return a[prop] == true;
     }
 }
