@@ -2,10 +2,10 @@ var gulp        = require('gulp');
 var browserSync = require('browser-sync').create();
 var sass        = require('gulp-sass');
 var del         = require('del');
-var handlebars = require('gulp-handlebars');
-var wrap = require('gulp-wrap');
-var declare = require('gulp-declare');
-var concat = require('gulp-concat');
+var handlebars  = require('gulp-handlebars');
+var wrap        = require('gulp-wrap');
+var declare     = require('gulp-declare');
+var concat      = require('gulp-concat');
 var ts          = require('gulp-typescript');
 var tsProject   = ts.createProject("tsconfig.json");
 
@@ -15,29 +15,30 @@ gulp.task('clean', function(cb) {
 });
 
 // Static Server + watching scss/html files
-
 gulp.task('serve', ['resources', 'sass','ts', 'templates'], function() {
     browserSync.init({
         server: {
             baseDir: "./dist/app"
         }
     });
-    gulp.watch(["./src/app/templates/*.hbs"], ['templates'])
+    gulp.watch(["./src/app/templates/*.hbs"], ['templates']);
     gulp.watch(["./src/app/ts/**/*.ts"], ['ts']);
     gulp.watch(["./src/app/scss/**/*.scss"], ['sass']);
     gulp.watch(["./src/app/**/*.html", "./src/app/**/*.js"], ['resources']);
 });
 
+// Compile handlebars
 gulp.task('templates', function(){
-  gulp.src('./src/app/templates/*.hbs')
-  .pipe(handlebars())
-  .pipe(wrap('Handlebars.template(<%= contents %>)'))
-  .pipe(declare({
-    namespace: 'P1.templates',
-    noRedeclare: true, // Avoid duplicate declarations
-  }))
-  .pipe(concat('templates.js'))
-  .pipe(gulp.dest('./dist/app/js/'));
+    return gulp.src('./src/app/templates/*.hbs')
+        .pipe(handlebars())
+        .pipe(wrap('Handlebars.template(<%= contents %>)'))
+        .pipe(declare({
+            namespace: 'P1.templates',
+            noRedeclare: true // Avoid duplicate declarations
+        }))
+        .pipe(concat('templates.js'))
+        .pipe(gulp.dest('./dist/app/js/'))
+        .pipe(browserSync.stream());
 });
 
 // Compile sass into CSS & auto-inject into browsers
@@ -47,6 +48,7 @@ gulp.task('sass', function() {
         .pipe(gulp.dest("./dist/app/css"))
         .pipe(browserSync.stream());
 });
+
 // Compile ts into js & auto-inject into browsers
 gulp.task('ts', function () {
     return gulp.src('./src/app/ts/**/*.ts')
