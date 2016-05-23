@@ -42,9 +42,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
             renderingTodoList(todoList.todos);
         }
     ));
+    renderingTodoList(todoList.todos);
 });
 
-renderingTodoList(todoList.todos);
 
 function renderingTodoList(todos : Array<Todo>){
     var initHtml : string;
