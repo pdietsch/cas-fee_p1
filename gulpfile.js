@@ -8,6 +8,7 @@ var declare     = require('gulp-declare');
 var concat      = require('gulp-concat');
 var ts          = require('gulp-typescript');
 var tsProject   = ts.createProject("tsconfig.json");
+var sassThemes  = require('gulp-sass-themes');
 
 // Remove build directory.
 gulp.task('clean', function(cb) {
@@ -43,7 +44,8 @@ gulp.task('templates', function(){
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
-    return gulp.src("./src/app/scss/*.scss")
+    return gulp.src("./src/app/scss/**/*.scss")
+        .pipe(sassThemes('themes', ['green', 'red']))
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest("./dist/app/css"))
         .pipe(browserSync.stream());

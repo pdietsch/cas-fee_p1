@@ -82,3 +82,11 @@ function filterList(prop : string) {
         return a[prop] == true;
     }
 }
+
+document.querySelector("#styleSwitcher").addEventListener("change", function(e){
+    var styleSwitcher = <HTMLSelectElement>e.target;
+    if(styleSwitcher.selectedIndex != 0){
+        var theme = <HTMLLinkElement>document.querySelector("#theme")
+        theme.href = "css/body."+ styleSwitcher.value + ".css";
+    }
+})

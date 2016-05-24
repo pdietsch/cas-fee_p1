@@ -24,6 +24,7 @@
     "gulp-wrap": "^0.11.0",
     "gulp-declare": "^0.3.0",
     "gulp-concat": "^2.6.0",
-    "handlebars": "^4.0.5"
+    "handlebars": "^4.0.5",
+    "gulp-sass-themes": "^1.2.0"
   }
 }
