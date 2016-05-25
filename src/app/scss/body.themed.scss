@@ -348,6 +348,9 @@ nav {
   select::-ms-expand {
     display: none;
   }
+  option{
+    background-color: $primary-color;
+  }
 }
 
 /* Form */
