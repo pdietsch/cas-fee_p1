@@ -16,16 +16,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
             renderingTodoList(todoList.todos);
         }
     );
+    document.querySelector("#styleSwitcher").addEventListener("change", function(e){
+        var styleSwitcher = <HTMLSelectElement>e.target;
+        if(styleSwitcher.selectedIndex != 0){
+            var theme = <HTMLLinkElement>document.querySelector("#theme")
+            theme.href = "css/body."+ styleSwitcher.value + ".css";
+        }
+    });
     Array.prototype.slice.call(document.querySelectorAll(".sort-link")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
             Array.prototype.slice.call((<HTMLElement>node.parentNode.parentNode).querySelectorAll("a:not(.filter-link)"))
                 .forEach((otherSorts:HTMLElement) => otherSorts !== node ? HtmlHelper.removeClass(otherSorts, "active") : function () {
                 });
             var sortBy = node.dataset["sortby"];
             if (HtmlHelper.hasClass(node, "active")) {
-                HtmlHelper.removeClass(node, "active")
+                HtmlHelper.removeClass(node, "active");
                 renderingTodoList(todoList.todos);
             } else {
-                HtmlHelper.addClass(node, "active")
+                HtmlHelper.addClass(node, "active");
                 renderingTodoList(todoList.todos.sort(sortList(sortBy)));
             }
         }
@@ -33,10 +40,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
     Array.prototype.slice.call(document.querySelectorAll(".filter-link")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
             var filterBy = node.dataset["filterby"];
             if (HtmlHelper.hasClass(node, "active")) {
-                HtmlHelper.removeClass(node, "active")
+                HtmlHelper.removeClass(node, "active");
                 todoList.setFilterFunction(filterList(filterBy, false));
             } else {
-                HtmlHelper.addClass(node, "active")
+                HtmlHelper.addClass(node, "active");
                 todoList.setFilterFunction(filterList(filterBy, true));
             }
             renderingTodoList(todoList.todos);
@@ -80,10 +87,4 @@ function sortList(prop : string) {
     }
 }
 
-document.querySelector("#styleSwitcher").addEventListener("change", function(e){
-    var styleSwitcher = <HTMLSelectElement>e.target;
-    if(styleSwitcher.selectedIndex != 0){
-        var theme = <HTMLLinkElement>document.querySelector("#theme")
-        theme.href = "css/body."+ styleSwitcher.value + ".css";
-    }
-})
+
