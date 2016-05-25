@@ -7,7 +7,7 @@ class Todo {
     private _dueDate : Date;
     private _finished : boolean;
     private _id : number;
-    private _createDate : Date;
+    private _finishedDate : Date;
 
 
     get title():string {
@@ -34,8 +34,8 @@ class Todo {
         return this._id;
     }
 
-    get createDate():Date {
-        return this._createDate;
+    get finishedDate():Date {
+        return this._finishedDate;
     }
 
     constructor(id : number, title : string, description : string, priority : number, dueDate : Date, finished :boolean = false){
@@ -44,7 +44,7 @@ class Todo {
         this._description = description;
         this._priority = priority;
         this._dueDate = dueDate;
-        this._createDate = new Date();
+        this._finishedDate = null;
         this._finished = finished;
     }
 }
