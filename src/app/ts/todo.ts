@@ -49,10 +49,29 @@ class Todo {
     }
 }
 
+function filterList(prop : string, expectedValue : boolean) {
+    return function(a: any) {
+        return a[prop] === expectedValue;
+    }
+}
+
 class TodoList {
-    todos : Todo[] = [];
+    get todos():Todo[] {
+        return this._todos.filter(this._filter);
+    }
+    private _todos : Todo[] = [];
+    private _filter : any;
+
+    constructor(){
+        this._filter = filterList("finished", false);
+    }
+
     add(todo : Todo) : void {
-        this.todos.push(todo);
-        renderingTodoList(todoList.todos);
+        this._todos.push(todo);
+        renderingTodoList(todoList._todos);
+    }
+
+    setFilterFunction(param: (prop: string, expectedValue: boolean) => any):void {
+        this._filter = param;
     }
 }
