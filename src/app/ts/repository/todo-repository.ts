@@ -10,20 +10,30 @@ class TodoRepository{
             var json = JSON.parse(repository);
             for(var x in json){
                 var todo = new Todo("","","",0, new Date(),false);
-                todo.fillFromJSON(json[x]);
+                todo.fillFromJSON(json[x])
                 this._todoList.push(todo);
             }
         }
         console.log(this._todoList);
     }
 
-    public getTodo(id : string) : Todo {
-        return this._todoList.filter(function (todo) {
-            return todo.id === id;
-        })[0];
+    public getTodo(id : string) : Todo{
+        var result = this._todoList.filter((itme : Todo) => itme.id === id);
+        if(result.length > 0){
+            return result[0];
+        }
+        return null;
     }
 
     public updateTodo(todo : Todo){
+        var oldTodo = this.getTodo(todo.id);
+        if(oldTodo != null){
+            var index = this._todoList.indexOf(oldTodo);
+            this._todoList[index] = todo;
+            this.saveRepository();
+        }else {
+            console.error("Could not found todo in repository to update")
+        }
 
     }
 
