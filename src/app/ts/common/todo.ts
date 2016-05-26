@@ -1,6 +1,7 @@
-/// <reference path="../../../typings/index.d.ts" />
+/// <reference path="../../../../typings/index.d.ts" />
+/// <reference path="./serializable.ts" />
 
-class Todo {
+class Todo extends Serializable{
     private _title : string;
     private _description : string;
     private _priority : number;
@@ -39,6 +40,7 @@ class Todo {
     }
 
     constructor(id : string, title : string, description : string, priority : number, dueDate : Date, finished :boolean = false){
+        super();
         this._id = id;
         this._title = title;
         this._description = description;
@@ -46,32 +48,5 @@ class Todo {
         this._dueDate = dueDate;
         this._finishedDate = null;
         this._finished = finished;
-    }
-}
-
-function filterList(prop : string, expectedValue : boolean) {
-    return function(a: any) {
-        return a[prop] === expectedValue;
-    }
-}
-
-class TodoList {
-    get todos():Todo[] {
-        return this._todos.filter(this._filter);
-    }
-    private _todos : Todo[] = [];
-    private _filter : any;
-
-    constructor(){
-        this._filter = filterList("finished", false);
-    }
-
-    add(todo : Todo) : void {
-        this._todos.push(todo);
-        renderingTodoList(todoList._todos);
-    }
-
-    setFilterFunction(param: (prop: string, expectedValue: boolean) => any):void {
-        this._filter = param;
     }
 }
