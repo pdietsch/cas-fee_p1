@@ -27,6 +27,12 @@ class Todo extends Serializable{
         return this._dueDate;
     }
 
+
+    set finished(value:boolean) {
+        this._finishedDate = new Date();
+        this._finished = value;
+    }
+
     get finished():boolean {
         return this._finished;
     }
