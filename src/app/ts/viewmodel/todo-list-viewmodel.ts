@@ -11,10 +11,6 @@ class TodoListViewModel {
     private _filter:any;
     private _todoRepository:TodoRepository;
 
-    get todos():Todo[] {
-        return this._todoRepository.todoList.filter(this._filter);
-    }
-
     constructor(todoRepository:TodoRepository) {
         this._todoRepository = todoRepository;
         this._filter = filterList("finished", false);
@@ -102,6 +98,8 @@ class TodoListViewModel {
     }
 
     public createModal(id : string) {
+        //TODO Refactoring smaller methods
+
         var self = this;
         var currentTodo: Todo;
         if(id){
@@ -118,6 +116,12 @@ class TodoListViewModel {
         var modal = <HTMLElement>footer.querySelector(".modal");
         modal.style.display = "block";
 
+        if (!Modernizr.inputtypes.date) {
+            $('input[type=date]').datepicker({
+                // Consistent format with the HTML5 picker
+                dateFormat: 'yy-mm-dd'
+            });
+        }
         var span = <HTMLElement>footer.getElementsByClassName("close")[0];
 
         span.onclick = function() {
