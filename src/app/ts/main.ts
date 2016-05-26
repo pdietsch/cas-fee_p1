@@ -1,15 +1,15 @@
 /// <reference path="./todo.ts"/>
 /// <reference path="./util/handlebars-helpers"/>
-/// <reference path="./services/mock-todos.ts"/>
-/// <reference path="./util/handlebars-helpers.ts"/>
-/// <reference path="./util/html-helper.ts"/>
+/// <reference path="./util/html-helper"/>
+/// <reference path="./util/guid"/>
+/// <reference path="./services/mock-todos"/>
 
 // Add dummy
 var count = 0;
 document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector(".add-todo").addEventListener("click", function () {
             count++;
-            var id = todoList.todos.length;
+            var id = guid();
             var dueDate = new Date();
             dueDate.setDate(dueDate.getDate() + count);
             todoList.add(new Todo(id, 'Task ' + id, 'Description ' + id, 1, dueDate, true));
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector("#styleSwitcher").addEventListener("change", function(e){
         var styleSwitcher = <HTMLSelectElement>e.target;
         if(styleSwitcher.selectedIndex != 0){
-            var theme = <HTMLLinkElement>document.querySelector("#theme")
+            var theme = <HTMLLinkElement>document.querySelector("#theme");
             theme.href = "css/body."+ styleSwitcher.value + ".css";
         }
     });
@@ -62,6 +62,9 @@ function renderingTodoList(todos : Array<Todo>){
     });
     var test = <HTMLElement>document.getElementsByClassName("todolist").item(0);
     test.innerHTML = initHtml;
+    Array.prototype.slice.call(document.getElementsByClassName("edit-note")).forEach((node : HTMLElement)  => node.addEventListener("click", function(){
+        document.location.href = "add.html?id=" + this.dataset["id"];
+    }));
 }
 
 function sortList(prop : string) {

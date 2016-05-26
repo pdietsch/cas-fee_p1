@@ -6,7 +6,7 @@ class Todo {
     private _priority : number;
     private _dueDate : Date;
     private _finished : boolean;
-    private _id : number;
+    private _id : string;
     private _finishedDate : Date;
 
 
@@ -30,7 +30,7 @@ class Todo {
         return this._finished;
     }
 
-    get id():number {
+    get id():string {
         return this._id;
     }
 
@@ -38,7 +38,7 @@ class Todo {
         return this._finishedDate;
     }
 
-    constructor(id : number, title : string, description : string, priority : number, dueDate : Date, finished :boolean = false){
+    constructor(id : string, title : string, description : string, priority : number, dueDate : Date, finished :boolean = false){
         this._id = id;
         this._title = title;
         this._description = description;
