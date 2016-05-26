@@ -309,6 +309,20 @@ nav {
   }
 }
 
+.delete-todo span:before{
+  content: $ionicon-var-trash-a;
+  display: inline-block;
+  @extend .ion;
+  font-size: 1.2rem;
+}
+
+.edit-todo span:before{
+  content: $ionicon-var-edit;
+  display: inline-block;
+  @extend .ion;
+  font-size: 1.2rem;
+}
+
 /* Style switcher */
 
 .s-switcher {

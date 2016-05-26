@@ -22,6 +22,11 @@ class TodoListViewModel {
         this.renderingTodoList();
     }
 
+    private delete(id : string):void {
+        this._todoRepository.delete(id);
+        this.renderingTodoList();
+    }
+
     private get(id : string) {
         return this._todoRepository.getTodo(id);
     }
@@ -92,6 +97,9 @@ class TodoListViewModel {
         Array.prototype.slice.call(document.getElementsByClassName("edit-todo")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
             self.createModal(this.dataset["id"]);
         }));
+        Array.prototype.slice.call(document.getElementsByClassName("delete-todo")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
+            self.delete(this.dataset["id"]);
+        }));
         Array.prototype.slice.call(document.getElementsByClassName("status pending")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
             self.setFinished(this.dataset["id"])
         }));
@@ -154,6 +162,7 @@ class TodoListViewModel {
             +(<HTMLInputElement>document.querySelector('input[name = "priority"]:checked')).value,
             new Date((<HTMLInputElement>document.getElementById("duedate")).value));
     };
+
 }
 
 

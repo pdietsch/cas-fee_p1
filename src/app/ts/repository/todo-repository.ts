@@ -37,6 +37,12 @@ class TodoRepository{
 
     }
 
+    public delete(id : string){
+        var index = this._todoList.indexOf(this.getTodo(id));
+        this._todoList.splice(index, 1);
+        this.saveRepository();
+    }
+
     public addTodo(todo : Todo){
         this._todoList.push(todo);
         this.saveRepository();
