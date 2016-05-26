@@ -1,4 +1,3 @@
-
 /// <reference path="./util/handlebars-helpers"/>
 /// <reference path="./util/html-helper"/>
 /// <reference path="./util/guid"/>
@@ -6,14 +5,13 @@
 /// <reference path="./repository/todo-repository.ts"/>
 /// <reference path="./viewmodel/todo-list-viewmodel.ts"/>
 
-var repository = new TodoRepository();
-var todoListViewModel = new TodoListViewModel(repository);
-// Add dummy
 document.addEventListener("DOMContentLoaded", function() {
+    var repository = new TodoRepository();
+    var todoListViewModel = new TodoListViewModel(repository);
+    // Add dummy
+    var count = 0;
     document.querySelector(".add-todo").addEventListener("click", function () {
-        var id = guid();
-        var todo = new Todo(id, null, null, null, null, false);
-        createModal(todo);
+        todoListViewModel.createModal(null);
     });
     document.querySelector("#styleSwitcher").addEventListener("change", function(e){
         var styleSwitcher = <HTMLSelectElement>e.target;
@@ -49,26 +47,3 @@ document.addEventListener("DOMContentLoaded", function() {
     ));
     todoListViewModel.render();
 });
-
-function createModal(todo : Todo) {
-    var initHtml : string;
-    initHtml = "";
-    var template = this["P1"]["templates"]["edit"];
-    initHtml += template(todo);
-    var footer = <HTMLElement>document.getElementsByClassName("footer").item(0);
-    footer.innerHTML = initHtml;
-    var modal = <HTMLElement>footer.querySelector(".modal");
-    modal.style.display = "block";
-
-    var span = <HTMLElement>footer.getElementsByClassName("close")[0];
-
-    span.onclick = function() {
-        modal.style.display = "none";
-    };
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-}

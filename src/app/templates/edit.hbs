@@ -53,7 +53,7 @@
                     <label for="duedate">Complete till:</label>
                 </div>
                 <div class="value">
-                    <input value="{{formatDate dueDate day="2-digit" month="2-digit" year="numeric"}}" id="duedate" name="duedate" type="date" required>
+                    <input value="{{#if dueDate}}{{prettifyDate dueDate}}{{/if}}" id="duedate" name="duedate" type="date" required>
                 </div>
             </div>
             <div class="field-item actions">
