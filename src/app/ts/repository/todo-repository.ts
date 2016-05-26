@@ -10,7 +10,7 @@ class TodoRepository{
             var json = JSON.parse(repository);
             for(var x in json){
                 var todo = new Todo("","","",0, new Date(),false);
-                todo.fillFromJSON(json[x]);
+                todo.fillFromJSON(json[x])
                 this._todoList.push(todo);
             }
         }
