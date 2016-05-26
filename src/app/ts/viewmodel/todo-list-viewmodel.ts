@@ -2,6 +2,7 @@
  * Created by Patrik on 26.05.2016.
  */
 class TodoListViewModel {
+
     get todos():Todo[] {
         return this._todoRepository.todoList.filter(this._filter).sort(this.sortList(this._sortBy));
     }
@@ -9,6 +10,10 @@ class TodoListViewModel {
     private _sortBy: string;
     private _filter:any;
     private _todoRepository:TodoRepository;
+
+    get todos():Todo[] {
+        return this._todoRepository.todoList.filter(this._filter);
+    }
 
     constructor(todoRepository:TodoRepository) {
         this._todoRepository = todoRepository;
@@ -30,12 +35,12 @@ class TodoListViewModel {
         this.renderingTodoList();
     }
 
-    setFilterFunction(param:(prop:string, expectedValue:boolean) => any):void {
+    public setFilterFunction(param:(prop:string, expectedValue:boolean) => any):void {
         this._filter = param;
         this.renderingTodoList();
     }
 
-    sort(sortBy:string) {
+    public sort(sortBy:string) {
         if (sortBy == null) {
             this._sortBy = this._defaultSortBy
         } else {
@@ -44,7 +49,7 @@ class TodoListViewModel {
         this.renderingTodoList();
     }
 
-    setFinished(id:string) {
+    public setFinished(id:string) {
         var todo = this._todoRepository.getTodo(id);
         todo.finished = true;
         this._todoRepository.updateTodo(todo);
