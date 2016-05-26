@@ -9,9 +9,12 @@
 var repository = new TodoRepository();
 var todoListViewModel = new TodoListViewModel(repository);
 // Add dummy
-var count = 0;
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelector(".add-todo").addEventListener("click", function () {
+        var id = guid();
+        var todo = new Todo(id, null, null, null, null, false);
+        createModal(todo);
+        /*
             count++;
             var id = guid();
             var dueDate = new Date();
@@ -21,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var randomNumber = Math.random() >= 0.5;
             dueDate.setDate(dueDate.getDate() + count);
             todoListViewModel.add(new Todo(id, 'Task ' + count, 'Description ' + id, x, dueDate, false));
+            */
     });
     document.querySelector("#styleSwitcher").addEventListener("change", function(e){
         var styleSwitcher = <HTMLSelectElement>e.target;
@@ -57,12 +61,11 @@ document.addEventListener("DOMContentLoaded", function() {
     todoListViewModel.render();
 });
 
-function createModal(id : string) {
-    var currentTodo : Todo = $.grep(todoListViewModel.todos, function(e){ return e.id == id; })[0];
+function createModal(todo : Todo) {
     var initHtml : string;
     initHtml = "";
     var template = this["P1"]["templates"]["edit"];
-    initHtml += template(currentTodo);
+    initHtml += template(todo);
     var footer = <HTMLElement>document.getElementsByClassName("footer").item(0);
     footer.innerHTML = initHtml;
     var modal = <HTMLElement>footer.querySelector(".modal");

@@ -4,7 +4,11 @@
 
         <span class="close">x</span>
 
-        <h3>{{title}}</h3>
+        {{#if title}}
+            <h3>{{title}}</h3>
+        {{else}}
+            <h3>New task</h3>
+        {{/if}}
 
         <form class="addFormLayout">
             <div class="field-item">

@@ -18,6 +18,10 @@ class TodoListViewModel {
         renderingTodoList(this.todos);
     }
 
+    get(id : string) {
+        return this._todoRepository.getTodo(id);
+    }
+
     update(todo : Todo) : void{
         this._todoRepository.updateTodo(todo);
         renderingTodoList(this.todos);
@@ -51,7 +55,8 @@ function renderingTodoList(todos : Array<Todo>){
     var test = <HTMLElement>document.getElementsByClassName("todolist").item(0);
     test.innerHTML = initHtml;
     Array.prototype.slice.call(document.getElementsByClassName("edit-todo")).forEach((node : HTMLElement)  => node.addEventListener("click", function(){
-        createModal(this.dataset["id"]);
+        var currentTodo = todoListViewModel.get(this.dataset["id"]);
+        createModal(currentTodo);
         //document.location.href = "add.html?id=" + this.dataset["id"];
     }));
 }
