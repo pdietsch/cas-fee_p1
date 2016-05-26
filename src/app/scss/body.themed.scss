@@ -383,6 +383,7 @@ form {
     float: right;
     button {
       @include button($secondary-color, $alternate-color, medium);
+      margin: 0;
     }
   }
   .prio {
@@ -446,11 +447,7 @@ form {
     float: right;
     font-size: 28px;
     font-weight: 300;
+    line-height: 1rem;
     cursor: pointer;
   }
-
-  button {
-    margin: 0 !important;
-  }
-
 }
