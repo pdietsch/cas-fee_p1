@@ -1,4 +1,4 @@
-var todoList = new TodoList();
+/*var todoList = new TodoListViewModel();
 
 for (var i = 0; i < 10; i++) {
     var dueDate = new Date();
@@ -10,4 +10,4 @@ for (var i = 0; i < 10; i++) {
     todoList.add(new Todo(guid(),"Task "+i, "Description "+i, x, dueDate, randomNumber));
 }
 
-console.log(todoList);
+console.log(todoList);*/
