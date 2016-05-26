@@ -19,6 +19,10 @@ class TodoListViewModel {
         this.renderingTodoList(this.todos);
     }
 
+    get(id : string) {
+        return this._todoRepository.getTodo(id);
+    }
+
     update(todo:Todo):void {
         this._todoRepository.updateTodo(todo);
         this.renderingTodoList(this.todos);
@@ -89,8 +93,13 @@ class TodoListViewModel {
         }));
     }
 
-    private createModal(id : string) {
-        var currentTodo : Todo = this.todos.filter((item : Todo) => item.id === id )[0];
+    public createModal(id : string) {
+        var currentTodo: Todo;
+        if(id === null){
+            currentTodo = new Todo(guid(),null,null,1,null);
+        }else {
+            currentTodo = this.todos.filter((item : Todo) => item.id === id )[0];
+        }
         var initHtml : string;
         initHtml = "";
         var template = window["P1"]["templates"]["edit"];
