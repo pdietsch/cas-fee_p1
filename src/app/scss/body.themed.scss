@@ -83,10 +83,6 @@ nav {
   transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
   -webkit-appearance: none;
   -moz-appearance: none;
-  &:valid {
-    border: 1px solid $secondary-color;
-    box-shadow: inset 0 1px 2px rgba(60, 211, 173, 0.3);
-  }
 }
 
 /* Layout */
@@ -358,6 +354,7 @@ nav {
 /* Form */
 
 form {
+  @extend %clearfix;
   .field-item {
     display: flex;
     flex-direction: row;
@@ -423,4 +420,37 @@ form {
 
 }
 
+/* Modal */
 
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 7% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  .close {
+    color: #000;
+    float: right;
+    font-size: 28px;
+    font-weight: 300;
+    cursor: pointer;
+  }
+
+  button {
+    margin: 0 !important;
+  }
+
+}

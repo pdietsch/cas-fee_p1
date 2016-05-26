@@ -6,7 +6,7 @@
 
 // Add dummy
 var count = 0;
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function() {
     document.querySelector(".add-todo").addEventListener("click", function () {
             count++;
             var id = guid();
@@ -14,8 +14,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             dueDate.setDate(dueDate.getDate() + count);
             todoList.add(new Todo(id, 'Task ' + id, 'Description ' + id, 1, dueDate, true));
             renderingTodoList(todoList.todos);
-        }
-    );
+    });
+    document.querySelector(".edit-todo").addEventListener("click", function () {
+        alert("Clicked");
+    });
     document.querySelector("#styleSwitcher").addEventListener("change", function(e){
         var styleSwitcher = <HTMLSelectElement>e.target;
         if(styleSwitcher.selectedIndex != 0){
@@ -62,8 +64,9 @@ function renderingTodoList(todos : Array<Todo>){
     });
     var test = <HTMLElement>document.getElementsByClassName("todolist").item(0);
     test.innerHTML = initHtml;
-    Array.prototype.slice.call(document.getElementsByClassName("edit-note")).forEach((node : HTMLElement)  => node.addEventListener("click", function(){
-        document.location.href = "add.html?id=" + this.dataset["id"];
+    Array.prototype.slice.call(document.getElementsByClassName("edit-todo")).forEach((node : HTMLElement)  => node.addEventListener("click", function(){
+        //document.location.href = "add.html?id=" + this.dataset["id"];
+        createModal(this.dataset["id"]);
     }));
 }
 
@@ -90,4 +93,26 @@ function sortList(prop : string) {
     }
 }
 
+function createModal(id : string) {
+    var currentTodo : Todo = $.grep(todoList.todos, function(e){ return e.id == id; })[0];
+    var initHtml : string;
+    initHtml = "";
+    var template = this["P1"]["templates"]["edit"];
+    initHtml += template(currentTodo);
+    var footer = <HTMLElement>document.getElementsByClassName("footer").item(0);
+    footer.innerHTML = initHtml;
+    var modal = <HTMLElement>footer.querySelector(".modal");
+    modal.style.display = "block";
 
+    var span = <HTMLElement>footer.getElementsByClassName("close")[0];
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+}

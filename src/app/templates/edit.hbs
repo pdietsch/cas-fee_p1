@@ -1,0 +1,64 @@
+<div class="modal">
+
+    <div class="modal-content">
+
+        <span class="close">x</span>
+
+        <h3>{{title}}</h3>
+
+        <form class="addFormLayout">
+            <div class="field-item">
+                <div class="label">
+                    <label for="title" id="title-">Titel</label>
+                </div>
+                <div class="value">
+                    <input value="{{title}}" id="title" name="title" type="text" required>
+                </div>
+            </div>
+            <div class="field-item">
+                <div class="label">
+                    <label for="desc">Description</label>
+                </div>
+                <div class="value">
+                    <textarea  id="desc" name="desc" rows="7" required>{{description}}</textarea>
+                </div>
+            </div>
+            <div class="field-item">
+                <div class="label">
+                    <label>Priority</label>
+                </div>
+                <div class="value">
+                    <div class="prio">
+                        <input type="radio" id="prio-6" name="priority" value="6" {{#ifCond priority 6}}checked{{/ifCond}}>
+                        <label for="prio-6"></label>
+                        <input type="radio" id="prio-5" name="priority" value="5" {{#ifCond priority 5}}checked{{/ifCond}}>
+                        <label for="prio-5"></label>
+                        <input type="radio" id="prio-4" name="priority" value="4" {{#ifCond priority 4}}checked{{/ifCond}}>
+                        <label for="prio-4"></label>
+                        <input type="radio" id="prio-3" name="priority" value="3" {{#ifCond priority 3}}checked{{/ifCond}}>
+                        <label for="prio-3"></label>
+                        <input type="radio" id="prio-2" name="priority" value="2" {{#ifCond priority 2}}checked{{/ifCond}}>
+                        <label for="prio-2"></label>
+                        <input type="radio" id="prio-1" name="priority" value="1" {{#ifCond priority 1}}checked{{/ifCond}}>
+                        <label for="prio-1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="field-item">
+                <div class="label">
+                    <label for="duedate">Complete till:</label>
+                </div>
+                <div class="value">
+                    <input value="{{dueDate}}" id="duedate" name="duedate" type="date" required>
+                </div>
+            </div>
+            <div class="field-item actions">
+                <div class="value">
+                    <button type="submit">Save</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
