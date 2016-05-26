@@ -12,15 +12,6 @@ document.addEventListener("DOMContentLoaded", function() {
     var count = 0;
     document.querySelector(".add-todo").addEventListener("click", function () {
         todoListViewModel.createModal(null);
-        count++;
-        var id = guid();
-        var dueDate = new Date();
-        var min = 1;
-        var max = 6;
-        var x = Math.floor(Math.random() * (max - min)) + min;
-        var randomNumber = Math.random() >= 0.5;
-        dueDate.setDate(dueDate.getDate() + count);
-        todoListViewModel.add(new Todo(id, 'Task ' + count, 'Description ' + id, x, dueDate, false));
     });
     document.querySelector("#styleSwitcher").addEventListener("change", function(e){
         var styleSwitcher = <HTMLSelectElement>e.target;

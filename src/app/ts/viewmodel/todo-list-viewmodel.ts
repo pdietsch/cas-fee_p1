@@ -3,53 +3,56 @@
  */
 class TodoListViewModel {
     get todos():Todo[] {
-        return this._todoRepository.todoList.filter(this._filter);
+        return this._todoRepository.todoList.filter(this._filter).sort(this.sortList(this._sortBy));
     }
-
+    private _defaultSortBy = "dueDate"
+    private _sortBy: string;
     private _filter:any;
     private _todoRepository:TodoRepository;
 
     constructor(todoRepository:TodoRepository) {
         this._todoRepository = todoRepository;
         this._filter = filterList("finished", false);
+        this._sortBy = this._defaultSortBy;
     }
 
-    add(todo:Todo):void {
+    private add(todo:Todo):void {
         this._todoRepository.addTodo(todo);
-        this.renderingTodoList(this.todos);
+        this.renderingTodoList();
     }
 
-    get(id : string) {
+    private get(id : string) {
         return this._todoRepository.getTodo(id);
     }
 
-    update(todo:Todo):void {
+    private update(todo:Todo):void {
         this._todoRepository.updateTodo(todo);
-        this.renderingTodoList(this.todos);
+        this.renderingTodoList();
     }
 
     setFilterFunction(param:(prop:string, expectedValue:boolean) => any):void {
         this._filter = param;
-        this.renderingTodoList(this.todos);
+        this.renderingTodoList();
     }
 
     sort(sortBy:string) {
         if (sortBy == null) {
-            this.renderingTodoList(this.todos);
+            this._sortBy = this._defaultSortBy
         } else {
-            this.renderingTodoList(this.todos.sort(this.sortList(sortBy)));
+            this._sortBy = sortBy;
         }
+        this.renderingTodoList();
     }
 
     setFinished(id:string) {
         var todo = this._todoRepository.getTodo(id);
         todo.finished = true;
         this._todoRepository.updateTodo(todo);
-        this.renderingTodoList(this.todos)
+        this.renderingTodoList()
     }
 
     render():void {
-        this.renderingTodoList(this.todos)
+        this.renderingTodoList()
     }
 
     private sortList(prop:string) {
@@ -75,12 +78,12 @@ class TodoListViewModel {
         }
     }
 
-    private renderingTodoList(todos : Array<Todo>) {
+    private renderingTodoList() {
         var self = this;
         var initHtml:string;
         initHtml = "";
         var template = window["P1"]["templates"]["todo"];
-        todos.forEach((currentNote) => {
+        this.todos.forEach((currentNote) => {
             initHtml += template(currentNote);
         });
         var test = <HTMLElement>document.getElementsByClassName("todolist").item(0);
@@ -94,11 +97,12 @@ class TodoListViewModel {
     }
 
     public createModal(id : string) {
+        var self = this;
         var currentTodo: Todo;
-        if(id === null){
-            currentTodo = new Todo(guid(),null,null,1,null);
-        }else {
+        if(id){
             currentTodo = this.todos.filter((item : Todo) => item.id === id )[0];
+        }else {
+            currentTodo = new Todo(null,null,null,1,null);
         }
         var initHtml : string;
         initHtml = "";
@@ -115,12 +119,32 @@ class TodoListViewModel {
             modal.style.display = "none";
         };
 
+        var saveButton = <HTMLElement>document.getElementById("save-todo-button");
+        saveButton.onclick = function(){
+            var todoJsonString = $("#save-todo-form").serializeArray();
+            let id = saveButton.dataset["id"];
+            var todo : Todo;
+            if(id){
+                self.update(TodoListViewModel.createTodo(id));
+            }else {
+                self.add(TodoListViewModel.createTodo(guid()));
+            }
+            modal.style.display = "none";
+        }
+
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
     }
+
+    private static createTodo(id) {
+        return new Todo(id, (<HTMLInputElement>document.getElementById("title")).value,
+            (<HTMLInputElement>document.getElementById("desc")).value,
+            +(<HTMLInputElement>document.querySelector('input[name = "priority"]:checked')).value,
+            new Date((<HTMLInputElement>document.getElementById("duedate")).value));
+    };
 }
 
 

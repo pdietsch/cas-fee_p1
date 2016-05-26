@@ -10,7 +10,7 @@
             <h3>New task</h3>
         {{/if}}
 
-        <form class="addFormLayout">
+        <form id="save-todo-form" class="addFormLayout">
             <div class="field-item">
                 <div class="label">
                     <label for="title" id="title-">Titel</label>
@@ -58,7 +58,7 @@
             </div>
             <div class="field-item actions">
                 <div class="value">
-                    <button type="submit">Save</button>
+                    <button id="save-todo-button" data-id="{{id}}" type="button">Save</button>
                 </div>
             </div>
         </form>
