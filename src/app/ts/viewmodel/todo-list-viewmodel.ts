@@ -50,8 +50,9 @@ function renderingTodoList(todos : Array<Todo>){
     });
     var test = <HTMLElement>document.getElementsByClassName("todolist").item(0);
     test.innerHTML = initHtml;
-    Array.prototype.slice.call(document.getElementsByClassName("edit-note")).forEach((node : HTMLElement)  => node.addEventListener("click", function(){
-        document.location.href = "add.html?id=" + this.dataset["id"];
+    Array.prototype.slice.call(document.getElementsByClassName("edit-todo")).forEach((node : HTMLElement)  => node.addEventListener("click", function(){
+        createModal(this.dataset["id"]);
+        //document.location.href = "add.html?id=" + this.dataset["id"];
     }));
 }
 
