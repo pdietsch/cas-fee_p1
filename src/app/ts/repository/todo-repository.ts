@@ -10,15 +10,17 @@ class TodoRepository{
             var json = JSON.parse(repository);
             for(var x in json){
                 var todo = new Todo("","","",0, new Date(),false);
-                todo.fillFromJSON(json[x])
+                todo.fillFromJSON(json[x]);
                 this._todoList.push(todo);
             }
         }
         console.log(this._todoList);
     }
 
-    public getTodo(id : string) : Todo{
-        return null;
+    public getTodo(id : string) : Todo {
+        return this._todoList.filter(function (todo) {
+            return todo.id === id;
+        })[0];
     }
 
     public updateTodo(todo : Todo){
