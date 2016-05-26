@@ -2,38 +2,39 @@
  * Created by Patrik on 26.05.2016.
  */
 class TodoListViewModel {
-    get todos():Todo[] {
-        return this._todoRepository.todoList.filter(this._filter);
-    }
 
     private _filter:any;
     private _todoRepository:TodoRepository;
+
+    get todos():Todo[] {
+        return this._todoRepository.todoList.filter(this._filter);
+    }
 
     constructor(todoRepository:TodoRepository) {
         this._todoRepository = todoRepository;
         this._filter = filterList("finished", false);
     }
 
-    add(todo:Todo):void {
+    public add(todo:Todo):void {
         this._todoRepository.addTodo(todo);
         this.renderingTodoList(this.todos);
     }
 
-    get(id : string) {
+    public get(id : string) {
         return this._todoRepository.getTodo(id);
     }
 
-    update(todo:Todo):void {
+    public update(todo:Todo):void {
         this._todoRepository.updateTodo(todo);
         this.renderingTodoList(this.todos);
     }
 
-    setFilterFunction(param:(prop:string, expectedValue:boolean) => any):void {
+    public setFilterFunction(param:(prop:string, expectedValue:boolean) => any):void {
         this._filter = param;
         this.renderingTodoList(this.todos);
     }
 
-    sort(sortBy:string) {
+    public sort(sortBy:string) {
         if (sortBy == null) {
             this.renderingTodoList(this.todos);
         } else {
@@ -41,14 +42,14 @@ class TodoListViewModel {
         }
     }
 
-    setFinished(id:string) {
+    public setFinished(id:string) {
         var todo = this._todoRepository.getTodo(id);
         todo.finished = true;
         this._todoRepository.updateTodo(todo);
         this.renderingTodoList(this.todos)
     }
 
-    render():void {
+    public render():void {
         this.renderingTodoList(this.todos)
     }
 
@@ -96,9 +97,9 @@ class TodoListViewModel {
     public createModal(id : string) {
         var currentTodo: Todo;
         if(id === null){
-            currentTodo = new Todo(guid(),null,null,1,null);
+            currentTodo = new Todo(null,null,null,1,null);
         }else {
-            currentTodo = this.todos.filter((item : Todo) => item.id === id )[0];
+            currentTodo = this.get(id);
         }
         var initHtml : string;
         initHtml = "";
