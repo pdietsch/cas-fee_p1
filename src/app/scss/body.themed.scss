@@ -1,6 +1,5 @@
 @import "ionicons-variables";
 @import "ionicons-font";
-@import "ionicons-icons";
 
 @import "variables";
 @import "mixins";
@@ -154,11 +153,56 @@ nav {
       flex: 3;
       text-align: right;
     }
+    span.icon:before {
+      @extend .ion;
+    }
+
+    /* sort due date */
+    &:nth-child(1) {
+      span.icon {
+        &:before {
+          content: $ionicon-var-ios-timer-outline;
+        }
+      }
+      a.active span.icon {
+        &:before {
+          content: $ionicon-var-ios-timer;
+        }
+      }
+    }
+
+    /* sort finsih date */
+    &:nth-child(2) {
+      span.icon {
+        &:before {
+          content: $ionicon-var-ios-time-outline;
+        }
+      }
+      a.active span.icon {
+        &:before {
+          content: $ionicon-var-ios-time;
+        }
+      }
+    }
+
+    /* sort priority */
+    &:nth-child(3) {
+      span.icon {
+        &:before {
+          content: $ionicon-var-ios-bolt-outline;
+        }
+      }
+      a.active span.icon {
+        &:before {
+          content: $ionicon-var-ios-bolt;
+        }
+      }
+    }
+
+    /* finish icon */
     &:last-child span.icon {
       &:before {
         content: $ionicon-var-ios-checkmark-outline;
-        @extend .ion;
-
       }
     }
     &:last-child a.active span.icon {
@@ -274,6 +318,10 @@ nav {
   }
   .title {
     font-weight: 600;
+    .icon:before {
+      content: $ionicon-var-ios-bolt;
+      @extend .ion;
+    }
   }
   .duedate {
     font-size: 0.7rem;
