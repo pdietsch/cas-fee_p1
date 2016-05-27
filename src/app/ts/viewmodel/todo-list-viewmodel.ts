@@ -11,10 +11,6 @@ class TodoListViewModel {
     private _filter:any;
     private _todoRepository:TodoRepository;
 
-    get todos():Todo[] {
-        return this._todoRepository.todoList.filter(this._filter);
-    }
-
     constructor(todoRepository:TodoRepository) {
         this._todoRepository = todoRepository;
         this._filter = filterList("finished", false);
@@ -23,6 +19,11 @@ class TodoListViewModel {
 
     private add(todo:Todo):void {
         this._todoRepository.addTodo(todo);
+        this.renderingTodoList();
+    }
+
+    private delete(id : string):void {
+        this._todoRepository.delete(id);
         this.renderingTodoList();
     }
 
@@ -96,12 +97,17 @@ class TodoListViewModel {
         Array.prototype.slice.call(document.getElementsByClassName("edit-todo")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
             self.createModal(this.dataset["id"]);
         }));
+        Array.prototype.slice.call(document.getElementsByClassName("delete-todo")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
+            self.delete(this.dataset["id"]);
+        }));
         Array.prototype.slice.call(document.getElementsByClassName("status pending")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
             self.setFinished(this.dataset["id"])
         }));
     }
 
     public createModal(id : string) {
+        //TODO Refactoring smaller methods
+
         var self = this;
         var currentTodo: Todo;
         if(id){
@@ -118,6 +124,12 @@ class TodoListViewModel {
         var modal = <HTMLElement>footer.querySelector(".modal");
         modal.style.display = "block";
 
+        if (!Modernizr.inputtypes.date) {
+            $('input[type=date]').datepicker({
+                // Consistent format with the HTML5 picker
+                dateFormat: 'yy-mm-dd'
+            });
+        }
         var span = <HTMLElement>footer.getElementsByClassName("close")[0];
 
         span.onclick = function() {
@@ -150,6 +162,7 @@ class TodoListViewModel {
             +(<HTMLInputElement>document.querySelector('input[name = "priority"]:checked')).value,
             new Date((<HTMLInputElement>document.getElementById("duedate")).value));
     };
+
 }
 
 

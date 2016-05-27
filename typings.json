@@ -1,6 +1,8 @@
 {
   "globalDependencies": {
     "handlebars": "registry:dt/handlebars#3.0.3+20160317120654",
-    "jquery": "registry:dt/jquery#1.10.0+20160417213236"
+    "jquery": "registry:dt/jquery#1.10.0+20160417213236",
+    "modernizr": "registry:dt/modernizr#3.2.0+20160417213236",
+    "jqueryui": "registry:dt/modernizr#1.9+20160417213236"
   }
 }
