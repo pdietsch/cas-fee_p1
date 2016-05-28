@@ -315,6 +315,12 @@ nav {
   button {
     @include button($secondary-color, $alternate-color, small);
     margin-bottom: 0;
+    border: none;
+    &:hover {
+      background-color: transparent;
+      color: $primary-color;
+      border: none;
+    }
   }
   .title {
     font-weight: 600;
