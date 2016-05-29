@@ -330,7 +330,8 @@ nav {
     margin-bottom: 0;
 
     border: none;
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: transparent;
       color: $primary-color;
       border: none;
@@ -364,6 +365,8 @@ nav {
     }
     .status-text {
       margin-left: 4px;
+
+      font-size: 0.8rem;
     }
     .status-icon {
       position: relative;
@@ -549,5 +552,21 @@ form {
     font-weight: 300;
     line-height: 1rem;
     cursor: pointer;
+  }
+}
+
+/* List actions */
+.list-actions {
+  margin-top: 10px;
+  button {
+    @include button($secondary-color, $alternate-color, small);
+    float: right;
+    margin-bottom: 0;
+    span:before{
+      content: $ionicon-var-trash-a;
+      display: inline-block;
+      @extend .ion;
+      margin-right: 5px;
+    }
   }
 }

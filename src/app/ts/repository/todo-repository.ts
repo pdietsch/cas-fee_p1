@@ -14,7 +14,6 @@ class TodoRepository{
                 this._todoList.push(todo);
             }
         }
-        console.log(this._todoList);
     }
 
     public getTodo(id : string) : Todo{
@@ -40,6 +39,11 @@ class TodoRepository{
     public delete(id : string){
         var index = this._todoList.indexOf(this.getTodo(id));
         this._todoList.splice(index, 1);
+        this.saveRepository();
+    }
+
+    public clearList(){
+        this._todoList = [];
         this.saveRepository();
     }
 

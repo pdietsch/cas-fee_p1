@@ -2,9 +2,7 @@
     <div class="date">
         <div class="duedate">{{formatRelative dueDate unit="days"}}</div>
         <div data-id="{{id}}" class="status {{#if finished}}finished{{else}}pending{{/if}}">
-            <span class="status-icon"></span><span
-                class="status-text">Finished</span>
-            {{#if finished}}<span class="finished">{{formatDate finishedDate day="2-digit" month="2-digit" year="numeric"}}</span>{{/if}}
+            <span class="status-icon"></span><span class="status-text">Finished {{#if finished}}at {{formatDate finishedDate day="2-digit" month="2-digit" year="numeric"}}{{/if}}</span>
         </div>
     </div>
     <div class="todo">

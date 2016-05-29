@@ -23,7 +23,8 @@
   color: $color;
   background-color: transparent;
   outline: 0;
-  &:hover {
+  &:hover,
+  &:focus {
     border: 1px solid $color-hover;
     background-color: $color-hover;
     color: #fff;

@@ -24,6 +24,11 @@ class TodoListViewModel {
         this.renderingTodoList();
     }
 
+    private clearList():void {
+        this._todoRepository.clearList();
+        this.renderingTodoList();
+    }
+
     private get(id : string) {
         return this._todoRepository.getTodo(id);
     }
@@ -82,8 +87,7 @@ class TodoListViewModel {
 
     private renderingTodoList() {
         var self = this;
-        var initHtml:string;
-        initHtml = "";
+        var initHtml : string = "";
         var template = window["P1"]["templates"]["todo"];
         this.todos.forEach((currentTodo) => {
             initHtml += template(currentTodo);
@@ -102,6 +106,16 @@ class TodoListViewModel {
         Array.prototype.slice.call(document.getElementsByClassName("show-more")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
             self.showMore(this);
         }));
+
+        if(this.todos.length > 0){
+            var z = <HTMLElement>document.createElement("div");
+            z.className = "list-actions";
+            z.innerHTML = '<button class="clear-todos"><span></span> Clear list</button>';
+            todolistElement.appendChild(z);
+            z.firstChild.addEventListener("click", function () {
+                self.clearList();
+            });
+        }
     }
 
     public createModal(id : string) {
@@ -164,7 +178,7 @@ class TodoListViewModel {
             new Date((<HTMLInputElement>document.getElementById("duedate")).value));
     };
 
-    private showMore(element : any) {
+    public showMore(element : any) {
         if (element.className == "show-more inactive") {
             element.className = "show-more active";
             element.previousElementSibling.previousElementSibling.style.display = "none";

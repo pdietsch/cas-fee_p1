@@ -60,7 +60,7 @@ gulp.task('ts', function () {
 
 // Copy all resources that are not Sass files into build directory.
 gulp.task("resources", function() {
-    return gulp.src(["src/**/*", '!src/app/{scss,scss/**}', "!**/*.scss", "!src/app/{ts,ts/**}", "!**/*.ts","!**/*.hbs"])
+    return gulp.src(["src/**/*", '!src/app/{scss,scss/**,ts,ts/**,templates}', "!**/*.scss", "!**/*.ts", "!**/*.hbs"])
         .pipe(gulp.dest("dist"))
         .pipe(browserSync.stream({once: true}));
 });

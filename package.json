@@ -13,18 +13,19 @@
     "postinstall": "typings install"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-sass": "^2.3.1",
-    "gulp-typescript": "^2.13.4",
-    "typings": "^1.0.4",
     "browser-sync": "2.12.8",
     "del": "^2.2.0",
-    "gulp-handlebars": "^4.0.0",
-    "gulp-wrap": "^0.11.0",
-    "gulp-declare": "^0.3.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
     "gulp-concat": "^2.6.0",
+    "gulp-declare": "^0.3.0",
+    "gulp-handlebars": "^4.0.0",
+    "gulp-sass": "^2.3.1",
+    "gulp-sass-themes": "^1.2.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-typescript": "^2.13.4",
+    "gulp-wrap": "^0.11.0",
     "handlebars": "^4.0.5",
-    "gulp-sass-themes": "^1.2.0"
+    "typings": "^1.0.4"
   }
 }
