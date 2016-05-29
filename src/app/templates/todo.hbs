@@ -13,15 +13,14 @@
             <span class="icon"></span>
             {{/times}}
         </div>
-        <div class="desc">{{description}}</div>
+        <div class="desc">
+            {{truncate description 70}}
+        </div>
     </div>
-
     <div class="actions">
     {{#unless  finished}}
         <button class="edit-todo" data-id="{{id}}"><span></span></button>
     {{/unless}}
         <button class="delete-todo" data-id="{{id}}"><span></span></button>
     </div>
-
-
 </div>

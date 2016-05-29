@@ -1,12 +1,9 @@
-/**
- * Created by Patrik on 26.05.2016.
- */
 class TodoListViewModel {
 
     get todos():Todo[] {
         return this._todoRepository.todoList.filter(this._filter).sort(this.sortList(this._sortBy));
     }
-    private _defaultSortBy = "dueDate"
+    private _defaultSortBy = "dueDate";
     private _sortBy: string;
     private _filter:any;
     private _todoRepository:TodoRepository;
@@ -54,15 +51,14 @@ class TodoListViewModel {
         var todo = this._todoRepository.getTodo(id);
         todo.finished = true;
         this._todoRepository.updateTodo(todo);
-        this.renderingTodoList()
+        this.renderingTodoList();
     }
 
     render():void {
-        this.renderingTodoList()
+        this.renderingTodoList();
     }
 
     private sortList(prop:string) {
-        console.log(prop);
         return function (a:any, b:any) {
             if (prop.indexOf("Date") > -1) {
                 if (a[prop] < b[prop]) {
@@ -89,11 +85,11 @@ class TodoListViewModel {
         var initHtml:string;
         initHtml = "";
         var template = window["P1"]["templates"]["todo"];
-        this.todos.forEach((currentNote) => {
-            initHtml += template(currentNote);
+        this.todos.forEach((currentTodo) => {
+            initHtml += template(currentTodo);
         });
-        var test = <HTMLElement>document.getElementsByClassName("todolist").item(0);
-        test.innerHTML = initHtml;
+        var todolistElement = <HTMLElement>document.getElementsByClassName("todolist").item(0);
+        todolistElement.innerHTML = initHtml;
         Array.prototype.slice.call(document.getElementsByClassName("edit-todo")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
             self.createModal(this.dataset["id"]);
         }));
@@ -101,7 +97,10 @@ class TodoListViewModel {
             self.delete(this.dataset["id"]);
         }));
         Array.prototype.slice.call(document.getElementsByClassName("status pending")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
-            self.setFinished(this.dataset["id"])
+            self.setFinished(this.dataset["id"]);
+        }));
+        Array.prototype.slice.call(document.getElementsByClassName("show-more")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
+            self.showMore(this);
         }));
     }
 
@@ -143,11 +142,13 @@ class TodoListViewModel {
             var todo : Todo;
             if(id){
                 self.update(TodoListViewModel.createTodo(id));
-            }else {
-                self.add(TodoListViewModel.createTodo(guid()));
+            } else {
+                setTimeout(function(){
+                    self.add(TodoListViewModel.createTodo(guid()));
+                }, 500);
             }
             modal.style.display = "none";
-        }
+        };
 
         window.onclick = function(event) {
             if (event.target == modal) {
@@ -163,11 +164,19 @@ class TodoListViewModel {
             new Date((<HTMLInputElement>document.getElementById("duedate")).value));
     };
 
+    private showMore(element : any) {
+        if (element.className == "show-more inactive") {
+            element.className = "show-more active";
+            element.previousElementSibling.previousElementSibling.style.display = "none";
+            element.previousElementSibling.style.display = "inline";
+        } else {
+            element.className = "show-more inactive";
+            element.previousElementSibling.previousElementSibling.style.display = "inline";
+            element.previousElementSibling.style.display = "none";
+        }
+    };
+
 }
-
-
-
-
 
 function filterList(prop : string, expectedValue : boolean) {
     return function(a: any) {

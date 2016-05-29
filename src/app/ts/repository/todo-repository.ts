@@ -1,5 +1,5 @@
 /// <reference path="../common/todo.ts"/>
-let repositoryKey : string = "todo-repository"
+let repositoryKey : string = "todo-repository";
 class TodoRepository{
     private _todoList : Todo[];
     public constructor(){
@@ -10,7 +10,7 @@ class TodoRepository{
             var json = JSON.parse(repository);
             for(var x in json){
                 var todo = new Todo("","","",0, new Date(),false);
-                todo.fillFromJSON(json[x])
+                todo.fillFromJSON(json[x]);
                 this._todoList.push(todo);
             }
         }
@@ -18,7 +18,7 @@ class TodoRepository{
     }
 
     public getTodo(id : string) : Todo{
-        var result = this._todoList.filter((itme : Todo) => itme.id === id);
+        var result = this._todoList.filter((item : Todo) => item.id === id);
         if(result.length > 0){
             return result[0];
         }
@@ -31,7 +31,7 @@ class TodoRepository{
             var index = this._todoList.indexOf(oldTodo);
             this._todoList[index] = todo;
             this.saveRepository();
-        }else {
+        } else {
             console.error("Could not found todo in repository to update")
         }
 

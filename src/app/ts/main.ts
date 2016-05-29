@@ -8,8 +8,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     var repository = new TodoRepository();
     var todoListViewModel = new TodoListViewModel(repository);
-    // Add dummy
-    var count = 0;
     document.querySelector(".add-todo").addEventListener("click", function () {
         todoListViewModel.createModal(null);
     });
