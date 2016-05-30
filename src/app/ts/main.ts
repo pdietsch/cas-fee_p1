@@ -11,13 +11,18 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector(".add-todo").addEventListener("click", function () {
         todoListViewModel.createModal(null);
     });
-    document.querySelector("#styleSwitcher").addEventListener("change", function(e){
-        var styleSwitcher = <HTMLSelectElement>e.target;
-        if(styleSwitcher.selectedIndex != 0){
+
+    var styleSwitcher = <HTMLElement>document.querySelector(".s-switcher ul");
+    for (var i = 0; i < styleSwitcher.children.length; i++) {
+        var childElement = <HTMLElement>styleSwitcher.children[i];
+        childElement.addEventListener('click', function(e) {
+            var clickedElement = <HTMLSelectElement>e.target;
+            var color = clickedElement.getAttribute("data-color");
             var theme = <HTMLLinkElement>document.querySelector("#theme");
-            theme.href = "css/body."+ styleSwitcher.value + ".css";
-        }
-    });
+            theme.href = "css/body."+ color + ".css";
+        });
+    }
+
     Array.prototype.slice.call(document.querySelectorAll(".sort-link")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
             Array.prototype.slice.call((<HTMLElement>node.parentNode.parentNode).querySelectorAll("a:not(.filter-link)"))
                 .forEach((otherSorts:HTMLElement) => otherSorts !== node ? HtmlHelper.removeClass(otherSorts, "active") : function () {
