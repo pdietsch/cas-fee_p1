@@ -253,11 +253,10 @@ nav {
       &:hover:not(.active) .text {
         text-decoration: underline;
       }
-    }
-  }
 
-  @media #{$breakpoint-small} {
-    li {
+    }
+
+    @media #{$breakpoint-small} {
       flex: 1;
       &:last-child {
         flex: 1;
@@ -267,14 +266,17 @@ nav {
       &:last-child a {
         border-right: 1px solid rgba(0, 0, 0, 0.07);
       }
-    }
-    a {
-      margin: 0.6rem 0;
-      &.active::after {
-        margin-top: 0.6rem;
+
+      &:not(:last-child) a {
+        &.active::after {
+          margin-top: 0.6rem;
+        }
       }
-      .text {
-        display: none;
+      a {
+        margin: 0.6rem 0;
+        .text {
+          display: none;
+        }
       }
     }
   }
@@ -292,34 +294,32 @@ nav {
 
     border-bottom: 1px solid $grey;
     background-color: #fff;
+
     .actions {
       text-align: right;
       flex: 3;
       order: 2;
-    }
-    .date {
-      order: 1;
-      flex: 2;
-    }
-    .todo {
-      order: 2;
-      flex: 5;
-    }
-    @media #{$breakpoint-small} {
-      align-items: center;
-      .actions {
+      @media #{$breakpoint-small} {
         flex: none;
         width: 50%;
         order: 2;
 
         text-align: right;
       }
-      .date {
+    }
+    .date {
+      order: 1;
+      flex: 2;
+      @media #{$breakpoint-small} {
         flex: none;
         width: 50%;
         order: 1;
       }
-      .todo {
+    }
+    .todo {
+      order: 2;
+      flex: 5;
+      @media #{$breakpoint-small} {
         flex: none;
         width: 100%;
         order: 3;
@@ -348,6 +348,9 @@ nav {
   }
   .full-desc {
     display: none;
+    &.active {
+      display: inline;
+    }
   }
   .show-more {
     cursor: pointer;
@@ -464,20 +467,20 @@ form {
     .label {
       order: 1;
       flex: 2;
+      @media #{$breakpoint-small} {
+        flex: 1;
+      }
     }
     .value {
       order: 2;
       flex: 6;
+      @media #{$breakpoint-small} {
+        flex: 1;
+      }
     }
     @media #{$breakpoint-small} {
       display: flex;
       flex-direction: column;
-      .label {
-        flex: 1;
-      }
-      .value {
-        flex: 1;
-      }
     }
   }
   .actions {
@@ -537,14 +540,25 @@ form {
 
   background-color: rgba(0,0,0,0.4);
 
+  @media #{$breakpoint-small} {
+    background-color: rgba(255,255,255,1);
+    padding-bottom: 20px;
+  }
+
   .modal-content {
     margin: 7% auto;
     padding: 20px;
     width: 80%;
 
-    border: 1px solid #888;
-    background-color: #fefefe;
+    background-color: #fff;
+
+    @media #{$breakpoint-small} {
+      margin: 0 auto;
+      width: 100%;
+      height: 100%;
+    }
   }
+
 
   .close {
     float: right;
@@ -563,7 +577,6 @@ form {
   button {
     @include button($secondary-color, $alternate-color, small);
     float: right;
-    margin-bottom: 0;
     span:before{
       content: $ionicon-var-trash-a;
       display: inline-block;

@@ -179,14 +179,14 @@ class TodoListViewModel {
     };
 
     public showMore(element : any) {
-        if (element.className == "show-more inactive") {
-            element.className = "show-more active";
-            element.previousElementSibling.previousElementSibling.style.display = "none";
-            element.previousElementSibling.style.display = "inline";
+        var fullDesc = element.parentElement.getElementsByClassName("full-desc")[0];
+        var desc = element.parentElement.getElementsByClassName("short-desc")[0];
+        if (fullDesc.className == "full-desc inactive") {
+            desc.style.display = "none";
+            fullDesc.className = "full-desc active";
         } else {
-            element.className = "show-more inactive";
-            element.previousElementSibling.previousElementSibling.style.display = "inline";
-            element.previousElementSibling.style.display = "none";
+            desc.style.display = "inline";
+            fullDesc.className = "full-desc inactive";
         }
     };
 

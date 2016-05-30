@@ -28,7 +28,7 @@ Handlebars.registerHelper ('truncate', function (str, len) {
         new_str = str.substr (0, new_str.lastIndexOf(" "));
         new_str = (new_str.length > 0) ? new_str : str.substr (0, len);
 
-        return new Handlebars.SafeString ('<span class="short-name">'+new_str+'</span> <span class="full-desc">' +str + '</span> <span class="show-more inactive">[...]</span>');
+        return new Handlebars.SafeString ('<span class="short-desc">'+new_str+'</span> <span class="full-desc inactive">' +str + '</span> <span class="show-more">[...]</span>');
     }
     return str;
 });
