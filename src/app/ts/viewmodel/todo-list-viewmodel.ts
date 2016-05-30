@@ -1,9 +1,8 @@
+const defaultSortBy : string = "dueDate";
 class TodoListViewModel {
-
     get todos():Todo[] {
         return this._todoRepository.todoList.filter(this._filter).sort(this.sortList(this._sortBy));
     }
-    private _defaultSortBy = "dueDate";
     private _sortBy: string;
     private _filter:any;
     private _todoRepository:TodoRepository;
@@ -11,7 +10,7 @@ class TodoListViewModel {
     constructor(todoRepository:TodoRepository) {
         this._todoRepository = todoRepository;
         this._filter = filterList("finished", false);
-        this._sortBy = this._defaultSortBy;
+        this._sortBy = defaultSortBy;
     }
 
     private add(todo:Todo):void {
@@ -45,7 +44,7 @@ class TodoListViewModel {
 
     public sort(sortBy:string) {
         if (sortBy == null) {
-            this._sortBy = this._defaultSortBy
+            this._sortBy = defaultSortBy;
         } else {
             this._sortBy = sortBy;
         }

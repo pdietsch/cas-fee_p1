@@ -1,5 +1,5 @@
 /// <reference path="../common/todo.ts"/>
-let repositoryKey : string = "todo-repository";
+const repositoryKey : string = "todo-repository";
 class TodoRepository{
     private _todoList : Todo[];
     public constructor(){
