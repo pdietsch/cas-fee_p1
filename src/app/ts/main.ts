@@ -12,16 +12,12 @@ document.addEventListener("DOMContentLoaded", function() {
         todoListViewModel.createModal(null);
     });
 
-    var styleSwitcher = <HTMLElement>document.querySelector(".s-switcher ul");
-    for (var i = 0; i < styleSwitcher.children.length; i++) {
-        var childElement = <HTMLElement>styleSwitcher.children[i];
-        childElement.addEventListener('click', function(e) {
-            var clickedElement = <HTMLSelectElement>e.target;
-            var color = clickedElement.getAttribute("data-color");
+    Array.prototype.slice.call(document.querySelectorAll(".s-switcher ul li")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
+            var color = node.firstElementChild.getAttribute("data-color");
             var theme = <HTMLLinkElement>document.querySelector("#theme");
             theme.href = "css/body."+ color + ".css";
-        });
-    }
+        }
+    ));
 
     Array.prototype.slice.call(document.querySelectorAll(".sort-link")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
             Array.prototype.slice.call((<HTMLElement>node.parentNode.parentNode).querySelectorAll("a:not(.filter-link)"))

@@ -149,10 +149,10 @@ class TodoListViewModel {
             modal.style.display = "none";
         };
 
-        var saveButton = <HTMLElement>document.getElementById("save-todo-button");
-        saveButton.onclick = function(){
+        var form = <HTMLElement>document.getElementById("todo-form");
+        form.addEventListener('submit', function (e) {
             var todoJsonString = $("#save-todo-form").serializeArray();
-            let id = saveButton.dataset["id"];
+            let id = form.dataset["id"];
             var todo : Todo;
             if(id){
                 self.update(TodoListViewModel.createTodo(id));
@@ -162,7 +162,8 @@ class TodoListViewModel {
                 }, 500);
             }
             modal.style.display = "none";
-        };
+            e.preventDefault();
+        });
 
         window.onclick = function(event) {
             if (event.target == modal) {
