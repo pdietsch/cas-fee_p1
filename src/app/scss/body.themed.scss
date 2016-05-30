@@ -114,6 +114,8 @@ nav {
 
 .header {
   background: linear-gradient(to right, $primary-color, $secondary-color);
+  /* Safari fix */
+  flex: 0 0 auto;
 }
 
 .header {
@@ -285,7 +287,6 @@ nav {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: center;
     padding: 10px 20px;
 
@@ -328,6 +329,7 @@ nav {
   button {
     @include button($secondary-color, $alternate-color, small);
     margin-bottom: 0;
+    padding: 1em 0.85em;
 
     border: none;
     &:hover,
