@@ -1,0 +1,10 @@
+@import "ionicons-variables";
+@import "ionicons-font";
+
+.ui-widget-header .ui-icon{
+background-image: none;
+&:before {
+    content: $ionicon-var-ios-circle-outline;
+    @extend .ion;
+}
+}
