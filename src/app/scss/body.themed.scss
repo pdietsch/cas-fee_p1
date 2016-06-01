@@ -297,7 +297,7 @@ nav {
 
     .actions {
       text-align: right;
-      flex: 3;
+      flex: 1;
       order: 2;
       @media #{$breakpoint-small} {
         flex: none;
@@ -324,7 +324,7 @@ nav {
     }
     .date {
       order: 1;
-      flex: 2;
+      flex: 1;
       @media #{$breakpoint-small} {
         flex: none;
         width: 50%;
@@ -364,7 +364,8 @@ nav {
   .full-desc {
     display: none;
     &.active {
-      display: inline;
+      display: block;
+      word-break: break-all;
     }
   }
   .show-more {

@@ -12,7 +12,15 @@
             {{/times}}
         </div>
         <div class="desc">
+            <span class="short-desc">
             {{truncate description 70}}
+            </span>
+            {{#ifCond 70 description.length }}
+            <span class="full-desc inactive">
+                {{description}}
+            </span>
+            <span class="show-more">[...]</span>
+            {{/ifCond}}
         </div>
     </div>
     <div class="actions">
