@@ -60,6 +60,7 @@ class TodoListViewModel {
 
     render():void {
         this.renderingTodoList();
+        this.renderingFilter();
     }
 
     private sortList(prop:string) {
@@ -114,6 +115,49 @@ class TodoListViewModel {
             z.firstChild.addEventListener("click", function () {
                 self.clearList();
             });
+        }
+    }
+
+    private renderingFilter() {
+        var filter = {
+            sortBy: "dueDate",
+            filterBy: ""
+        };
+        var self = this;
+        var initHtml : string = "";
+        var filterElement = <HTMLElement>document.getElementsByClassName("filter").item(0);
+        createFilter(filter);
+
+        function createFilter(filter){
+            console.log(filter);
+            var template = window["P1"]["templates"]["filter"];
+            initHtml = template(filter);
+            filterElement.innerHTML = initHtml;
+
+            Array.prototype.slice.call(document.querySelectorAll(".sort-link")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
+                    var clickedSortBy = node.dataset["sortby"];
+                    if(!HtmlHelper.hasClass(node, "active")) {
+                        self.sort(clickedSortBy);
+                        filter.sortBy = clickedSortBy;
+                        createFilter(filter);
+                    }
+                }
+            ));
+            Array.prototype.slice.call(document.querySelectorAll(".filter-link")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
+                    var filterBy = node.dataset["filterby"];
+                    if (HtmlHelper.hasClass(node, "active")) {
+                        self.setFilterFunction(filterList(filterBy, false));
+                        filter.filterBy = "";
+                        filter.sortBy = "dueDate";
+                        createFilter(filter);
+                    } else {
+                        self.setFilterFunction(filterList(filterBy, true));
+                        filter.filterBy = filterBy;
+                        filter.sortBy = "finishedDate";
+                        createFilter(filter);
+                    }
+                }
+            ));
         }
     }
 

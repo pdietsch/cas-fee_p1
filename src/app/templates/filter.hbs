@@ -1,0 +1,20 @@
+<div class="wrapper">
+    <ul role="group">
+        {{#if_eq filterBy ""}}
+        <li role="menuitem">
+            <a class="sort-link {{#if_eq sortBy "dueDate"}}active{{/if_eq}}" data-sortby="dueDate" href="#"><span class="icon"></span><span class="text">By due Date</span></a>
+        </li>
+        {{/if_eq}}
+        {{#if_eq filterBy "finished"}}
+        <li role="menuitem">
+            <a class="sort-link {{#if_eq sortBy "finishedDate"}}active{{/if_eq}}" data-sortby="finishedDate" href="#"><span class="icon"></span><span class="text">By finish Date</span></a>
+        </li>
+        {{/if_eq}}
+        <li role="menuitem">
+            <a class="sort-link {{#if_eq sortBy "priority"}}active{{/if_eq}}" data-sortby="priority" href="#"><span class="icon"></span><span class="text">By importance</span></a>
+        </li>
+        <li role="menuitem">
+            <a class="filter-link {{#if_eq filterBy "finished"}}active{{/if_eq}}" data-filterby="finished" href="#"><span class="icon"></span><span class="text">Show finished</span></a>
+        </li>
+    </ul>
+</div>

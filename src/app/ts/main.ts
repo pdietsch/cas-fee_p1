@@ -19,31 +19,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     ));
 
-    Array.prototype.slice.call(document.querySelectorAll(".sort-link")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
-            Array.prototype.slice.call((<HTMLElement>node.parentNode.parentNode).querySelectorAll("a:not(.filter-link)"))
-                .forEach((otherSorts:HTMLElement) => otherSorts !== node ? HtmlHelper.removeClass(otherSorts, "active") : function () {
-                });
-            var sortBy = node.dataset["sortby"];
-            if (HtmlHelper.hasClass(node, "active")) {
-                HtmlHelper.removeClass(node, "active");
-                todoListViewModel.sort(null);
-            } else {
-                HtmlHelper.addClass(node, "active");
-                todoListViewModel.sort(sortBy);
-            }
-        }
-    ));
-    Array.prototype.slice.call(document.querySelectorAll(".filter-link")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
-            var filterBy = node.dataset["filterby"];
-            if (HtmlHelper.hasClass(node, "active")) {
-                HtmlHelper.removeClass(node, "active");
-                todoListViewModel.setFilterFunction(filterList(filterBy, false));
-            } else {
-                HtmlHelper.addClass(node, "active");
-                todoListViewModel.setFilterFunction(filterList(filterBy, true));
-            }
-        }
-    ));
     todoListViewModel.render();
 });
 
