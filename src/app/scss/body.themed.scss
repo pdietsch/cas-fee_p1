@@ -609,3 +609,39 @@ form {
     }
   }
 }
+
+/* jQuery UI fix */
+
+.ui-datepicker .ui-datepicker-title {
+  line-height: 1.5em;
+}
+
+.ui-datepicker .ui-datepicker-prev span,
+.ui-datepicker .ui-datepicker-next span {
+  display: block;
+  position: relative;
+  margin-left: 0;
+  top: 2px;
+  margin-top: 0;
+  z-index: 2;
+  text-indent: 0;
+  left: 38%;
+}
+
+.ui-widget-header .ui-icon {
+  background-image: none;
+}
+
+.ui-datepicker .ui-datepicker-prev {
+  span:before {
+    content: $ionicon-var-ios-arrow-left;
+    @extend .ion;
+  }
+}
+
+.ui-datepicker .ui-datepicker-next {
+  span:before {
+    content: $ionicon-var-ios-arrow-right;
+    @extend .ion;
+  }
+}
