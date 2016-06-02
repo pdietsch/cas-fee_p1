@@ -1,4 +1,4 @@
-<div role="listitem" class="listitem">
+<li class="listitem">
     <div class="date">
         {{#unless  finished}}<div class="duedate">{{formatRelative dueDate unit="days"}}</div>{{/unless}}
         {{#if finished}}<div class="finisheddate">{{formatRelative finishedDate day="2-digit" month="2-digit" year="numeric"}}</div>{{/if}}
@@ -30,4 +30,4 @@
     {{/unless}}
         <button class="delete-todo" data-id="{{id}}"><span></span></button>
     </div>
-</div>
+</li>

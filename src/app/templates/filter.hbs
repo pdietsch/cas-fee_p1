@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <ul role="group">
+    <ul role="group" role="toolbar" aria-label="sorting options" aria-controls="sortable">
         {{#if_eq filterBy ""}}
         <li role="menuitem">
             <a class="sort-link {{#if_eq sortBy "dueDate"}}active{{/if_eq}}" data-sortby="dueDate" href="#"><span class="icon"></span><span class="text">By due Date</span></a>

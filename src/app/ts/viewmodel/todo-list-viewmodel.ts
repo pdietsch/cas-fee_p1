@@ -107,15 +107,17 @@ class TodoListViewModel {
             self.showMore(this);
         }));
 
+        /*
         if(this.todos.length > 0){
             var z = <HTMLElement>document.createElement("div");
             z.className = "list-actions";
             z.innerHTML = '<button class="clear-todos"><span></span> Clear list</button>';
-            todolistElement.appendChild(z);
+            todolistElement.parentElement.appendChild(z);
             z.firstChild.addEventListener("click", function () {
                 self.clearList();
             });
         }
+        */
     }
 
     private renderingFilter() {

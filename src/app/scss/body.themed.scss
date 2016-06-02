@@ -122,17 +122,25 @@ nav {
   .header-content {
     @extend %clearfix;
     padding: 1rem 0 1rem 0;
+    display: flex;
   }
   button {
     @include button(#fff, $alternate-color, medium);
     margin: 0;
   }
   nav {
-    float: left;
+    flex: 1;
     li {
       float: left;
       margin-right: 5px;
     }
+  }
+  .title h1 {
+    padding: 0;
+    margin: 0;
+    color: #fff;
+    border: none;
+    font-size: 1.8rem;
   }
 }
 
@@ -415,6 +423,7 @@ nav {
 /* Style switcher */
 
 .s-switcher {
+  flex: 1;
   .dropdown {
     float: right;
     position: relative;
