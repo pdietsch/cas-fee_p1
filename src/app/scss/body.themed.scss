@@ -331,6 +331,9 @@ nav {
         order: 1;
       }
     }
+    .completed {
+      text-decoration: line-through;
+    }
     .todo {
       order: 2;
       flex: 5;
@@ -371,7 +374,8 @@ nav {
   .show-more {
     cursor: pointer;
   }
-  .duedate {
+  .duedate,
+  .finisheddate{
     font-size: 0.7rem;
   }
   .status {

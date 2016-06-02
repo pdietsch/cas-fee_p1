@@ -1,17 +1,19 @@
 <div role="listitem" class="listitem">
     <div class="date">
-    {{#unless  finished}}<div class="duedate">{{formatRelative dueDate unit="days"}}</div>{{/unless}}
+        {{#unless  finished}}<div class="duedate">{{formatRelative dueDate unit="days"}}</div>{{/unless}}
+        {{#if finished}}<div class="finisheddate">{{formatRelative finishedDate day="2-digit" month="2-digit" year="numeric"}}</div>{{/if}}
         <div data-id="{{id}}" class="status {{#if finished}}finished{{else}}pending{{/if}}">
-            <span class="status-icon"></span><span class="status-text">Finished {{#if finished}}at {{formatDate finishedDate day="2-digit" month="2-digit" year="numeric"}}{{/if}}</span>
+            <span class="status-icon"></span><span class="status-text">Finished</span>
         </div>
     </div>
     <div class="todo">
-        <div class="title">{{title}}
+        <div class="title">
+            <span class="{{#if finished}}completed{{/if}}">{{title}}</span>
             {{#times priority}}
             <span class="icon"></span>
             {{/times}}
         </div>
-        <div class="desc">
+        <div class="desc {{#if finished}}completed{{/if}}">
             <span class="short-desc">
             {{truncate description 70}}
             </span>
