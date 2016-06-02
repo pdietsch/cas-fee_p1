@@ -443,14 +443,30 @@ nav {
       right: 0;
       background-color: #fff;
       z-index: 1;
+      width: 100%;
       li {
         list-style-type: none;
-        border-bottom: 1px solid $grey;
+        padding: 10px 10px 0 10px;
+        &:last-child {
+          padding-bottom: 10px;
+        }
         a {
           display: block;
           padding: 0.5rem 0.85rem;
-          &.active {
-            font-weight: 600;
+          width: 100%;
+          height: 20px;
+          position: relative;
+          text-align: center;
+          outline: 1px solid $grey2;
+          border: 2px solid #fff;
+          &[data-color = "red"] {
+            background-color: #af043a;
+          }
+          &[data-color = "green"] {
+            background-color: #3cd3ad;
+          }
+          &[data-color = "blue"] {
+            background-color: #00c6ff;
           }
         }
       }

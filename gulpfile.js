@@ -46,7 +46,7 @@ gulp.task('templates', function(){
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
     return gulp.src("./src/app/scss/**/*.scss")
-        .pipe(sassThemes('themes', ['green', 'red']))
+        .pipe(sassThemes('themes', ['green', 'red', 'blue']))
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer({
             browsers: ['last 2 versions'],

@@ -12,10 +12,11 @@ document.addEventListener("DOMContentLoaded", function() {
         todoListViewModel.createModal(null);
     });
 
-    Array.prototype.slice.call(document.querySelectorAll(".s-switcher ul li")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
+    Array.prototype.slice.call(document.querySelectorAll(".s-switcher ul li")).forEach((node:HTMLElement) => node.addEventListener("click", function (e) {
             var color = node.firstElementChild.getAttribute("data-color");
             var theme = <HTMLLinkElement>document.querySelector("#theme");
             theme.href = "css/body."+ color + ".css";
+            e.preventDefault();
         }
     ));
 
