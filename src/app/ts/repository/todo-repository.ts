@@ -1,9 +1,17 @@
 /// <reference path="../common/todo.ts"/>
-const repositoryKey : string = "todo-repository";
+/// <reference path="../common/event.ts"/>
+const REPOSITORY_KEY : string = "todo-repository";
 class TodoRepository{
     private _todoList : Todo[];
+    private _todoChangedEvent : EventClass<EventArgs, TodoRepository>;
+
+    get todoList():Todo[] {
+        return this._todoList;
+    }
+
     public constructor(){
-        var repository = localStorage.getItem(repositoryKey);
+        let repository = localStorage.getItem(REPOSITORY_KEY);
+        this._todoChangedEvent = new EventClass();
         this._todoList = [];
         if(repository !== null){
 
@@ -42,21 +50,25 @@ class TodoRepository{
         this.saveRepository();
     }
 
-    public clearList(){
-        this._todoList = [];
-        this.saveRepository();
-    }
-
     public addTodo(todo : Todo){
         this._todoList.push(todo);
         this.saveRepository();
     }
 
-    get todoList():Todo[] {
-        return this._todoList;
+    public addEventListenerOnTodoChange(param:(sender : TodoRepository, eventArgs : EventArgs) => void){
+        this._todoChangedEvent.add(param);
     }
 
     private saveRepository(){
-        localStorage.setItem(repositoryKey,JSON.stringify(this._todoList));
+        localStorage.setItem(REPOSITORY_KEY,JSON.stringify(this._todoList));
+        this._todoChangedEvent.fire(this,new EventArgs());
+    }
+
+    public removeAll(todos:Todo[]):void {
+        todos.forEach((todo : Todo) =>{
+            var index = this._todoList.indexOf(todo);
+            this._todoList.splice(index, 1);
+        })
+        this.saveRepository();
     }
 }

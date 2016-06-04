@@ -1,45 +1,35 @@
 const defaultSortBy : string = "dueDate";
 class TodoListViewModel {
+    get filterFinished():boolean {
+        return this._filterFinished;
+    }
+    set filterFinished(value:boolean) {
+        this._filter = filterList("finished", value);
+        this._filterFinished = value;
+        this._propretyChangedEvent.fire(this,new EventArgs());
+    }
     get todos():Todo[] {
         return this._todoRepository.todoList.filter(this._filter).sort(this.sortList(this._sortBy));
     }
+
+    private _filterFinished : boolean;
     private _sortBy: string;
     private _filter:any;
     private _todoRepository:TodoRepository;
+    private _propretyChangedEvent : EventClass<EventArgs, TodoListViewModel>;
 
     constructor(todoRepository:TodoRepository) {
+
+        this._propretyChangedEvent = new EventClass();
         this._todoRepository = todoRepository;
+        this._todoRepository.addEventListenerOnTodoChange(this.onRepositoryChanged.bind(this));
         this._filter = filterList("finished", false);
+        this._filterFinished = false;
         this._sortBy = defaultSortBy;
     }
 
-    private add(todo:Todo):void {
-        this._todoRepository.addTodo(todo);
-        this.renderingTodoList();
-    }
-
-    private delete(id : string):void {
-        this._todoRepository.delete(id);
-        this.renderingTodoList();
-    }
-
-    private clearList():void {
-        this._todoRepository.clearList();
-        this.renderingTodoList();
-    }
-
-    private get(id : string) {
-        return this._todoRepository.getTodo(id);
-    }
-
-    private update(todo:Todo):void {
-        this._todoRepository.updateTodo(todo);
-        this.renderingTodoList();
-    }
-
-    public setFilterFunction(param:(prop:string, expectedValue:boolean) => any):void {
-        this._filter = param;
-        this.renderingTodoList();
+    private onRepositoryChanged(sender : TodoRepository, eventArgs : EventArgs){
+        this._propretyChangedEvent.fire(this,new EventArgs());
     }
 
     public sort(sortBy:string) {
@@ -48,21 +38,38 @@ class TodoListViewModel {
         } else {
             this._sortBy = sortBy;
         }
-        this.renderingTodoList();
+        this._propretyChangedEvent.fire(this,new EventArgs());
     }
 
     public setFinished(id:string) {
         var todo = this._todoRepository.getTodo(id);
         todo.finished = true;
         this._todoRepository.updateTodo(todo);
-        this.renderingTodoList();
     }
 
-    render():void {
-        this.renderingTodoList();
-        this.renderingFilter();
+    public add(todo:Todo):void {
+        this._todoRepository.addTodo(todo);
     }
 
+    public delete(id : string):void {
+        this._todoRepository.delete(id);
+    }
+
+    public clearList():void {
+        this._todoRepository.removeAll(this.todos);
+    }
+
+    private get(id : string) {
+        return this._todoRepository.getTodo(id);
+    }
+
+    public update(todo:Todo):void {
+        this._todoRepository.updateTodo(todo);
+    }
+
+    public addEventListenerOnPropertyChanged(param:(sender : TodoListViewModel,eventArgs : EventArgs) => void):void {
+        this._propretyChangedEvent.add(param);
+    }
     private sortList(prop:string) {
         return function (a:any, b:any) {
             if (prop.indexOf("Date") > -1) {
@@ -84,158 +91,6 @@ class TodoListViewModel {
             }
         }
     }
-
-    private renderingTodoList() {
-        var self = this;
-        var initHtml : string = "";
-        var template = window["P1"]["templates"]["todo"];
-        this.todos.forEach((currentTodo) => {
-            initHtml += template(currentTodo);
-        });
-        var todolistElement = <HTMLElement>document.getElementsByClassName("todolist").item(0);
-        todolistElement.innerHTML = initHtml;
-        Array.prototype.slice.call(document.getElementsByClassName("edit-todo")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
-            self.createModal(this.dataset["id"]);
-        }));
-        Array.prototype.slice.call(document.getElementsByClassName("delete-todo")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
-            self.delete(this.dataset["id"]);
-        }));
-        Array.prototype.slice.call(document.getElementsByClassName("status pending")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
-            self.setFinished(this.dataset["id"]);
-        }));
-        Array.prototype.slice.call(document.getElementsByClassName("show-more")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
-            self.showMore(this);
-        }));
-
-        /*
-        if(this.todos.length > 0){
-            var z = <HTMLElement>document.createElement("div");
-            z.className = "list-actions";
-            z.innerHTML = '<button class="clear-todos"><span></span> Clear list</button>';
-            todolistElement.parentElement.appendChild(z);
-            z.firstChild.addEventListener("click", function () {
-                self.clearList();
-            });
-        }
-        */
-    }
-
-    private renderingFilter() {
-        var filter = {
-            sortBy: "dueDate",
-            filterBy: ""
-        };
-        var self = this;
-        var initHtml : string = "";
-        var filterElement = <HTMLElement>document.getElementsByClassName("filter").item(0);
-        createFilter(filter);
-
-        function createFilter(filter){
-            console.log(filter);
-            var template = window["P1"]["templates"]["filter"];
-            initHtml = template(filter);
-            filterElement.innerHTML = initHtml;
-
-            Array.prototype.slice.call(document.querySelectorAll(".sort-link")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
-                    var clickedSortBy = node.dataset["sortby"];
-                    if(!HtmlHelper.hasClass(node, "active")) {
-                        self.sort(clickedSortBy);
-                        filter.sortBy = clickedSortBy;
-                        createFilter(filter);
-                    }
-                }
-            ));
-            Array.prototype.slice.call(document.querySelectorAll(".filter-link")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
-                    var filterBy = node.dataset["filterby"];
-                    if (HtmlHelper.hasClass(node, "active")) {
-                        self.setFilterFunction(filterList(filterBy, false));
-                        filter.filterBy = "";
-                        filter.sortBy = "dueDate";
-                        createFilter(filter);
-                    } else {
-                        self.setFilterFunction(filterList(filterBy, true));
-                        filter.filterBy = filterBy;
-                        filter.sortBy = "finishedDate";
-                        createFilter(filter);
-                    }
-                }
-            ));
-        }
-    }
-
-    public createModal(id : string) {
-        //TODO Refactoring smaller methods
-
-        var self = this;
-        var currentTodo: Todo;
-        if(id){
-            currentTodo = this.todos.filter((item : Todo) => item.id === id )[0];
-        }else {
-            currentTodo = new Todo(null,null,null,1,null);
-        }
-        var initHtml : string;
-        initHtml = "";
-        var template = window["P1"]["templates"]["edit"];
-        initHtml += template(currentTodo);
-        var footer = <HTMLElement>document.getElementsByClassName("footer").item(0);
-        footer.innerHTML = initHtml;
-        var modal = <HTMLElement>footer.querySelector(".modal");
-        modal.style.display = "block";
-
-        if (!Modernizr.inputtypes.date) {
-            $('input[type=date]').datepicker({
-                // Consistent format with the HTML5 picker
-                dateFormat: 'yy-mm-dd'
-            });
-        }
-        var span = <HTMLElement>footer.getElementsByClassName("close")[0];
-
-        span.onclick = function() {
-            modal.style.display = "none";
-        };
-
-        var form = <HTMLElement>document.getElementById("todo-form");
-        form.addEventListener('submit', function (e) {
-            var todoJsonString = $("#save-todo-form").serializeArray();
-            let id = form.dataset["id"];
-            var todo : Todo;
-            if(id){
-                self.update(TodoListViewModel.createTodo(id));
-            } else {
-                setTimeout(function(){
-                    self.add(TodoListViewModel.createTodo(guid()));
-                }, 500);
-            }
-            modal.style.display = "none";
-            e.preventDefault();
-        });
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    }
-
-    private static createTodo(id) {
-        return new Todo(id, (<HTMLInputElement>document.getElementById("title")).value,
-            (<HTMLInputElement>document.getElementById("desc")).value,
-            +(<HTMLInputElement>document.querySelector('input[name = "priority"]:checked')).value,
-            new Date((<HTMLInputElement>document.getElementById("duedate")).value));
-    };
-
-    public showMore(element : any) {
-        var fullDesc = element.parentElement.getElementsByClassName("full-desc")[0];
-        var desc = element.parentElement.getElementsByClassName("short-desc")[0];
-        if (fullDesc.className == "full-desc inactive") {
-            desc.style.display = "none";
-            fullDesc.className = "full-desc active";
-        } else {
-            desc.style.display = "inline";
-            fullDesc.className = "full-desc inactive";
-        }
-    };
-
 }
 
 function filterList(prop : string, expectedValue : boolean) {
