@@ -121,13 +121,13 @@
 
     function createModal(id : string, todoListViewModel : TodoListViewModel) {
         var currentTodo: Todo;
+        var initHtml : string = "";
+        var template = window["P1"]["templates"]["edit"];
         if(id){
             currentTodo = todoListViewModel.todos.filter((item : Todo) => item.id === id )[0];
         }else {
             currentTodo = new Todo(null,null,null,1,null);
         }
-        var initHtml : string = "";
-        var template = window["P1"]["templates"]["edit"];
         initHtml = template(currentTodo);
         var footer = <HTMLElement>document.getElementsByClassName("footer").item(0);
         footer.innerHTML = initHtml;
@@ -156,7 +156,11 @@
             if (event.target == modal) {
                 modal.style.display = "none";
             }
-        }
+        };
+
+        Array.prototype.slice.call(form.querySelectorAll(".prio label")).forEach((node:HTMLElement) => node.addEventListener("keypress", function () {
+            node.previousElementSibling.setAttribute('checked', 'checked');
+        }));
     }
 
     function checkFallbackDatePicker(){
@@ -184,5 +188,6 @@
             fullDesc.className = "full-desc inactive";
         }
     }
+
 }(window,document));
 
