@@ -11,7 +11,7 @@ class EventHandler<T extends EventArgs, U> implements IEventHandler<T,U>{
     }
 
     public remove(param:(sender:U, eventArgs:EventArgs)=>void) : void {
-        //TODO: Remove
+        this._subscribers.slice(this._subscribers.indexOf(param),1);
     }
 
     public fire(sender : U, eventArg : T) : void{
