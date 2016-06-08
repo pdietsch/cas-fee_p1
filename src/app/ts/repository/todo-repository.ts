@@ -3,15 +3,19 @@
 const REPOSITORY_KEY : string = "todo-repository";
 class TodoRepository{
     private _todoList : Todo[];
-    private _todoChangedEvent : EventClass<EventArgs, TodoRepository>;
-
+    private _todoChangedEvent : EventHandler<EventArgs, TodoRepository>;
     get todoList():Todo[] {
         return this._todoList;
     }
 
+
+    get todoChangedEvent():IEventHandler<EventArgs, TodoRepository> {
+        return this._todoChangedEvent;
+    }
+
     public constructor(){
         let repository = localStorage.getItem(REPOSITORY_KEY);
-        this._todoChangedEvent = new EventClass();
+        this._todoChangedEvent = new EventHandler();
         this._todoList = [];
         if(repository !== null){
 
@@ -53,10 +57,6 @@ class TodoRepository{
     public addTodo(todo : Todo){
         this._todoList.push(todo);
         this.saveRepository();
-    }
-
-    public addEventListenerOnTodoChange(param:(sender : TodoRepository, eventArgs : EventArgs) => void){
-        this._todoChangedEvent.add(param);
     }
 
     private saveRepository(){

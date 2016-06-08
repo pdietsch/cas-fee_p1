@@ -17,7 +17,7 @@
             <span class="short-desc">
             {{truncate description 70}}
             </span>
-            {{#ifCond 70 description.length }}
+            {{#ifCond description.length 70  }}
             <span class="full-desc inactive">
                 {{description}}
             </span><span class="show-more">[...]</span>

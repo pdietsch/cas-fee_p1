@@ -9,7 +9,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         var repository = new TodoRepository();
         var todoListViewModel = new TodoListViewModel(repository);
-        todoListViewModel.addEventListenerOnPropertyChanged(onPropertyChanged.bind(this));
+        todoListViewModel.propretyChangedEvent.add(onPropertyChanged.bind(this));
         document.querySelector(".add-todo").addEventListener("click", function () {
             createModal(null, todoListViewModel);
         });
@@ -109,7 +109,6 @@
     }
 
     function showHideClearListButton( todoListViewModel : TodoListViewModel){
-        debugger;
         if (todoListViewModel.todos.length > 0 && todoListViewModel.filterFinished) {
             var clearListButton = <HTMLElement>document.getElementsByClassName("clear-todos").item(0);
             HtmlHelper.removeClass(clearListButton, "hidden");

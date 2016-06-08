@@ -1,4 +1,4 @@
-class EventClass<T extends EventArgs, U> {
+class EventHandler<T extends EventArgs, U> implements IEventHandler<T,U>{
 
     private _subscribers:  ((sender: U,eventArg: T) => void)[];
 
@@ -17,6 +17,11 @@ class EventClass<T extends EventArgs, U> {
     public fire(sender : U, eventArg : T) : void{
         this._subscribers.forEach((sub) => {sub(sender,eventArg)})
     }
+}
+
+interface IEventHandler<T extends EventArgs, U> {
+    add(param:(sender:U, eventArgs:EventArgs)=>void);
+    remove(param:(sender:U, eventArgs:EventArgs)=>void);
 }
 
 class EventArgs{

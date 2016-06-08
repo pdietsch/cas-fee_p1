@@ -16,13 +16,17 @@ class TodoListViewModel {
     private _sortBy: string;
     private _filter:any;
     private _todoRepository:TodoRepository;
-    private _propretyChangedEvent : EventClass<EventArgs, TodoListViewModel>;
+    private _propretyChangedEvent : EventHandler<EventArgs, TodoListViewModel>;
+
+    get propretyChangedEvent():IEventHandler<EventArgs, TodoListViewModel> {
+        return this._propretyChangedEvent;
+    }
 
     constructor(todoRepository:TodoRepository) {
 
-        this._propretyChangedEvent = new EventClass();
+        this._propretyChangedEvent = new EventHandler();
         this._todoRepository = todoRepository;
-        this._todoRepository.addEventListenerOnTodoChange(this.onRepositoryChanged.bind(this));
+        this._todoRepository.todoChangedEvent.add(this.onRepositoryChanged.bind(this));
         this._filter = filterList("finished", false);
         this._filterFinished = false;
         this._sortBy = defaultSortBy;
@@ -67,9 +71,6 @@ class TodoListViewModel {
         this._todoRepository.updateTodo(todo);
     }
 
-    public addEventListenerOnPropertyChanged(param:(sender : TodoListViewModel,eventArgs : EventArgs) => void):void {
-        this._propretyChangedEvent.add(param);
-    }
     private sortList(prop:string) {
         return function (a:any, b:any) {
             if (prop.indexOf("Date") > -1) {
