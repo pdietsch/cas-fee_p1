@@ -182,9 +182,11 @@
         var fullDesc = element.parentElement.getElementsByClassName("full-desc")[0];
         var desc = element.parentElement.getElementsByClassName("short-desc")[0];
         if (fullDesc.className == "full-desc inactive") {
-            fullDesc.className = "full-desc active hidden";
+            fullDesc.className = "full-desc active";
+            desc.className = "short-desc hidden"
         } else {
             fullDesc.className = "full-desc inactive";
+            desc.className = "short-desc"
         }
     }
 
