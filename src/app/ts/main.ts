@@ -2,12 +2,13 @@
 /// <reference path="./util/html-helper"/>
 /// <reference path="./util/guid"/>
 /// <reference path="./common/todo.ts"/>
-/// <reference path="./repository/todo-repository.ts"/>
+/// <reference path="./repository/todo-repository-base.ts"/>
+/// <reference path="./repository/local-storage-todo-repository.ts"/>
 /// <reference path="./viewmodel/todo-list-viewmodel.ts"/>
 ;(function(window, document){
     'use strict';
     document.addEventListener("DOMContentLoaded", function() {
-        var repository = new TodoRepository();
+        var repository = new LocalStorageTodoRepository();
         var todoListViewModel = new TodoListViewModel(repository);
         todoListViewModel.propretyChangedEvent.add(onPropertyChanged.bind(this));
         document.querySelector(".add-todo").addEventListener("click", function () {
@@ -30,10 +31,10 @@
             render(sender);
         }
         render(todoListViewModel);
+        renderingFilter(todoListViewModel);
     });
 
     function render(todoListViewModel : TodoListViewModel){
-        renderingFilter(todoListViewModel);
         createTodoList(todoListViewModel);
         assignTodoEvents(todoListViewModel);
         showHideClearListButton(todoListViewModel);
@@ -125,7 +126,7 @@
         if(id){
             currentTodo = todoListViewModel.todos.filter((item : Todo) => item.id === id )[0];
         }else {
-            currentTodo = new Todo(null,null,null,1,null);
+            currentTodo = new Todo("");
         }
         initHtml = template(currentTodo);
         var footer = <HTMLElement>document.getElementsByClassName("footer").item(0);

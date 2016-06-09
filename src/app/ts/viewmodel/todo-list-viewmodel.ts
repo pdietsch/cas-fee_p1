@@ -15,14 +15,14 @@ class TodoListViewModel {
     private _filterFinished : boolean;
     private _sortBy: string;
     private _filter:any;
-    private _todoRepository:TodoRepository;
+    private _todoRepository:LocalStorageTodoRepository;
     private _propretyChangedEvent : EventHandler<EventArgs, TodoListViewModel>;
 
     get propretyChangedEvent():IEventHandler<EventArgs, TodoListViewModel> {
         return this._propretyChangedEvent;
     }
 
-    constructor(todoRepository:TodoRepository) {
+    constructor(todoRepository:LocalStorageTodoRepository) {
 
         this._propretyChangedEvent = new EventHandler();
         this._todoRepository = todoRepository;
@@ -32,7 +32,7 @@ class TodoListViewModel {
         this._sortBy = defaultSortBy;
     }
 
-    private onRepositoryChanged(sender : TodoRepository, eventArgs : EventArgs){
+    private onRepositoryChanged(sender : LocalStorageTodoRepository, eventArgs : EventArgs){
         this._propretyChangedEvent.fire(this,new EventArgs());
     }
 

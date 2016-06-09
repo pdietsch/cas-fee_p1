@@ -1,28 +1,26 @@
 /// <reference path="../common/todo.ts"/>
 /// <reference path="../common/event.ts"/>
-const REPOSITORY_KEY : string = "todo-repository";
-class TodoRepository{
-    private _todoList : Todo[];
-    private _todoChangedEvent : EventHandler<EventArgs, TodoRepository>;
+abstract class TodoRepositoryBase{
+    protected _todoList : Todo[];
+    protected _todoChangedEvent : EventHandler<EventArgs, TodoRepositoryBase>;
     get todoList():Todo[] {
         return this._todoList;
     }
 
 
-    get todoChangedEvent():IEventHandler<EventArgs, TodoRepository> {
+    get todoChangedEvent():IEventHandler<EventArgs, TodoRepositoryBase> {
         return this._todoChangedEvent;
     }
 
     public constructor(){
-        let repository = localStorage.getItem(REPOSITORY_KEY);
+        let repository = this.getAllTodos();
         this._todoChangedEvent = new EventHandler();
         this._todoList = [];
         if(repository !== null){
 
             var json = JSON.parse(repository);
             for(var x in json){
-                var todo = new Todo("","","",0, new Date(),false);
-                todo.fillFromJSON(json[x]);
+                var todo = new Todo(json[x]);
                 this._todoList.push(todo);
             }
         }
@@ -41,7 +39,7 @@ class TodoRepository{
         if(oldTodo != null){
             var index = this._todoList.indexOf(oldTodo);
             this._todoList[index] = todo;
-            this.saveRepository();
+            this.persistRepository();
         } else {
             console.error("Could not found todo in repository to update")
         }
@@ -51,24 +49,23 @@ class TodoRepository{
     public delete(id : string){
         var index = this._todoList.indexOf(this.getTodo(id));
         this._todoList.splice(index, 1);
-        this.saveRepository();
+        this.persistRepository();
     }
 
     public addTodo(todo : Todo){
         this._todoList.push(todo);
-        this.saveRepository();
+        this.persistRepository();
     }
 
-    private saveRepository(){
-        localStorage.setItem(REPOSITORY_KEY,JSON.stringify(this._todoList));
-        this._todoChangedEvent.fire(this,new EventArgs());
-    }
+    protected abstract getAllTodos() :string;
+
+    protected abstract persistRepository();
 
     public removeAll(todos:Todo[]):void {
         todos.forEach((todo : Todo) =>{
             var index = this._todoList.indexOf(todo);
             this._todoList.splice(index, 1);
         })
-        this.saveRepository();
+        this.persistRepository();
     }
 }

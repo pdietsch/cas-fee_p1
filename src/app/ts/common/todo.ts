@@ -1,7 +1,7 @@
 /// <reference path="../../../../typings/index.d.ts" />
 /// <reference path="./serializable.ts" />
 
-class Todo extends Serializable{
+class Todo{
     private _title : string;
     private _description : string;
     private _priority : number;
@@ -45,14 +45,28 @@ class Todo extends Serializable{
         return this._finishedDate;
     }
 
-    constructor(id : string, title : string, description : string, priority : number, dueDate : Date, finished :boolean = false){
-        super();
-        this._id = id;
-        this._title = title;
-        this._description = description;
-        this._priority = priority;
-        this._dueDate = dueDate;
-        this._finishedDate = null;
-        this._finished = finished;
+    constructor(id : string | any, title? : string, description? : string, priority : number = 1, dueDate? : Date, finished :boolean = false){
+        if(typeof id === "object"){
+            this.createFromJsonObject(id);
+        }else{
+            this._id = id;
+            this._title = title;
+            this._description = description;
+            this._priority = priority;
+            this._dueDate = dueDate;
+            this._finishedDate = null;
+            this._finished = finished;
+        }
+
     }
+
+    private createFromJsonObject(json : any) {
+        this._id = json["_id"];
+        this._title = json["_title"];
+        this._description = json["_description"];
+        this._priority = json["_priority"];
+        this._dueDate = json["_dueDate"];
+        this._finishedDate = json["_finishedDate"];
+        this._finished = json["_finished"];
+    };
 }
