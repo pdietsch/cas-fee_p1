@@ -11,6 +11,7 @@ var tsProject       = ts.createProject("tsconfig.json");
 var sassThemes      = require('gulp-sass-themes');
 var autoprefixer    = require('gulp-autoprefixer');
 var babel           = require('gulp-babel');
+var exec        = require('child_process').exec;
 
 // Remove build directory.
 gulp.task('clean', function(cb) {
@@ -19,10 +20,15 @@ gulp.task('clean', function(cb) {
 
 // Static Server + watching scss/html files
 gulp.task('serve', ['resources', 'sass','ts', 'templates'], function() {
-    browserSync.init({
+    /*browserSync.init({
         server: {
             baseDir: "./dist/app"
         }
+    });*/
+    exec('node ./dist/server/index.js', function (err, stdout, stderr) {
+      console.log(stdout);
+      console.log(stderr);
+      cb(err);
     });
     gulp.watch(["./src/app/templates/*.hbs"], ['templates']);
     gulp.watch(["./src/app/ts/**/*.ts"], ['ts']);

@@ -9,24 +9,24 @@ class TodoListViewModel {
         this._propretyChangedEvent.fire(this,new EventArgs());
     }
     get todos():Todo[] {
-        return this._todoRepository.todoList.filter(this._filter).sort(this.sortList(this._sortBy));
+        return this._todoRepository.getTodos().filter(this._filter).sort(this.sortList(this._sortBy));
     }
 
     private _filterFinished : boolean;
     private _sortBy: string;
     private _filter:any;
-    private _todoRepository:LocalStorageTodoRepository;
+    private _todoRepository:TodoRepositoryBase;
     private _propretyChangedEvent : EventHandler<EventArgs, TodoListViewModel>;
 
     get propretyChangedEvent():IEventHandler<EventArgs, TodoListViewModel> {
         return this._propretyChangedEvent;
     }
 
-    constructor(todoRepository:LocalStorageTodoRepository) {
+    constructor(todoRepository:TodoRepositoryBase) {
 
         this._propretyChangedEvent = new EventHandler();
         this._todoRepository = todoRepository;
-        this._todoRepository.todoChangedEvent.add(this.onRepositoryChanged.bind(this));
+        this._todoRepository.getTodoChangedEvent().add(this.onRepositoryChanged.bind(this));
         this._filter = filterList("finished", false);
         this._filterFinished = false;
         this._sortBy = defaultSortBy;
