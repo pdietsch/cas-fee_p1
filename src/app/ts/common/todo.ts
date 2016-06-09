@@ -1,5 +1,4 @@
 /// <reference path="../../../../typings/index.d.ts" />
-/// <reference path="./serializable.ts" />
 
 class Todo{
     private _title : string;

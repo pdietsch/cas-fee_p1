@@ -10,6 +10,7 @@ var ts              = require('gulp-typescript');
 var tsProject       = ts.createProject("tsconfig.json");
 var sassThemes      = require('gulp-sass-themes');
 var autoprefixer    = require('gulp-autoprefixer');
+var babel           = require('gulp-babel');
 
 // Remove build directory.
 gulp.task('clean', function(cb) {
@@ -60,6 +61,9 @@ gulp.task('sass', function() {
 gulp.task('ts', function () {
     return gulp.src('./src/app/ts/**/*.ts')
         .pipe(ts(tsProject))
+        .pipe(babel({
+          presets: ['es2015']
+        }))
         .pipe(gulp.dest('./dist/app/js'));
 });
 
