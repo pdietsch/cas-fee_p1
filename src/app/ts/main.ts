@@ -2,15 +2,15 @@
 /// <reference path="./util/html-helper"/>
 /// <reference path="./util/guid"/>
 /// <reference path="./common/todo.ts"/>
-/// <reference path="./repository/todo-repository-base.ts"/>
+/// <reference path="./repository/todo-repository.ts"/>
 /// <reference path="./repository/local-storage-todo-repository.ts"/>
 /// <reference path="./repository/server-storage-todo-repository.ts"/>
 /// <reference path="./viewmodel/todo-list-viewmodel.ts"/>
 ;(function(window, document){
     'use strict';
     document.addEventListener("DOMContentLoaded", function() {
-        var repository = new LocalStorageTodoRepository();
-        //var repository = new ServerStorageTodoRepository("http://localhost:3000");
+        //var repository = new LocalStorageTodoRepository();
+        var repository = new ServerStorageTodoRepository("http://localhost:3000");
         var todoListViewModel = new TodoListViewModel(repository);
         todoListViewModel.propretyChangedEvent.add(onPropertyChanged.bind(this));
         document.querySelector(".add-todo").addEventListener("click", function () {

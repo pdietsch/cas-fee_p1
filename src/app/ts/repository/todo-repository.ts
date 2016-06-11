@@ -1,7 +1,7 @@
 /// <reference path="../common/todo.ts"/>
 /// <reference path="../common/event.ts"/>
-interface TodoRepositoryBase{
-    getTodoChangedEvent() : IEventHandler<EventArgs, TodoRepositoryBase>
+interface TodoRepository{
+    getTodoChangedEvent() : IEventHandler<EventArgs, TodoRepository>
     delete(id : string);
     addTodo(todo : Todo);
     removeAll(todos:Todo[]);

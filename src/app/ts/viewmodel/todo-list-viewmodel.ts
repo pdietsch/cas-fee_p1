@@ -15,14 +15,14 @@ class TodoListViewModel {
     private _filterFinished : boolean;
     private _sortBy: string;
     private _filter:any;
-    private _todoRepository:TodoRepositoryBase;
+    private _todoRepository:TodoRepository;
     private _propretyChangedEvent : EventHandler<EventArgs, TodoListViewModel>;
 
     get propretyChangedEvent():IEventHandler<EventArgs, TodoListViewModel> {
         return this._propretyChangedEvent;
     }
 
-    constructor(todoRepository:TodoRepositoryBase) {
+    constructor(todoRepository:TodoRepository) {
 
         this._propretyChangedEvent = new EventHandler();
         this._todoRepository = todoRepository;

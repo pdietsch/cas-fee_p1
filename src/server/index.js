@@ -3,6 +3,7 @@ var url = require('url');
 var serveStatic = require('serve-static');
 var express = require('express');
 var bodyParser = require('body-Parser');
+var repository = require('./file-repository.js').createRepository();
 
 const port = 3000;
 const hostnameData = '127.0.0.1';
@@ -18,39 +19,51 @@ app.use(serveStatic("..\\app\\")).listen(port, function(){ //Start on dst
 
 var handler = function (request, response) {
 
-  var urlObject = url.parse(request.url,true);
-  if(urlObject.path.startsWith("/api/todo/")){
+  var urlObject = url.parse(request.url, true);
+  if (urlObject.path.startsWith("/api/todo/")) {
     var id = null;
-    if(urlObject.path !== "/api/todo/"){
+    if (urlObject.path !== "/api/todo/") {
       id = urlObject.path.substr(10);
     }
-    if(request.method ==="GET"){
-      if(id === null){
-        response.writeHead(200, {"Content-Type": "text/plain"});
-        response.write("return all");
+    if (request.method === "GET") {
+      if (id === null) {
+        response.writeHead(200, {"Content-Type": "application/json; charset=utf-8"});
+        response.write(JSON.stringify(repository.getTodos()));
         response.end();
         return;
-      }else {
-        response.writeHead(200, {"Content-Type": "text/plain"});
-        response.write(id);
-        response.end();
-        return;
+      } else {
+        var todo = repository.getTodo(id);
+        if(todo !== null){
+          response.writeHead(200, {"Content-Type": "application/json; charset=utf-8"});
+          response.write(JSON.stringify(todo));
+          response.end();
+          return;
+        }
       }
-    }else if(request.method === "POST"){
+    } else if (request.method === "POST") {
       response.writeHead(200, {"Content-Type": "application/json; charset=utf-8"});
       var newTodo = request.body;
       newTodo._id = guid();
+      repository.addTodo(newTodo);
       response.write(JSON.stringify(newTodo));
       response.end();
       return;
-    }else if(request.method === "PUT"){
-
-    }else if(request.method === "DELETE"){
-
+    } else if (request.method === "PUT") {
+      var updateTodo = request.body;
+      repository.updateTodo(updateTodo);
+      response.writeHeader(200, {"Content-Type": "application/json; charset=utf-8"});
+      response.write(JSON.stringify(updateTodo));
+      response.end();
+      return;
+    } else if (request.method === "DELETE" && id !== null) {
+      repository.delete(id);
+      response.writeHead(204, {"Content-Type": "text/plain"});
+      response.end();
+      return;
     }
     response.writeHead(400, {"Content-Type": "text/plain"});
     response.write("400 Bad Request\n");
-  }else {
+  } else {
     response.writeHead(404, {"Content-Type": "text/plain"});
     response.write("404 Not Found\n");
   }

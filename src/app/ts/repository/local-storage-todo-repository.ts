@@ -1,12 +1,12 @@
 /// <reference path="../common/todo.ts"/>
 /// <reference path="../common/event.ts"/>
 const REPOSITORY_KEY : string = "todo-repository";
-class LocalStorageTodoRepository implements TodoRepositoryBase{
+class LocalStorageTodoRepository implements TodoRepository{
 
     private _todoList : Todo[];
-    private _todoChangedEvent : EventHandler<EventArgs, TodoRepositoryBase>;
+    private _todoChangedEvent : EventHandler<EventArgs, TodoRepository>;
 
-    getTodoChangedEvent():IEventHandler<EventArgs, TodoRepositoryBase>{
+    getTodoChangedEvent():IEventHandler<EventArgs, TodoRepository>{
         return this._todoChangedEvent;
     }
 
@@ -44,7 +44,6 @@ class LocalStorageTodoRepository implements TodoRepositoryBase{
         } else {
             console.error("Could not found todo in repository to update")
         }
-
     }
 
     public delete(id : string){
