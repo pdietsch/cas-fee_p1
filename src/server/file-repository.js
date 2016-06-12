@@ -1,7 +1,7 @@
+'use strict';
 var fs = require('fs');
 
 class FileTodoRepository {
-
   constructor() {
     this._todoList = this._readAllTodosFromFile();
   }
