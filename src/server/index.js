@@ -10,14 +10,19 @@ const hostnameData = '127.0.0.1';
 const portData = 3001;
 var app = express();
 app.use(bodyParser.json());
-app.use(serveStatic("dist\\app\\"));//Start with Gulp
-app.use(serveStatic("..\\..\\dist\\app\\")); //Start on src
-app.use(serveStatic("..\\app\\")).listen(port, function(){ //Start on dst
+app.use(express.static('../app'));
+app.use(express.static('dist/app'));
+//app.use(serveStatic("dist\\app\\"));//Start with Gulp
+//app.use(serveStatic("..\\..\\dist\\app\\")); //Start on src
+app.use(express.static('../app')).listen(port, function(){ //Start on dst
   console.log('Server running on 3000...');
 });
 
 
 var handler = function (request, response) {
+
+  // CORS
+  response.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:3000');
 
   var urlObject = url.parse(request.url, true);
   if (urlObject.path.startsWith("/api/todo/")) {
@@ -72,19 +77,22 @@ var handler = function (request, response) {
 
 app.use(handler);
 
-const server = http.createServer(handler);
+/*
+ const server = http.createServer(handler);
 
-server.listen(portData, hostnameData, () => {
-  console.log(`Server running at http://${hostnameData}:${portData}/`);
-});
+ server.listen(portData, hostnameData, () => {
+ console.log(__dirname);
+ console.log(`Server running at http://${hostnameData}:${portData}/`);
+ });
+ */
 
 
 function guid() {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
-    .toString(16)
-    .substring(1);
+        .toString(16)
+        .substring(1);
   }
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-  s4() + '-' + s4() + s4() + s4();
+      s4() + '-' + s4() + s4() + s4();
 }
