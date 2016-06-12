@@ -7,6 +7,8 @@ class ServerStorageTodoRepository implements TodoRepository {
         this._todoChangedEvent = new EventHandler<EventArgs,ServerStorageTodoRepository>();
         this._todoList = [];
         this.readAllTodosFromServer();
+        var self = this;
+        window.setInterval(function(){ self.readAllTodosFromServer(); }, 5000);
     }
 
     public getTodoChangedEvent():IEventHandler<EventArgs, TodoRepository> {
@@ -43,7 +45,7 @@ class ServerStorageTodoRepository implements TodoRepository {
     }
 
     public removeAll(todos:Todo[]) {
-
+        //TODO
     }
 
     public getTodo(id:string) : Todo {
@@ -76,14 +78,31 @@ class ServerStorageTodoRepository implements TodoRepository {
             type: 'GET',
             url: this._url +'/api/todo/',
             success: function(data) {
+                var serverTodos : Todo[] =[];
                 for (var x in data) {
                     var todo = new Todo(data[x]);
-                    self._todoList.push(todo);
+                    serverTodos.push(todo);
                 }
-                self._todoChangedEvent.fire(self, new EventArgs())
+                self.checkServerTodosWithLocalTodos(serverTodos);
             },
             error: function () { console.error("Could read Todos from server") }
         });
+    }
+
+    private checkServerTodosWithLocalTodos(serverArray : Todo[]){
+        if(this._todoList.length != serverArray.length){
+            this._todoList = serverArray;
+            this._todoChangedEvent.fire(this, new EventArgs());
+        }else if(serverArray.some((serverTodo) =>{
+                var localTodo = this.getTodo(serverTodo.id);
+                if(localTodo === null){
+                    return true;
+                }
+                return !localTodo.equals(serverTodo);
+            })){
+            this._todoList = serverArray;
+            this._todoChangedEvent.fire(this, new EventArgs());
+        }
     }
 
     private updateLocalTodo(data:any):void {

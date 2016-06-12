@@ -68,4 +68,14 @@ class Todo{
         this._finishedDate = json["_finishedDate"];
         this._finished = json["_finished"];
     };
+
+    public equals(other : Todo):boolean{
+        return (other.id === this.id &&
+                other.description === this.description &&
+                other.dueDate === this.dueDate &&
+                other.priority === this.priority &&
+                other.finished === this.finished &&
+                other.finishedDate === this.finishedDate &&
+                other.title === this.title)
+    }
 }
