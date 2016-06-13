@@ -21,7 +21,14 @@ gulp.task('clean', function(cb) {
 // Static Server + watching scss/html files
 gulp.task('watch', ['resources', 'sass','ts', 'templates'], function() {
     browserSync({
-        proxy: "localhost:3000"
+        proxy: {
+            target: "localhost:3000",
+            proxyReq: [
+                function(proxyReq) {
+                    proxyReq.setHeader('Access-Control-Allow-Origin', 'localhost:3000');
+                }
+            ]
+        }
     });
     gulp.watch(["./src/app/templates/*.hbs"], ['templates']);
     gulp.watch(["./src/app/ts/**/*.ts"], ['ts']);

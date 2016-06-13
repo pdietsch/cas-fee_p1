@@ -16,7 +16,7 @@ app.use(express.static('../app')).listen(port, 'localhost', function(){
 var handler = function (request, response) {
 
   // CORS
-  response.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:3000');
+  response.setHeader('Access-Control-Allow-Origin', 'localhost:3000');
 
   var urlObject = url.parse(request.url, true);
   if (urlObject.path.startsWith("/api/todo/")) {
