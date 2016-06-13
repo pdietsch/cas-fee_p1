@@ -1,23 +1,17 @@
 const http = require('http');
 var url = require('url');
-var serveStatic = require('serve-static');
 var express = require('express');
 var bodyParser = require('body-Parser');
 var repository = require('./file-repository.js').createRepository();
 
 const port = 3000;
-const hostnameData = '127.0.0.1';
-const portData = 3001;
 var app = express();
 app.use(bodyParser.json());
 app.use(express.static('../app'));
 app.use(express.static('dist/app'));
-//app.use(serveStatic("dist\\app\\"));//Start with Gulp
-//app.use(serveStatic("..\\..\\dist\\app\\")); //Start on src
-app.use(express.static('../app')).listen(port, function(){ //Start on dst
+app.use(express.static('../app')).listen(port, 'localhost', function(){
   console.log('Server running on 3000...');
 });
-
 
 var handler = function (request, response) {
 
@@ -76,15 +70,6 @@ var handler = function (request, response) {
 };
 
 app.use(handler);
-
-/*
- const server = http.createServer(handler);
-
- server.listen(portData, hostnameData, () => {
- console.log(__dirname);
- console.log(`Server running at http://${hostnameData}:${portData}/`);
- });
- */
 
 
 function guid() {

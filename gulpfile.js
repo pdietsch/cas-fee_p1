@@ -19,11 +19,9 @@ gulp.task('clean', function(cb) {
 });
 
 // Static Server + watching scss/html files
-gulp.task('serve', ['resources', 'sass','ts', 'templates'], function() {
-    exec('node ./dist/server/index.js', function (err, stdout, stderr) {
-      console.log(stdout);
-      console.log(stderr);
-      console.log(err);
+gulp.task('watch', ['resources', 'sass','ts', 'templates'], function() {
+    browserSync({
+        proxy: "localhost:3000"
     });
     gulp.watch(["./src/app/templates/*.hbs"], ['templates']);
     gulp.watch(["./src/app/ts/**/*.ts"], ['ts']);
@@ -65,7 +63,8 @@ gulp.task('ts', function () {
         .pipe(babel({
           presets: ['es2015']
         }))
-        .pipe(gulp.dest('./dist/app/js'));
+        .pipe(gulp.dest('./dist/app/js'))
+        .pipe(browserSync.stream());
 });
 
 // Copy all resources that are not Sass files into build directory.
@@ -76,11 +75,11 @@ gulp.task("resources", function() {
 });
 
 // Build
-gulp.task('build', ['resources', 'sass', 'ts'], function(){
+gulp.task('build', ['resources', 'sass','ts', 'templates'], function(){
     console.log("Building the project ...");
 });
 
 // Default task
-gulp.task('default', ['serve'], function(){
+gulp.task('default', ['build'], function(){
     console.log("Building the project and start ...");
 });

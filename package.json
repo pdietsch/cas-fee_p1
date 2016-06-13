@@ -9,8 +9,12 @@
   "scripts": {
     "clean": "gulp clean",
     "build": "gulp build",
-    "start": "gulp",
-    "postinstall": "typings install"
+    "start": "npm run dev",
+    "postinstall": "typings install",
+
+    "watch-server": "nodemon ./dist/server/index.js",
+    "watch-files": "gulp watch",
+    "dev": "npm run watch-server & npm run watch-files"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",
@@ -28,6 +32,7 @@
     "gulp-typescript": "^2.13.4",
     "gulp-wrap": "^0.11.0",
     "handlebars": "^4.0.5",
+    "nodemon": "^1.9.2",
     "typings": "^1.0.4"
   },
   "dependencies": {
