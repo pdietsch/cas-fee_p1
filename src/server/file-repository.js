@@ -23,7 +23,7 @@ class FileTodoRepository {
     if(oldTodo != null){
       var index = this._todoList.indexOf(oldTodo);
       this._todoList[index] = todo;
-      this._persistRepositoryToFile();
+      this._persistRepositoryToFile(this._todoList);
     } else {
       console.error("Could not found todo in repository to update")
     }
@@ -37,18 +37,24 @@ class FileTodoRepository {
 
   addTodo(todo) {
     this._todoList.push(todo);
-    this._persistRepositoryToFile();
+    this._persistRepositoryToFile(this._todoList);
   }
 
   removeAll(todos) {
   }
 
   _readAllTodosFromFile() {
-    return [];
+    return JSON.parse(fs.readFileSync('todos.json', 'utf8'));
   }
 
-  _persistRepositoryToFile() {
-
+  _persistRepositoryToFile(data) {
+    fs.writeFile("todos.json", JSON.stringify(data, null, 4), function(err) {
+      if(err) {
+        console.log(err);
+      } else {
+        console.log("JSON saved to todos.json");
+      }
+    });
   }
 }
 module.exports = {
