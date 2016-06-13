@@ -11,3 +11,5 @@ dist
 # Ignore npm debug log
 npm-debug.log
 p1.iml
+
+todos.json

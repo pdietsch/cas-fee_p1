@@ -1,5 +1,6 @@
 'use strict';
 var fs = require('fs');
+var path = "todos.json";
 
 class FileTodoRepository {
   constructor() {
@@ -32,7 +33,7 @@ class FileTodoRepository {
   delete(id) {
     var index = this._todoList.indexOf(this.getTodo(id));
     this._todoList.splice(index, 1);
-    this._persistRepositoryToFile();
+    this._persistRepositoryToFile(this._todoList);
   }
 
   addTodo(todo) {
@@ -44,17 +45,17 @@ class FileTodoRepository {
   }
 
   _readAllTodosFromFile() {
-    return JSON.parse(fs.readFileSync('todos.json', 'utf8'));
+    try {
+      fs.accessSync(path, fs.F_OK);
+      return JSON.parse(fs.readFileSync(path, 'utf8'));
+    } catch (e) {
+      return [];
+    }
+
   }
 
   _persistRepositoryToFile(data) {
-    fs.writeFile("todos.json", JSON.stringify(data, null, 4), function(err) {
-      if(err) {
-        console.log(err);
-      } else {
-        console.log("JSON saved to todos.json");
-      }
-    });
+    fs.writeFile(path, JSON.stringify(data, null, 4));
   }
 }
 module.exports = {
