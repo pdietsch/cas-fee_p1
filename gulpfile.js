@@ -20,12 +20,12 @@ gulp.task('clean', function(cb) {
 
 // Static Server + watching scss/html files
 gulp.task('watch', ['resources', 'sass','ts', 'templates'], function() {
-    browserSync({
+    browserSync.init(null, {
         proxy: {
             target: "localhost:3000",
             proxyReq: [
                 function(proxyReq) {
-                    proxyReq.setHeader('Access-Control-Allow-Origin', 'localhost:3000');
+                    proxyReq.setHeader('Access-Control-Allow-Origin', '*');
                 }
             ]
         }

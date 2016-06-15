@@ -9,7 +9,7 @@
   "scripts": {
     "clean": "gulp clean",
     "build": "gulp build",
-    "start": "npm run dev",
+    "start": "npm run build & node ./dist/server/index.js",
     "postinstall": "typings install",
 
     "watch-server": "nodemon ./dist/server/index.js",
