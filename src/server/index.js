@@ -26,21 +26,24 @@ var handler = function (request, response) {
     }
     if (request.method === "GET") {
       if (id === null) {
-        response.writeHead(200, {"Content-Type": "application/json; charset=utf-8"});
+        response.setHeader("Cache-Control", "no-cache, no-store");
+        response.writeHead(200, {"Content-Type": "application/json; charset=utf-8"}, {"Cache-Control": "no-cache, no-store"});
         response.write(JSON.stringify(repository.getTodos()));
         response.end();
         return;
       } else {
         var todo = repository.getTodo(id);
         if(todo !== null){
-          response.writeHead(200, {"Content-Type": "application/json; charset=utf-8"});
+          response.setHeader("Cache-Control", "no-cache, no-store");
+          response.writeHead(200, {"Content-Type": "application/json; charset=utf-8"}, {"Cache-Control": "no-cache, no-store"});
           response.write(JSON.stringify(todo));
           response.end();
           return;
         }
       }
     } else if (request.method === "POST") {
-      response.writeHead(200, {"Content-Type": "application/json; charset=utf-8"});
+      response.setHeader("Cache-Control", "no-cache, no-store");
+      response.writeHead(200, {"Content-Type": "application/json; charset=utf-8"}, {"Cache-Control": "no-cache, no-store"});
       var newTodo = request.body;
       newTodo._id = guid();
       repository.addTodo(newTodo);
@@ -50,6 +53,7 @@ var handler = function (request, response) {
     } else if (request.method === "PUT") {
       var updateTodo = request.body;
       repository.updateTodo(updateTodo);
+      response.setHeader("Cache-Control", "no-cache, no-store");
       response.writeHeader(200, {"Content-Type": "application/json; charset=utf-8"});
       response.write(JSON.stringify(updateTodo));
       response.end();
