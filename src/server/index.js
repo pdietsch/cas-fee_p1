@@ -1,8 +1,9 @@
 const http = require('http');
 var url = require('url');
 var express = require('express');
+var router = express.Router();
 var bodyParser = require('body-Parser');
-var repository = require('./file-repository.js').createRepository();
+
 
 const port = 3000;
 var app = express();
@@ -13,6 +14,9 @@ app.use(express.static('../app')).listen(port, 'localhost', function(){
   console.log('Server running on 3000...');
 });
 
+app.use(require('./routes/todoRoutes.js'));
+
+/*
 var handler = function (request, response) {
 
   // CORS
@@ -72,16 +76,8 @@ var handler = function (request, response) {
   }
   response.end();
 };
+*/
 
-app.use(handler);
+//app.use(handler);
 
 
-function guid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-  }
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
-}
