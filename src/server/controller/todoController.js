@@ -1,4 +1,4 @@
-var repository = require('../file-repository.js').createRepository();
+var repository = require('../services/todoService.js').createRepository();
 
 module.exports.getAllTodos = function (req, res) {
   res.setHeader("Cache-Control", "no-cache, no-store");
@@ -9,7 +9,6 @@ module.exports.getAllTodos = function (req, res) {
 
 module.exports.createTodo = function (req, res) {
   var newTodo = req.body;
-  newTodo._id = guid();
   repository.addTodo(newTodo);
   res.write(JSON.stringify(newTodo));
   res.end();
@@ -28,14 +27,4 @@ module.exports.deleteTodo = function (req, res) {
   repository.delete(req.params.id);
   res.writeHead(204, {"Content-Type": "text/plain"});
   res.end();
-}
-
-function guid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-    .toString(16)
-    .substring(1);
-  }
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-  s4() + '-' + s4() + s4() + s4();
-}
+};
