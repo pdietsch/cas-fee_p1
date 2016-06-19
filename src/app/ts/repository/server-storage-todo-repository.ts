@@ -19,7 +19,7 @@ class ServerStorageTodoRepository implements TodoRepository {
         var self = this;
         $.ajax({
             type: 'DELETE',
-            url: this._url +'/'+id,
+            url: this._url +'/api/todos/'+id,
             success: function(){
                 self.deleteLocalTodo(id);
                 self._todoChangedEvent.fire(self,new EventArgs());
@@ -32,7 +32,7 @@ class ServerStorageTodoRepository implements TodoRepository {
         var self = this;
         $.ajax({
             type: 'POST',
-            url: this._url +'/',
+            url: this._url +'/api/todos/',
             data: JSON.stringify(todo),
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
@@ -56,7 +56,7 @@ class ServerStorageTodoRepository implements TodoRepository {
         var self = this;
         $.ajax({
             type: 'PUT',
-            url: this._url +'/',
+            url: this._url +'/api/todos/',
             data: JSON.stringify(todo),
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
@@ -76,7 +76,7 @@ class ServerStorageTodoRepository implements TodoRepository {
         var self = this;
         $.ajax({
             type: 'GET',
-            url: this._url +'/',
+            url: this._url +'/api/todos/',
             success: function(data) {
                 var serverTodos : Todo[] =[];
                 for (var x in data) {

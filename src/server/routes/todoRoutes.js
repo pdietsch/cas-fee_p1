@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var repository = require('../file-repository.js').createRepository();
-
+router[""]
 router.get('/', function (req, res) {
     res.setHeader("Cache-Control", "no-cache, no-store");
     res.writeHead(200, {"Content-Type": "application/json; charset=utf-8"}, {"Cache-Control": "no-cache, no-store"});
@@ -26,8 +26,8 @@ router.put('/', function (req, res) {
     res.end();
 });
 
-router.delete('/', function (req, res) {
-    repository.delete(id);
+router.delete('/:id', function (req, res) {
+    repository.delete(req.params.id);
     res.writeHead(204, {"Content-Type": "text/plain"});
     res.end();
 });
