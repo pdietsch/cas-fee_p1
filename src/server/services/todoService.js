@@ -43,7 +43,13 @@ class FileTodoRepository {
     });
   }
 
-  removeAll() {
+  removeAll(todos) {
+    todos.forEach((todo) => {
+      if(todo.finished == true){
+        var index = this._todoList.indexOf(todo);
+        this._todoList.splice(index, 1);
+      }
+    });
     this._persistRepositoryToFile(this._todoList);
   }
 
