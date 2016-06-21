@@ -57,8 +57,8 @@ class LocalStorageTodoRepository implements TodoRepository{
         this.persistRepository();
     }
 
-    public removeAll(todos:Todo[]):void {
-        todos.forEach((todo : Todo) =>{
+    public removeFinished():void {
+        this._todoList.forEach((todo : Todo) =>{
             if(todo.finished == true){
                 var index = this._todoList.indexOf(todo);
                 this._todoList.splice(index, 1);
