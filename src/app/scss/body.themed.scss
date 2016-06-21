@@ -395,6 +395,10 @@ nav {
     }
     &.finished {
       color: $primary-color;
+      cursor: auto;
+      &:hover {
+        text-decoration: none;
+      }
     }
     .status-text {
       margin-left: 4px;
