@@ -1,7 +1,6 @@
 const http = require('http');
 var url = require('url');
 var express = require('express');
-var router = express.Router();
 var bodyParser = require('body-Parser');
 
 

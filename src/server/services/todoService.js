@@ -1,6 +1,9 @@
 'use strict';
-var fs = require('fs');
+var Datastore = require('nedb');
 var path = "todos.json";
+var db = new Datastore({ filename: '../data/todo.db', autoload: true });
+var fs = require('fs');
+
 
 class FileTodoRepository {
   constructor() {
@@ -8,15 +11,15 @@ class FileTodoRepository {
   }
 
   getTodo(id) {
-    var result = this._todoList.filter((item) => item["_id"] === id);
-    if(result.length > 0){
-      return result[0];
-    }
-    return null;
+    db.findOne({ _id: id }, function (err, doc) {
+      callback( err, doc);
+    });
   }
 
   getTodos(){
-    return this._todoList;
+    db.find({}, function (err, docs) {
+      callback( err, docs);
+    });
   }
 
   updateTodo(todo) {
@@ -31,15 +34,18 @@ class FileTodoRepository {
   }
 
   delete(id) {
-    var index = this._todoList.indexOf(this.getTodo(id));
-    this._todoList.splice(index, 1);
-    this._persistRepositoryToFile(this._todoList);
+    db.update({_id: id}, {$set: {"state": "DELETED"}}, {}, function (err, doc) {
+      getTodo(id,callback);
+    });
   }
 
   addTodo(todo) {
     todo._id = this.guid();
-    this._todoList.push(todo);
-    this._persistRepositoryToFile(this._todoList);
+    db.insert(todo, function(err, newDoc){
+      if(callback){
+        callback(err, newDoc);
+      }
+    });
   }
 
   removeAll() {
