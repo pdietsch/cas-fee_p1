@@ -18,7 +18,7 @@
         });
         var clearListButton = <HTMLElement>document.getElementsByClassName("clear-todos").item(0);
         clearListButton.addEventListener("click", function () {
-            todoListViewModel.clearList();
+            todoListViewModel.removeAll();
         });
 
         Array.prototype.slice.call(document.querySelectorAll(".s-switcher ul li")).forEach((node:HTMLElement) => node.addEventListener("click", function (e) {
@@ -39,7 +39,7 @@
     function render(todoListViewModel : TodoListViewModel){
         createTodoList(todoListViewModel);
         assignTodoEvents(todoListViewModel);
-        showHideClearListButton(todoListViewModel);
+        //showHideClearListButton(todoListViewModel);
     }
 
     function renderingFilter(todoListViewModel : TodoListViewModel) {

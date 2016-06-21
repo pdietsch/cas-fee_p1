@@ -37,12 +37,15 @@ class FileTodoRepository {
   }
 
   addTodo(todo) {
-    todo._id = guid();
+    todo._id = this.guid();
     this._todoList.push(todo);
     this._persistRepositoryToFile(this._todoList);
   }
 
-  removeAll(todos) {
+  removeAll() {
+    console.log("Clear all");
+    this._todoList = [];
+    this._persistRepositoryToFile(this._todoList);
   }
 
   _readAllTodosFromFile() {
@@ -56,7 +59,7 @@ class FileTodoRepository {
   }
 
   _persistRepositoryToFile(data) {
-    fs.writeFile(path, JSON.stringify(data, null, 4));
+    fs.writeFileSync(path, JSON.stringify(data, null, 4));
   }
 
   guid() {

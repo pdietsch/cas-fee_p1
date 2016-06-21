@@ -23,8 +23,16 @@ module.exports.updateTodo = function (req, res) {
   res.end();
 };
 
-module.exports.deleteTodo = function (req, res) {
+module.exports.deleteTodo = function (req, res, next) {
   repository.delete(req.params.id);
+  res.writeHead(204, {"Content-Type": "text/plain"});
+  res.end();
+  next();
+};
+
+
+module.exports.removeAll = function (req, res) {
+  repository.removeAll();
   res.writeHead(204, {"Content-Type": "text/plain"});
   res.end();
 };

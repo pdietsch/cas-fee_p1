@@ -44,8 +44,18 @@ class ServerStorageTodoRepository implements TodoRepository {
         });
     }
 
-    public removeAll(todos:Todo[]) {
-        //TODO
+    public removeAll() {
+        var self = this;
+        $.ajax({
+            type: 'DELETE',
+            url: this._url +'/api/todos/clear/',
+            success: function(){
+                console.log("Removed todos")
+            },
+            error: function () {
+                console.error("Couldn't remove todos")
+            }
+        });
     }
 
     public getTodo(id:string) : Todo {
