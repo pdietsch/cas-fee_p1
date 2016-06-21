@@ -60,7 +60,7 @@ class TodoListViewModel {
     }
 
     public removeAll():void {
-        this._todoRepository.removeAll();
+        this._todoRepository.removeAll(this.todos);
     }
 
     private get(id : string) {

@@ -39,7 +39,7 @@
     function render(todoListViewModel : TodoListViewModel){
         createTodoList(todoListViewModel);
         assignTodoEvents(todoListViewModel);
-        //showHideClearListButton(todoListViewModel);
+        showHideClearListButton(todoListViewModel);
     }
 
     function renderingFilter(todoListViewModel : TodoListViewModel) {

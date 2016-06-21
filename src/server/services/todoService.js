@@ -43,8 +43,6 @@ class FileTodoRepository {
   }
 
   removeAll() {
-    console.log("Clear all");
-    this._todoList = [];
     this._persistRepositoryToFile(this._todoList);
   }
 

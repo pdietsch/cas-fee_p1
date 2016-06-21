@@ -4,7 +4,7 @@ interface TodoRepository{
     getTodoChangedEvent() : IEventHandler<EventArgs, TodoRepository>
     delete(id : string);
     addTodo(todo : Todo);
-    removeAll();
+    removeAll(todos:Todo[]);
     getTodo(id : string) : Todo;
     updateTodo(todo : Todo);
     getTodos() : Todo[];
