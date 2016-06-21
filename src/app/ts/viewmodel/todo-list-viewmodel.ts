@@ -59,8 +59,8 @@ class TodoListViewModel {
         this._todoRepository.delete(id);
     }
 
-    public removeAll():void {
-        this._todoRepository.removeAll(this.todos);
+    public removeFinished():void {
+        this._todoRepository.removeFinished();
     }
 
     private get(id : string) {
