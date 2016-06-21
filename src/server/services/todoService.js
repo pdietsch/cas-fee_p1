@@ -1,46 +1,41 @@
 'use strict';
 var Datastore = require('nedb');
 var path = "todos.json";
-var db = new Datastore({ filename: '../data/todo.db', autoload: true });
+var db = new Datastore({ filename: __dirname+'/../data/todo.db', autoload: true });
 var fs = require('fs');
 
 
 class FileTodoRepository {
   constructor() {
-    this._todoList = this._readAllTodosFromFile();
   }
 
-  getTodo(id) {
+  getTodo(id,callback) {
     db.findOne({ _id: id }, function (err, doc) {
       callback( err, doc);
     });
   }
 
-  getTodos(){
+  getTodos(callback){
     db.find({}, function (err, docs) {
       callback( err, docs);
     });
   }
 
-  updateTodo(todo) {
-    var oldTodo = this.getTodo(todo["_id"]);
-    if(oldTodo != null){
-      var index = this._todoList.indexOf(oldTodo);
-      this._todoList[index] = todo;
-      this._persistRepositoryToFile(this._todoList);
-    } else {
-      console.error("Could not found todo in repository to update")
-    }
-  }
-
-  delete(id) {
-    db.update({_id: id}, {$set: {"state": "DELETED"}}, {}, function (err, doc) {
-      getTodo(id,callback);
+  updateTodo(todo,callback) {
+    var self = this;
+    db.update({_id: todo["_id"]}, todo, {}, function (err, doc) {
+      self.getTodo(todo["_id"],callback);
     });
   }
 
-  addTodo(todo) {
-    todo._id = this.guid();
+  delete(id,callback) {
+    var self = this;
+    db.remove({_id: id}, {}, function (err, doc) {
+      self.getTodo(id,callback);
+    });
+  }
+
+  addTodo(todo,callback) {
     db.insert(todo, function(err, newDoc){
       if(callback){
         callback(err, newDoc);
@@ -50,20 +45,6 @@ class FileTodoRepository {
 
   removeAll() {
     this._persistRepositoryToFile(this._todoList);
-  }
-
-  _readAllTodosFromFile() {
-    try {
-      fs.accessSync(path, fs.F_OK);
-      return JSON.parse(fs.readFileSync(path, 'utf8'));
-    } catch (e) {
-      return [];
-    }
-
-  }
-
-  _persistRepositoryToFile(data) {
-    fs.writeFileSync(path, JSON.stringify(data, null, 4));
   }
 
   guid() {
