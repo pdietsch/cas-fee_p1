@@ -37,8 +37,9 @@ module.exports.deleteTodo = function (req, res) {
   });
 };
 
-module.exports.removeAll = function (req, res) {
-  repository.removeAll(repository.getTodos());
-  res.writeHead(204, {"Content-Type": "text/plain"});
-  res.end();
+module.exports.removeFinished = function (req, res) {
+  repository.removeFinished(function(err,numRemoved){
+    res.writeHead(204, {"Content-Type": "text/plain"});
+    res.end();
+  });
 };

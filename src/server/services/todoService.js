@@ -43,14 +43,10 @@ class FileTodoRepository {
     });
   }
 
-  removeAll(todos) {
-    todos.forEach((todo) => {
-      if(todo.finished == true){
-        var index = this._todoList.indexOf(todo);
-        this._todoList.splice(index, 1);
-      }
+  removeFinished(callback) {
+    db.remove({ _finished: true }, { multi: true }, function (err, numRemoved) {
+      callback(err,numRemoved);
     });
-    this._persistRepositoryToFile(this._todoList);
   }
 
   guid() {
