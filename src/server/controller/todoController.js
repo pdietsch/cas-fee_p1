@@ -31,7 +31,7 @@ module.exports.deleteTodo = function (req, res, next) {
 };
 
 module.exports.removeAll = function (req, res) {
-  repository.removeAll();
+  repository.removeAll(repository.getTodos());
   res.writeHead(204, {"Content-Type": "text/plain"});
   res.end();
 };
