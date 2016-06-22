@@ -116,7 +116,7 @@ class ServerStorageTodoRepository implements TodoRepository {
         }
     }
 
-    private updateLocalTodo(data:any):void {
+    private updateLocalTodo(data:JSON):void {
         var oldTodo = this._todoList.filter((item : Todo) => item.id === data["_id"])[0];
         if(oldTodo != null){
             var index = this._todoList.indexOf(oldTodo);

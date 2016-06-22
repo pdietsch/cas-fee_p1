@@ -59,7 +59,7 @@ class Todo{
 
     }
 
-    private createFromJsonObject(json : any) {
+    private createFromJsonObject(json : JSON) {
         this._id = json["_id"];
         this._title = json["_title"];
         this._description = json["_description"];
