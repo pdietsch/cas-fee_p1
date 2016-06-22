@@ -50,12 +50,7 @@ class ServerStorageTodoRepository implements TodoRepository {
             type: 'DELETE',
             url: this._url +'/api/todos/clear/',
             success: function(){
-                self._todoList.forEach((todo : Todo) =>{
-                    if(todo.finished == true){
-                        var index = self._todoList.indexOf(todo);
-                        self._todoList.splice(index, 1);
-                    }
-                });
+                self.removeLocalFinishedTodo();
                 self._todoChangedEvent.fire(self,new EventArgs());
             },
             error: function () {
@@ -134,5 +129,11 @@ class ServerStorageTodoRepository implements TodoRepository {
     private deleteLocalTodo(id:string):void {
         var index = this._todoList.indexOf(this.getTodo(id));
         this._todoList.splice(index, 1);
+    }
+
+    private removeLocalFinishedTodo():void {
+        this._todoList = this._todoList.filter(function (el) {
+            return el.finished != true;
+        });
     }
 }

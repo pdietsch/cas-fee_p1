@@ -39,7 +39,7 @@
     function render(todoListViewModel : TodoListViewModel){
         createTodoList(todoListViewModel);
         assignTodoEvents(todoListViewModel);
-        showHideClearListButton(todoListViewModel);
+        //showHideClearListButton(todoListViewModel);
     }
 
     function renderingFilter(todoListViewModel : TodoListViewModel) {
@@ -111,7 +111,7 @@
         }));
     }
 
-    function showHideClearListButton( todoListViewModel : TodoListViewModel){
+    function showHideClearListButton(todoListViewModel : TodoListViewModel){
         if (todoListViewModel.todos.length > 0 && todoListViewModel.filterFinished) {
             var clearListButton = <HTMLElement>document.getElementsByClassName("clear-todos").item(0);
             HtmlHelper.removeClass(clearListButton, "hidden");
