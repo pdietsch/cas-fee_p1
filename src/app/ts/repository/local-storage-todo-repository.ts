@@ -19,16 +19,16 @@ class LocalStorageTodoRepository implements TodoRepository{
         this._todoChangedEvent = new EventHandler<EventArgs,LocalStorageTodoRepository>();
         this._todoList = [];
         if(repository !== null){
-            var json = JSON.parse(repository);
-            for(var x in json){
-                var todo = new Todo(json[x]);
+            let json = JSON.parse(repository);
+            for(let x in json){
+                let todo = new Todo(json[x]);
                 this._todoList.push(todo);
             }
         }
     }
 
     public getTodo(id : string) : Todo{
-        var result = this._todoList.filter((item : Todo) => item.id === id);
+        let result = this._todoList.filter((item : Todo) => item.id === id);
         if(result.length > 0){
             return result[0];
         }
@@ -36,9 +36,9 @@ class LocalStorageTodoRepository implements TodoRepository{
     }
 
     public updateTodo(todo : Todo){
-        var oldTodo = this.getTodo(todo.id);
+        let oldTodo = this.getTodo(todo.id);
         if(oldTodo != null){
-            var index = this._todoList.indexOf(oldTodo);
+            let index = this._todoList.indexOf(oldTodo);
             this._todoList[index] = todo;
             this.persistRepository();
         } else {
@@ -47,7 +47,7 @@ class LocalStorageTodoRepository implements TodoRepository{
     }
 
     public delete(id : string){
-        var index = this._todoList.indexOf(this.getTodo(id));
+        let index = this._todoList.indexOf(this.getTodo(id));
         this._todoList.splice(index, 1);
         this.persistRepository();
     }
@@ -60,7 +60,7 @@ class LocalStorageTodoRepository implements TodoRepository{
     public removeFinished():void {
         this._todoList.forEach((todo : Todo) =>{
             if(todo.finished == true){
-                var index = this._todoList.indexOf(todo);
+                let index = this._todoList.indexOf(todo);
                 this._todoList.splice(index, 1);
             }
         });

@@ -4,7 +4,7 @@ class HtmlHelper{
     }
 
     public static hasClass(element : HTMLElement, selector : string ){
-        var className = " " + selector + " ";
+        let className = " " + selector + " ";
         return( (" " + element.className + " ").replace(/[\n\t]/g, " ").indexOf(className) > -1 )
     }
 

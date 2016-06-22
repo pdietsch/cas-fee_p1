@@ -46,7 +46,7 @@ class TodoListViewModel {
     }
 
     public setFinished(id:string) {
-        var todo = this._todoRepository.getTodo(id);
+        let todo = this._todoRepository.getTodo(id);
         todo.finished = true;
         this._todoRepository.updateTodo(todo);
     }

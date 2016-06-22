@@ -9,21 +9,21 @@
 ;(function(window, document){
     'use strict';
     document.addEventListener("DOMContentLoaded", function() {
-        //var repository = new LocalStorageTodoRepository();
-        var repository = new ServerStorageTodoRepository("http://localhost:3000");
-        var todoListViewModel = new TodoListViewModel(repository);
+        //let repository = new LocalStorageTodoRepository();
+        let repository = new ServerStorageTodoRepository("http://localhost:3000");
+        let todoListViewModel = new TodoListViewModel(repository);
         todoListViewModel.propretyChangedEvent.add(onPropertyChanged.bind(this));
         document.querySelector(".add-todo").addEventListener("click", function () {
             createModal(null, todoListViewModel);
         });
-        var clearListButton = <HTMLElement>document.getElementsByClassName("clear-todos").item(0);
+        let clearListButton = <HTMLElement>document.getElementsByClassName("clear-todos").item(0);
         clearListButton.addEventListener("click", function () {
             todoListViewModel.removeFinished();
         });
 
         Array.prototype.slice.call(document.querySelectorAll(".s-switcher ul li")).forEach((node:HTMLElement) => node.addEventListener("click", function (e) {
-                var color = node.firstElementChild.getAttribute("data-color");
-                var theme = <HTMLLinkElement>document.querySelector("#theme");
+                let color = node.firstElementChild.getAttribute("data-color");
+                let theme = <HTMLLinkElement>document.querySelector("#theme");
                 theme.href = "css/body."+ color + ".css";
                 e.preventDefault();
             }
@@ -43,22 +43,22 @@
     }
 
     function renderingFilter(todoListViewModel : TodoListViewModel) {
-        var filter = {
+        let filter = {
             sortBy: "dueDate",
             filterBy: ""
         };
-        var initHtml : string = "";
-        var filterElement = <HTMLElement>document.getElementsByClassName("filter").item(0);
+        let initHtml : string = "";
+        let filterElement = <HTMLElement>document.getElementsByClassName("filter").item(0);
         createFilter(filter);
 
         function createFilter(filter){
             console.log(filter);
-            var template = window["P1"]["templates"]["filter"];
+            let template = window["P1"]["templates"]["filter"];
             initHtml = template(filter);
             filterElement.innerHTML = initHtml;
 
             Array.prototype.slice.call(document.querySelectorAll(".sort-link")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
-                    var clickedSortBy = node.dataset["sortby"];
+                    let clickedSortBy = node.dataset["sortby"];
                     if(!HtmlHelper.hasClass(node, "active")) {
                         todoListViewModel.sort(clickedSortBy);
                         filter.sortBy = clickedSortBy;
@@ -67,7 +67,7 @@
                 }
             ));
             Array.prototype.slice.call(document.querySelectorAll(".filter-link")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
-                    var filterBy = node.dataset["filterby"];
+                    let filterBy = node.dataset["filterby"];
                     if (HtmlHelper.hasClass(node, "active")) {
                         todoListViewModel.filterFinished = false;
                         todoListViewModel.sort("dueDate");
@@ -87,12 +87,12 @@
     }
 
     function createTodoList(todoListViewModel : TodoListViewModel){
-        var initHtml : string = "";
-        var template = window["P1"]["templates"]["todo"];
+        let initHtml : string = "";
+        let template = window["P1"]["templates"]["todo"];
         todoListViewModel.todos.forEach((currentTodo) => {
             initHtml += template(currentTodo);
         });
-        var todolistElement = <HTMLElement>document.getElementsByClassName("todolist").item(0);
+        let todolistElement = <HTMLElement>document.getElementsByClassName("todolist").item(0);
         todolistElement.innerHTML = initHtml;
     }
 
@@ -113,35 +113,35 @@
 
     function showHideClearListButton(todoListViewModel : TodoListViewModel){
         if (todoListViewModel.todos.length > 0 && todoListViewModel.filterFinished) {
-            var clearListButton = <HTMLElement>document.getElementsByClassName("clear-todos").item(0);
+            let clearListButton = <HTMLElement>document.getElementsByClassName("clear-todos").item(0);
             HtmlHelper.removeClass(clearListButton, "hidden");
         } else {
-            var clearListButton = <HTMLElement>document.getElementsByClassName("clear-todos").item(0);
+            let clearListButton = <HTMLElement>document.getElementsByClassName("clear-todos").item(0);
             HtmlHelper.addClass(clearListButton, "hidden");
         }
     }
 
     function createModal(id : string, todoListViewModel : TodoListViewModel) {
-        var currentTodo: Todo;
-        var initHtml : string = "";
-        var template = window["P1"]["templates"]["edit"];
+        let currentTodo: Todo;
+        let initHtml : string = "";
+        let template = window["P1"]["templates"]["edit"];
         if(id){
             currentTodo = todoListViewModel.todos.filter((item : Todo) => item.id === id )[0];
         }else {
             currentTodo = new Todo("");
         }
         initHtml = template(currentTodo);
-        var footer = <HTMLElement>document.getElementsByClassName("footer").item(0);
+        let footer = <HTMLElement>document.getElementsByClassName("footer").item(0);
         footer.innerHTML = initHtml;
-        var modal = <HTMLElement>footer.querySelector(".modal");
+        let modal = <HTMLElement>footer.querySelector(".modal");
         modal.style.display = "block";
         checkFallbackDatePicker();
-        var span = <HTMLElement>footer.getElementsByClassName("close")[0];
+        let span = <HTMLElement>footer.getElementsByClassName("close")[0];
         span.onclick = function() {
             modal.style.display = "none";
         };
 
-        var form = <HTMLElement>document.getElementById("todo-form");
+        let form = <HTMLElement>document.getElementById("todo-form");
         form.addEventListener('submit', function (e) {
             let id = form.dataset["id"];
             if(id){
@@ -182,8 +182,8 @@
     }
 
     function showMore(element : any) {
-        var fullDesc = element.parentElement.getElementsByClassName("full-desc")[0];
-        var desc = element.parentElement.getElementsByClassName("short-desc")[0];
+        let fullDesc = element.parentElement.getElementsByClassName("full-desc")[0];
+        let desc = element.parentElement.getElementsByClassName("short-desc")[0];
         if (fullDesc.className == "full-desc inactive") {
             fullDesc.className = "full-desc active";
             desc.className = "short-desc hidden"
