@@ -5,7 +5,8 @@ var controller = require('../controller/todoController.js');
 router.get('/', controller.getAllTodos);
 router.post('/', controller.createTodo);
 router.put('/',controller.updateTodo);
+router.delete('/clear/', controller.removeFinished);
 router.delete('/:id', controller.deleteTodo);
-router.delete('/clear', controller.removeFinished);
+
 
 module.exports = router;
