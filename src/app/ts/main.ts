@@ -39,7 +39,6 @@
     function render(todoListViewModel : TodoListViewModel){
         createTodoList(todoListViewModel);
         assignTodoEvents(todoListViewModel);
-        //showHideClearListButton(todoListViewModel);
     }
 
     function renderingFilter(todoListViewModel : TodoListViewModel) {
@@ -52,21 +51,22 @@
         createFilter(filter);
 
         function createFilter(filter){
-            console.log(filter);
+            showHideClearListButton(todoListViewModel);
             let template = window["P1"]["templates"]["filter"];
             initHtml = template(filter);
             filterElement.innerHTML = initHtml;
 
-            Array.prototype.slice.call(document.querySelectorAll(".sort-link")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
+            Array.prototype.slice.call(document.querySelectorAll(".sort-link")).forEach((node:HTMLElement) => node.addEventListener("click", function (e) {
                     let clickedSortBy = node.dataset["sortby"];
                     if(!HtmlHelper.hasClass(node, "active")) {
                         todoListViewModel.sort(clickedSortBy);
                         filter.sortBy = clickedSortBy;
                         createFilter(filter);
                     }
+                    e.preventDefault()
                 }
             ));
-            Array.prototype.slice.call(document.querySelectorAll(".filter-link")).forEach((node:HTMLElement) => node.addEventListener("click", function () {
+            Array.prototype.slice.call(document.querySelectorAll(".filter-link")).forEach((node:HTMLElement) => node.addEventListener("click", function (e) {
                     let filterBy = node.dataset["filterby"];
                     if (HtmlHelper.hasClass(node, "active")) {
                         todoListViewModel.filterFinished = false;
@@ -81,6 +81,7 @@
                         filter.sortBy = "finishedDate";
                         createFilter(filter);
                     }
+                    e.preventDefault()
                 }
             ));
         }
@@ -112,7 +113,8 @@
     }
 
     function showHideClearListButton(todoListViewModel : TodoListViewModel){
-        if (todoListViewModel.todos.length > 0 && todoListViewModel.filterFinished) {
+        console.log(todoListViewModel);
+        if (todoListViewModel.filterFinished) {
             let clearListButton = <HTMLElement>document.getElementsByClassName("clear-todos").item(0);
             HtmlHelper.removeClass(clearListButton, "hidden");
         } else {
