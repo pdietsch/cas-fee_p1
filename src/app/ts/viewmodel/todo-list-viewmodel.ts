@@ -14,7 +14,7 @@ class TodoListViewModel {
 
     private _filterFinished : boolean;
     private _sortBy: string;
-    private _filter:any;
+    private _filter:(todo : Todo) => boolean;
     private _todoRepository:TodoRepository;
     private _propretyChangedEvent : EventHandler<EventArgs, TodoListViewModel>;
 
@@ -72,7 +72,7 @@ class TodoListViewModel {
     }
 
     private sortList(prop:string) {
-        return function (a:any, b:any) {
+        return function (a:Todo, b:Todo) {
             if (prop.indexOf("Date") > -1) {
                 if (a[prop] < b[prop]) {
                     return -1;
@@ -95,7 +95,7 @@ class TodoListViewModel {
 }
 
 function filterList(prop : string, expectedValue : boolean) {
-    return function(a: any) {
+    return function(a: Todo) {
         return a[prop] === expectedValue;
     }
 }

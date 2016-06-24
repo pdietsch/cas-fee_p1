@@ -183,7 +183,7 @@
             new Date((<HTMLInputElement>document.getElementById("duedate")).value));
     }
 
-    function showMore(element : any) {
+    function showMore(element : HTMLElement) {
         let fullDesc = element.parentElement.getElementsByClassName("full-desc")[0];
         let desc = element.parentElement.getElementsByClassName("short-desc")[0];
         if (fullDesc.className == "full-desc inactive") {
