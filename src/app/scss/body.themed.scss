@@ -130,6 +130,12 @@ nav {
   button {
     @include button(#fff, $alternate-color, medium);
     margin: 0;
+    span:before{
+      content: $ionicon-var-ios-plus-empty;
+      display: inline-block;
+      @extend .ion;
+      margin-right: 5px;
+    }
   }
   nav {
     flex: 1;
@@ -628,12 +634,6 @@ form {
     @include button($secondary-color, $alternate-color, medium);
     margin: 50px auto 0 auto;
     display: block;
-    span:before{
-      content: $ionicon-var-ios-plus-empty;
-      display: inline-block;
-      @extend .ion;
-      margin-right: 5px;
-    }
   }
 }
 
