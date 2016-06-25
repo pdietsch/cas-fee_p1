@@ -209,10 +209,14 @@
     }
 
     function createTitle(todoListViewModel : TodoListViewModel){
-        if (!todoListViewModel.filterFinished && todoListViewModel.todos.length > 0) {
+        if (!todoListViewModel.filterFinished) {
             var title = 'To-Do App';
-            var count = todoListViewModel.todos.length;
-            document.title = '(' + count + ') ' + title;
+            if(todoListViewModel.todos.length > 0){
+                var count = todoListViewModel.todos.length;
+                document.title = '(' + count + ') ' + title;
+            } else {
+                document.title = title;
+            }
         }
     }
 
