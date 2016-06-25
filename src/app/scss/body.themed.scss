@@ -614,11 +614,22 @@ form {
 /* List actions */
 .list-actions {
   margin-top: 10px;
-  button {
+  button.clear-todos {
     @include button($secondary-color, $alternate-color, small);
     float: right;
     span:before{
       content: $ionicon-var-trash-a;
+      display: inline-block;
+      @extend .ion;
+      margin-right: 5px;
+    }
+  }
+  button.add-todos {
+    @include button($secondary-color, $alternate-color, medium);
+    margin: 50px auto 0 auto;
+    display: block;
+    span:before{
+      content: $ionicon-var-ios-plus-empty;
       display: inline-block;
       @extend .ion;
       margin-right: 5px;

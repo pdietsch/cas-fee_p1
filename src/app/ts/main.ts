@@ -16,9 +16,13 @@
         document.querySelector(".add-todo").addEventListener("click", function () {
             createModal(null, todoListViewModel);
         });
+        document.querySelector(".add-todos").addEventListener("click", function () {
+            createModal(null, todoListViewModel);
+        });
         let clearListButton = <HTMLElement>document.getElementsByClassName("clear-todos").item(0);
         clearListButton.addEventListener("click", function () {
             todoListViewModel.removeFinished();
+            HtmlHelper.addClass(clearListButton, "hidden");
         });
 
         Array.prototype.slice.call(document.querySelectorAll(".s-switcher ul li")).forEach((node:HTMLElement) => node.addEventListener("click", function (e) {
@@ -39,6 +43,8 @@
     function render(todoListViewModel : TodoListViewModel){
         createTodoList(todoListViewModel);
         assignTodoEvents(todoListViewModel);
+        createTitle(todoListViewModel);
+        showAddTodosButton(todoListViewModel);
     }
 
     function renderingFilter(todoListViewModel : TodoListViewModel) {
@@ -51,10 +57,10 @@
         createFilter(filter);
 
         function createFilter(filter){
-            showHideClearListButton(todoListViewModel);
             let template = window["P1"]["templates"]["filter"];
             initHtml = template(filter);
             filterElement.innerHTML = initHtml;
+            showHideClearListButton(todoListViewModel);
 
             Array.prototype.slice.call(document.querySelectorAll(".sort-link")).forEach((node:HTMLElement) => node.addEventListener("click", function (e) {
                     let clickedSortBy = node.dataset["sortby"];
@@ -113,13 +119,20 @@
     }
 
     function showHideClearListButton(todoListViewModel : TodoListViewModel){
-        console.log(todoListViewModel);
-        if (todoListViewModel.filterFinished) {
-            let clearListButton = <HTMLElement>document.getElementsByClassName("clear-todos").item(0);
+        let clearListButton = <HTMLElement>document.getElementsByClassName("clear-todos").item(0);
+        if (todoListViewModel.filterFinished && todoListViewModel.todos.length > 0) {
             HtmlHelper.removeClass(clearListButton, "hidden");
-        } else {
-            let clearListButton = <HTMLElement>document.getElementsByClassName("clear-todos").item(0);
+        } else if (!HtmlHelper.hasClass(clearListButton, "hidden")) {
             HtmlHelper.addClass(clearListButton, "hidden");
+        }
+    }
+
+    function showAddTodosButton(todoListViewModel : TodoListViewModel){
+        let AddTodosButton = <HTMLElement>document.getElementsByClassName("add-todos").item(0);
+        if (todoListViewModel.todos.length === 0 && !todoListViewModel.filterFinished) {
+            HtmlHelper.removeClass(AddTodosButton, "hidden");
+        } else if (!HtmlHelper.hasClass(AddTodosButton, "hidden")){
+            HtmlHelper.addClass(AddTodosButton, "hidden");
         }
     }
 
@@ -192,6 +205,14 @@
         } else {
             fullDesc.className = "full-desc inactive";
             desc.className = "short-desc"
+        }
+    }
+
+    function createTitle(todoListViewModel : TodoListViewModel){
+        if (!todoListViewModel.filterFinished && todoListViewModel.todos.length > 0) {
+            var title = 'To-Do App';
+            var count = todoListViewModel.todos.length;
+            document.title = '(' + count + ') ' + title;
         }
     }
 
