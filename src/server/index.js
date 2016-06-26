@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger());
 app.use(express.static(__dirname + '/../app')).listen(port, host, function(){
-  console.log('Server running on 3000...');
+  console.log('Server running on http://localhost:3000...');
 });
 app.use('/api/todos',require('./routes/todoRoutes.js'));
 app.use(notFound);
