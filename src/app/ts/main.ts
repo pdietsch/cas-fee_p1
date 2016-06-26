@@ -213,7 +213,7 @@
             var title = 'To-Do App';
             if(todoListViewModel.todos.length > 0){
                 var count = todoListViewModel.todos.length;
-                document.title = '(' + count + ') ' + title;
+                document.title = `(${count}) ${title}`;
             } else {
                 document.title = title;
             }
